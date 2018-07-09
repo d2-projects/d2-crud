@@ -5,6 +5,8 @@ import 'babel-polyfill';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import d2Curd from '@/plugin/d2-curd';
+
 import util from '@/libs/util';
 import store from '@/store/index';
 // 框架内的路由
@@ -24,6 +26,7 @@ import App from './App.vue';
 import router from './router/index';
 
 Vue.use(ElementUI);
+Vue.use(d2Curd);
 
 Vue.config.productionTip = false;
 
