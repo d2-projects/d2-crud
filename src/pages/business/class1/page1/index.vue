@@ -26,8 +26,18 @@ export default {
         },
         {
           title: '姓名',
-          key: 'name',
+          key: '',
           width: '300',
+          children: [
+            {
+              title: '小名',
+              key: 'shortName',
+            },
+            {
+              title: '大名',
+              key: 'fullName',
+            },
+          ],
         },
         {
           title: '省份',
@@ -54,7 +64,8 @@ export default {
       data: [
         {
           date: '2016-05-02',
-          name: '王小虎',
+          shortName: '小虎',
+          fullName: '王小虎',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -62,7 +73,8 @@ export default {
         },
         {
           date: '2016-05-04',
-          name: '王小虎',
+          shortName: '小虎',
+          fullName: '王小虎',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -73,7 +85,8 @@ export default {
         },
         {
           date: '2016-05-01',
-          name: '王小虎',
+          shortName: '小虎',
+          fullName: '王小虎',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -81,7 +94,8 @@ export default {
         },
         {
           date: '2016-05-03',
-          name: '王小虎',
+          shortName: '小虎',
+          fullName: '王小虎',
           province: '上海',
           city: '普陀区',
           zip: 200333,
