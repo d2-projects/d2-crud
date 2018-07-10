@@ -5,7 +5,7 @@ import 'babel-polyfill';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-import d2Curd from '@/plugin/d2-curd';
+import d2Crud from '@/plugin/d2-crud';
 
 import util from '@/libs/util';
 import store from '@/store/index';
@@ -26,7 +26,7 @@ import App from './App.vue';
 import router from './router/index';
 
 Vue.use(ElementUI);
-Vue.use(d2Curd);
+Vue.use(d2Crud);
 
 Vue.config.productionTip = false;
 

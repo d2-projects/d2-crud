@@ -3,7 +3,7 @@
     <h1 class="d2-mt-0">
       功能 1 <d2-icon name="caret-right"/> 页面 1
     </h1>
-    <d2-curd
+    <d2-crud
       :columns="columns"
       :data="data"
       border
@@ -13,8 +13,9 @@
       :default-sort="defaultSort"
       style="width: 100%"
       @current-change="handleCurrentChange"
+      @selection-change="handleSelectionChange"
     >
-    </d2-curd>
+    </d2-crud>
   </d2-container>
 </template>
 
@@ -66,7 +67,6 @@ export default {
           title: '地址',
           key: 'address',
           width: '220',
-          fixed: 'right',
           showOverflowTooltip: true,
         },
       ],
@@ -109,9 +109,6 @@ export default {
           city: '普陀区',
           zip: 200333,
           address: '中华人民共和国上海市普陀区金沙江路 1516 弄',
-          rowControl: {
-            rowClassName: 'success-row',
-          },
         },
         {
           date: '2016-05-07',
@@ -130,9 +127,6 @@ export default {
           city: '普陀区',
           zip: 200333,
           address: '中华人民共和国上海市普陀区金沙江路 1517 弄',
-          rowControl: {
-            rowClassName: 'warning-row',
-          },
         },
         {
           date: '2016-05-08',
@@ -142,6 +136,9 @@ export default {
           city: '普陀区',
           zip: 200333,
           address: '中华人民共和国上海市普陀区金沙江路 1519 弄',
+          rowControl: {
+            rowClassName: 'success-row',
+          },
         },
         {
           date: '2016-05-05',
@@ -151,9 +148,6 @@ export default {
           city: '普陀区',
           zip: 200333,
           address: '中华人民共和国上海市普陀区金沙江路 1516 弄',
-          rowControl: {
-            rowClassName: 'success-row',
-          },
         },
       ],
       indexRow: {
@@ -174,7 +168,10 @@ export default {
   },
   methods: {
     handleCurrentChange(val) {
-      console.log(val);
+      // console.log(val);
+    },
+    handleSelectionChange(val) {
+      // console.log(val);
     },
   },
 };
