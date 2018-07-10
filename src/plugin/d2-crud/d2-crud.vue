@@ -103,101 +103,22 @@
 </template>
 
 <script>
-import edit from './mixin/edit.js';
-import remove from './mixin/remove.js'
+import base from './mixin/base';
+import edit from './mixin/edit';
+import remove from './mixin/remove';
 // import d2Column from './components/d2-column.vue';
 
 export default {
   name: 'd2Crud',
   mixins: [
+    base,
     edit,
     remove,
   ],
   components: {
     // d2Column,
   },
-  render(h) {
-    return h('h1', 'lalala')
-  },
   props: {
-    /**
-     * @description 表头数据
-     */
-    columns: {
-      type: Array,
-      required: true,
-    },
-    /**
-     * @description 表格数据
-     */
-    data: {
-      type: Array,
-      required: true,
-    },
-    /**
-     * @description 斑马纹
-     */
-    stripe: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * @description 边框
-     */
-    border: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * @description 表格高度
-     */
-    height: {
-      type: String,
-      default: 'auto',
-    },
-    /**
-     * @description 表格最大高度
-     */
-    maxHeight: {
-      type: String,
-      default: 'auto',
-    },
-    /**
-     * @description 索引
-     */
-    indexRow: {
-      type: Object,
-      default: () => ({
-        show: false,
-        width: null,
-        fixed: false,
-      }),
-    },
-    /**
-     * @description 多选
-     */
-    selectionRow: {
-      type: Object,
-      default: () => ({
-        show: false,
-        width: null,
-        fixed: false,
-      }),
-    },
-    /**
-     * @description 高亮选中行
-     */
-    highlightCurrentRow: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * @description 默认排序
-     */
-    defaultSort: {
-      type: Object,
-      default: () => ({}),
-    },
   },
   data() {
     return {
