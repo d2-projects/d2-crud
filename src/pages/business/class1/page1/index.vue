@@ -7,7 +7,12 @@
       :columns="columns"
       :data="data"
       border
+      highlight-current-row
+      :index-row="indexRow"
+      :selection-row="selectionRow"
+      :default-sort="defaultSort"
       style="width: 100%"
+      @current-change="handleCurrentChange"
     >
     </d2-curd>
   </d2-container>
@@ -22,7 +27,7 @@ export default {
           title: '日期',
           key: 'date',
           width: '100',
-          fixed: 'left',
+          sortable: true,
         },
         {
           title: '姓名',
@@ -43,6 +48,9 @@ export default {
           title: '省份',
           key: 'province',
           width: '300',
+          formatter(row, column, cellValue, index) {
+            return `${row.province}市`;
+          },
         },
         {
           title: '市区',
@@ -59,6 +67,7 @@ export default {
           key: 'address',
           width: '220',
           fixed: 'right',
+          showOverflowTooltip: true,
         },
       ],
       data: [
@@ -69,7 +78,7 @@ export default {
           province: '上海',
           city: '普陀区',
           zip: 200333,
-          address: '上海市普陀区金沙江路 1518 弄',
+          address: '中华人民共和国上海市普陀区金沙江路 1518 弄',
         },
         {
           date: '2016-05-04',
@@ -78,7 +87,7 @@ export default {
           province: '上海',
           city: '普陀区',
           zip: 200333,
-          address: '上海市普陀区金沙江路 1517 弄',
+          address: '中华人民共和国上海市普陀区金沙江路 1517 弄',
           rowControl: {
             rowClassName: 'warning-row',
           },
@@ -90,7 +99,7 @@ export default {
           province: '上海',
           city: '普陀区',
           zip: 200333,
-          address: '上海市普陀区金沙江路 1519 弄',
+          address: '中华人民共和国上海市普陀区金沙江路 1519 弄',
         },
         {
           date: '2016-05-03',
@@ -99,13 +108,74 @@ export default {
           province: '上海',
           city: '普陀区',
           zip: 200333,
-          address: '上海市普陀区金沙江路 1516 弄',
+          address: '中华人民共和国上海市普陀区金沙江路 1516 弄',
+          rowControl: {
+            rowClassName: 'success-row',
+          },
+        },
+        {
+          date: '2016-05-07',
+          shortName: '小虎',
+          fullName: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          zip: 200333,
+          address: '中华人民共和国上海市普陀区金沙江路 1518 弄',
+        },
+        {
+          date: '2016-05-06',
+          shortName: '小虎',
+          fullName: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          zip: 200333,
+          address: '中华人民共和国上海市普陀区金沙江路 1517 弄',
+          rowControl: {
+            rowClassName: 'warning-row',
+          },
+        },
+        {
+          date: '2016-05-08',
+          shortName: '小虎',
+          fullName: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          zip: 200333,
+          address: '中华人民共和国上海市普陀区金沙江路 1519 弄',
+        },
+        {
+          date: '2016-05-05',
+          shortName: '小虎',
+          fullName: '王小虎',
+          province: '上海',
+          city: '普陀区',
+          zip: 200333,
+          address: '中华人民共和国上海市普陀区金沙江路 1516 弄',
           rowControl: {
             rowClassName: 'success-row',
           },
         },
       ],
+      indexRow: {
+        show: true,
+        width: 50,
+        fixed: true,
+      },
+      selectionRow: {
+        show: true,
+        width: 50,
+        fixed: true,
+      },
+      defaultSort: {
+        prop: 'date',
+        order: 'descending',
+      },
     };
+  },
+  methods: {
+    handleCurrentChange(val) {
+      console.log(val);
+    },
   },
 };
 </script>
