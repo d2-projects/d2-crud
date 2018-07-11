@@ -1,7 +1,7 @@
 export default {
   methods: {
     handleRemove(index, row) {
-      console.log(index, row);
+      this.$emit('row-remove', { index, row });
     },
   },
 };

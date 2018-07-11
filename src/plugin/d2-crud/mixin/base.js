@@ -47,22 +47,14 @@ export default {
      */
     indexRow: {
       type: Object,
-      default: () => ({
-        show: false,
-        width: null,
-        fixed: false,
-      }),
+      default: null,
     },
     /**
      * @description 多选
      */
     selectionRow: {
       type: Object,
-      default: () => ({
-        show: false,
-        width: null,
-        fixed: false,
-      }),
+      default: null,
     },
     /**
      * @description 高亮选中行
@@ -76,7 +68,7 @@ export default {
      */
     defaultSort: {
       type: Object,
-      default: () => ({}),
+      default: null,
     },
   },
 };

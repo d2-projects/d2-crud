@@ -1,7 +1,10 @@
 export default {
   data() {
     return {
-      dialogData: {},
+      showDialog: false,
+      dialogData: [],
     };
+  },
+  methods: {
   },
 };

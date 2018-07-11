@@ -5,7 +5,7 @@ import 'babel-polyfill';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
-import d2Crud from '@/plugin/d2-crud';
+import d2Crud from '@/plugin/d2-crud/index';
 
 import util from '@/libs/util';
 import store from '@/store/index';

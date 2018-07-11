@@ -15,17 +15,18 @@
     >
       <!-- <d2-column :columns="columns"></d2-column> -->
       <el-table-column
-        v-if="selectionRow.show"
+        v-if="selectionRow"
         type="selection"
-        :width="selectionRow.width"
-        :fixed="selectionRow.fixed"
+        :width="selectionRow.width ? selectionRow.width : null"
+        :fixed="selectionRow.fixed ? selectionRow.fixed : false"
       >
       </el-table-column>
       <el-table-column
-        v-if="indexRow.show"
+        v-if="indexRow"
         type="index"
-        :width="indexRow.width"
-        :fixed="indexRow.fixed">
+        :label="indexRow.label ? indexRow.label : '序号'"
+        :width="indexRow.width ? indexRow.width : null"
+        :fixed="indexRow.fixed ? indexRow.fixed : false">
       </el-table-column>
       <el-table-column
         v-for="(item, index) of columns"
@@ -85,35 +86,69 @@
           </el-table-column>
         </template>
       </el-table-column>
-      <el-table-column label="操作" fixed="right" min-width="150">
+      <el-table-column
+        v-if="rowHandle"
+        :label="rowHandle.label ? rowHandle.label : '操作'"
+        :fixed="rowHandle.fixed ? rowHandle.fixed : false"
+        :width="rowHandle.width ? rowHandle.width : null"
+        :min-width="rowHandle.minWidth ? rowHandle.minWidth : null"
+      >
         <template slot-scope="scope">
           <el-button
-            size="mini"
+            v-if="rowHandle.edit"
+            :size="rowHandle.edit.size ? rowHandle.edit.size : 'mini'"
+            :type="rowHandle.edit.type ? rowHandle.edit.type : null"
+            :icon="rowHandle.edit.icon ? rowHandle.edit.icon : null"
             @click="handleEdit(scope.$index, scope.row)"
           >编辑</el-button>
           <el-button
-            size="mini"
-            type="danger"
+            v-if="rowHandle.save"
+            :size="rowHandle.save.size ? rowHandle.save.size : 'mini'"
+            :type="rowHandle.save.type ? rowHandle.save.type : 'primary'"
+            :icon="rowHandle.save.icon ? rowHandle.save.icon : null"
+            @click="handleSave(scope.$index, scope.row)"
+          >保存</el-button>
+          <el-button
+            v-if="rowHandle.remove"
+            :size="rowHandle.remove.size ? rowHandle.remove.size : 'mini'"
+            :type="rowHandle.remove.type ? rowHandle.remove.type : 'danger'"
+            :icon="rowHandle.remove.icon ? rowHandle.remove.icon : null"
             @click="handleRemove(scope.$index, scope.row)"
           >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog
+      title="提示"
+      :visible="showDialog"
+      width="30%">
+      <!-- <el-form ref="form" :model="form" label-width="80px">
+        <el-form-item label="活动名称">
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+      </el-form> -->
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import base from './mixin/base';
+import rowHandle from './mixin/rowHandle';
 import edit from './mixin/edit';
+import save from './mixin/save';
 import remove from './mixin/remove';
+import dialog from './mixin/dialog';
 // import d2Column from './components/d2-column.vue';
 
 export default {
   name: 'd2Crud',
   mixins: [
     base,
+    rowHandle,
     edit,
+    save,
     remove,
+    dialog,
   ],
   components: {
     // d2Column,

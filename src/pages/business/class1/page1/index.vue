@@ -11,9 +11,11 @@
       :index-row="indexRow"
       :selection-row="selectionRow"
       :default-sort="defaultSort"
+      :row-handle="rowHandle"
       style="width: 100%"
       @current-change="handleCurrentChange"
       @selection-change="handleSelectionChange"
+      @row-save="handleRowSave"
     >
     </d2-crud>
   </d2-container>
@@ -164,6 +166,19 @@ export default {
         prop: 'date',
         order: 'descending',
       },
+      rowHandle: {
+        edit: {
+          icon: 'el-icon-edit',
+        },
+        save: {
+          icon: 'el-icon-share',
+        },
+        remove: {
+          icon: 'el-icon-delete',
+        },
+        width: '270',
+        fixed: 'right',
+      },
     };
   },
   methods: {
@@ -172,6 +187,10 @@ export default {
     },
     handleSelectionChange(val) {
       // console.log(val);
+    },
+    handleRowSave({ index, row }) {
+      console.log(index);
+      console.log(row);
     },
   },
 };
