@@ -1,7 +1,8 @@
 <template>
   <div>
     <el-table
-      :data="data"
+      ref="elTable"
+      :data="d2Data"
       :stripe="stripe"
       :border="border"
       :height="height"
@@ -141,7 +142,8 @@
 
 <script>
 import base from './mixin/base';
-import rowHandle from './mixin/rowHandle';
+import handleRow from './mixin/handleRow';
+import handleData from './mixin/handleData';
 import edit from './mixin/edit';
 import save from './mixin/save';
 import remove from './mixin/remove';
@@ -152,7 +154,8 @@ export default {
   name: 'd2Crud',
   mixins: [
     base,
-    rowHandle,
+    handleRow,
+    handleData,
     edit,
     save,
     remove,
@@ -188,12 +191,6 @@ export default {
      */
     handleSelectionChange(val) {
       this.$emit('selection-change', val);
-    },
-    /**
-     * @description 排序状态
-     */
-    handleSortChange({ column, prop, order }) {
-      this.$emit('sort-change', { column, prop, order });
     },
   },
 };

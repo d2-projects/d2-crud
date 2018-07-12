@@ -18,6 +18,7 @@ module.exports = {
     'no-restricted-syntax': 0,
     'no-prototype-builtins': 0,
     'arrow-parens': 0,
+    'prefer-destructuring': 0,
   },
   parserOptions: {
     parser: 'babel-eslint'

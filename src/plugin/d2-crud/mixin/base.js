@@ -8,13 +8,6 @@ export default {
       required: true,
     },
     /**
-     * @description 表格数据
-     */
-    data: {
-      type: Array,
-      required: true,
-    },
-    /**
      * @description 斑马纹
      */
     stripe: {
