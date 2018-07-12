@@ -12,10 +12,12 @@
       :selection-row="selectionRow"
       :default-sort="defaultSort"
       :row-handle="rowHandle"
+      :form-template="formTemplate"
       style="width: 100%"
       @current-change="handleCurrentChange"
       @selection-change="handleSelectionChange"
       @row-save="handleRowSave"
+      @edit-cancel="handleEditCancel"
     >
     </d2-crud>
   </d2-container>
@@ -90,9 +92,7 @@ export default {
           city: '普陀区',
           zip: 200333,
           address: '中华人民共和国上海市普陀区金沙江路 1517 弄',
-          rowControl: {
-            rowClassName: 'warning-row',
-          },
+          rowClassName: 'warning-row',
         },
         {
           date: '2016-05-01',
@@ -138,9 +138,7 @@ export default {
           city: '普陀区',
           zip: 200333,
           address: '中华人民共和国上海市普陀区金沙江路 1519 弄',
-          rowControl: {
-            rowClassName: 'success-row',
-          },
+          rowClassName: 'success-row',
         },
         {
           date: '2016-05-05',
@@ -152,6 +150,36 @@ export default {
           address: '中华人民共和国上海市普陀区金沙江路 1516 弄',
         },
       ],
+      formTemplate: {
+        date: {
+          title: '日期',
+          value: '11',
+        },
+        shortName: {
+          title: '小名',
+          value: '22',
+        },
+        fullName: {
+          title: '大名',
+          value: '33',
+        },
+        province: {
+          title: '省份',
+          value: '',
+        },
+        city: {
+          title: '市区',
+          value: '',
+        },
+        zip: {
+          title: '邮编',
+          value: '',
+        },
+        address: {
+          title: '地址',
+          value: '',
+        },
+      },
       indexRow: {
         show: true,
         width: 50,
@@ -168,15 +196,13 @@ export default {
       },
       rowHandle: {
         edit: {
-          icon: 'el-icon-edit',
         },
         save: {
-          icon: 'el-icon-share',
         },
         remove: {
-          icon: 'el-icon-delete',
         },
-        width: '270',
+        label: '操作1',
+        width: '220',
         fixed: 'right',
       },
     };
@@ -191,6 +217,14 @@ export default {
     handleRowSave({ index, row }) {
       console.log(index);
       console.log(row);
+    },
+    handleEditCancel(done) {
+      console.log('确认关闭？');
+      this.$confirm('确认关闭？')
+        .then(res => {
+          done();
+        })
+        .catch(err => {});
     },
   },
 };

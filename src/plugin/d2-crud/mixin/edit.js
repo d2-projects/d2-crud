@@ -2,7 +2,12 @@ export default {
   methods: {
     handleEdit(index, row) {
       this.showDialog = true;
-      console.log(index, row);
+      this.editRowData = row;
+    },
+    handleEditSave() {
+      this.showDialog = false;
+    },
+    handleEditCancel(done) {
     },
   },
 };

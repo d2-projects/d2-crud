@@ -121,12 +121,20 @@
     <el-dialog
       title="提示"
       :visible="showDialog"
+      :before-close="handleEditCancel"
       width="30%">
-      <!-- <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="活动名称">
-          <el-input v-model="form.name"></el-input>
+      <el-form ref="form" :model="formTemplate" label-width="80px">
+        <el-form-item
+          v-for="(value, key, index) in formTemplate"
+          :label="formTemplate[key].title"
+          :key="index"
+        >
+          <el-input v-model="formTemplate[key].value"></el-input>
         </el-form-item>
-      </el-form> -->
+      </el-form>
+      <div slot="footer">
+        <el-button type="primary" @click="handleEditSave">确 定</el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -164,8 +172,8 @@ export default {
      * @description 表格状态
      */
     tableRowClassName({ row }) {
-      if (row.rowControl) {
-        return row.rowControl.rowClassName;
+      if (row.rowClassName) {
+        return row.rowClassName;
       }
       return null;
     },
