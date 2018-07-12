@@ -120,16 +120,16 @@
     </el-table>
     <el-dialog
       title="提示"
-      :visible="showDialog"
+      :visible.sync="showDialog"
       :before-close="handleEditCancel"
       width="30%">
-      <el-form ref="form" :model="formTemplate" label-width="80px">
+      <el-form ref="form" :model="formData" label-width="80px">
         <el-form-item
-          v-for="(value, key, index) in formTemplate"
-          :label="formTemplate[key].title"
+          v-for="(value, key, index) in formData"
+          :label="formData[key].title"
           :key="index"
         >
-          <el-input v-model="formTemplate[key].value"></el-input>
+          <el-input v-model="formData[key].value"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer">

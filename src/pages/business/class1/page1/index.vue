@@ -4,6 +4,7 @@
       功能 1 <d2-icon name="caret-right"/> 页面 1
     </h1>
     <d2-crud
+      ref="d2Crud"
       :columns="columns"
       :data="data"
       border
@@ -196,6 +197,8 @@ export default {
       },
       rowHandle: {
         edit: {
+          handleClose: false,
+          handleSave: false,
         },
         save: {
         },
@@ -218,13 +221,8 @@ export default {
       console.log(index);
       console.log(row);
     },
-    handleEditCancel(done) {
-      console.log('确认关闭？');
-      this.$confirm('确认关闭？')
-        .then(res => {
-          done();
-        })
-        .catch(err => {});
+    handleEditCancel() {
+      // this.$refs.d2Crud.closeDialog();
     },
   },
 };
