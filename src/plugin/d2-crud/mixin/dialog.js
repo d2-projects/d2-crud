@@ -21,7 +21,9 @@ export default {
        * @description dialog显示与隐藏
        */
       showDialog: false,
-      editRowData: {},
+      /**
+       * @description 表单数据
+       */
       formData: {},
     };
   },

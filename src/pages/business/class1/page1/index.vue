@@ -51,6 +51,11 @@ export default {
           ],
         },
         {
+          title: '性别',
+          key: 'sex',
+          width: '100',
+        },
+        {
           title: '省份',
           key: 'province',
           width: '300',
@@ -80,6 +85,7 @@ export default {
           date: '2016-05-02',
           shortName: '小虎',
           fullName: '王小虎',
+          sex: '1',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -89,6 +95,7 @@ export default {
           date: '2016-05-04',
           shortName: '小虎',
           fullName: '王小虎',
+          sex: '1',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -99,6 +106,7 @@ export default {
           date: '2016-05-01',
           shortName: '小虎',
           fullName: '王小虎',
+          sex: '1',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -108,6 +116,7 @@ export default {
           date: '2016-05-03',
           shortName: '小虎',
           fullName: '王小虎',
+          sex: '1',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -117,6 +126,7 @@ export default {
           date: '2016-05-07',
           shortName: '小虎',
           fullName: '王小虎',
+          sex: '1',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -126,6 +136,7 @@ export default {
           date: '2016-05-06',
           shortName: '小虎',
           fullName: '王小虎',
+          sex: '1',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -135,6 +146,7 @@ export default {
           date: '2016-05-08',
           shortName: '小虎',
           fullName: '王小虎',
+          sex: '1',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -145,6 +157,7 @@ export default {
           date: '2016-05-05',
           shortName: '小虎',
           fullName: '王小虎',
+          sex: '1',
           province: '上海',
           city: '普陀区',
           zip: 200333,
@@ -155,6 +168,9 @@ export default {
         date: {
           title: '日期',
           value: '11',
+          component: {
+            name: 'el-input',
+          },
         },
         shortName: {
           title: '小名',
@@ -163,6 +179,28 @@ export default {
         fullName: {
           title: '大名',
           value: '33',
+        },
+        sex: {
+          title: '性别',
+          value: '',
+          component: {
+            // name: 'el-select',
+            // options: [
+            //   {
+            //     value: '1',
+            //     label: '男',
+            //   },
+            //   {
+            //     value: '0',
+            //     label: '女',
+            //   },
+            // ]
+            name: 'el-switch',
+            activeValue: '1',
+            inactiveValue: '0',
+            activeText: '男',
+            inactiveText: '女',
+          },
         },
         province: {
           title: '省份',
@@ -175,6 +213,9 @@ export default {
         zip: {
           title: '邮编',
           value: '',
+          component: {
+            name: 'el-input-number',
+          },
         },
         address: {
           title: '地址',
@@ -199,6 +240,9 @@ export default {
         edit: {
           handleClose: false,
           handleSave: false,
+          dialogWidth: '60%',
+          labelPosition: 'left',
+          labelWidth: '80px',
         },
         save: {
         },
@@ -219,7 +263,6 @@ export default {
     },
     handleRowSave({ index, row }) {
       console.log(index);
-      console.log(row);
     },
     handleEditCancel() {
       // this.$refs.d2Crud.closeDialog();

@@ -23,6 +23,9 @@ export default {
       _forEach(this.formData, (value, key) => {
         this.formData[key].value = row[key];
       });
+      console.log('*************************************');
+      console.log(this.formData);
+      console.log('*************************************');
     },
     /**
      * @description 保存行数据
