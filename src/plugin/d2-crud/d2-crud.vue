@@ -153,6 +153,62 @@
             :size="handleAttribute(formData[key].component.size, null)"
           >
           </el-input-number>
+          <el-radio-group
+            v-else-if="formData[key].component.name === 'el-radio'"
+            v-model="formData[key].value"
+            :disabled="handleAttribute(formData[key].component.disabled, false)"
+            :size="handleAttribute(formData[key].component.size, null)"
+            :text-color="handleAttribute(formData[key].component.textColor, '#ffffff')"
+            :fill="handleAttribute(formData[key].component.fill, '#409EFF')"
+          >
+            <template v-if="formData[key].component.buttonMode">
+              <el-radio-button
+                v-for="option in formData[key].component.options"
+                :key="option.value"
+                :label="option.value"
+              >
+                {{option.label}}
+              </el-radio-button>
+            </template>
+            <template v-else>
+              <el-radio
+                v-for="option in formData[key].component.options"
+                :key="option.value"
+                :label="option.value"
+              >
+                {{option.label}}
+              </el-radio>
+            </template>
+          </el-radio-group>
+          <el-checkbox-group
+            v-else-if="formData[key].component.name === 'el-checkbox'"
+            v-model="formData[key].value"
+            :disabled="handleAttribute(formData[key].component.disabled, false)"
+            :size="handleAttribute(formData[key].component.size, null)"
+            :min="handleAttribute(formData[key].component.min, null)"
+            :max="handleAttribute(formData[key].component.max, null)"
+            :text-color="handleAttribute(formData[key].component.textColor, '#ffffff')"
+            :fill="handleAttribute(formData[key].component.fill, '#409EFF')"
+          >
+            <template v-if="formData[key].component.buttonMode">
+              <el-checkbox-button
+                v-for="option in formData[key].component.options"
+                :key="option.value"
+                :label="option.value"
+              >
+                {{option.label}}
+              </el-checkbox-button>
+            </template>
+            <template v-else>
+              <el-checkbox
+                v-for="option in formData[key].component.options"
+                :key="option.value"
+                :label="option.value"
+              >
+                {{option.label}}
+              </el-checkbox>
+            </template>
+          </el-checkbox-group>
           <el-select
             v-else-if="formData[key].component.name === 'el-select'"
             v-model="formData[key].value"
@@ -253,8 +309,58 @@
             v-else-if="formData[key].component.name === 'el-date-picker'"
             v-model="formData[key].value"
             :readonly="handleAttribute(formData[key].component.readonly, false)"
+            :editable="handleAttribute(formData[key].component.editable, true)"
+            :clearable="handleAttribute(formData[key].component.clearable, true)"
+            :size="handleAttribute(formData[key].component.size, null)"
+            :placeholder="handleAttribute(formData[key].component.placeholder, null)"
+            :start-placeholder="handleAttribute(formData[key].component.startPlaceholder, null)"
+            :end-placeholder="handleAttribute(formData[key].component.endPlaceholder, null)"
+            :type="handleAttribute(formData[key].component.type, 'date')"
+            :format="handleAttribute(formData[key].component.format, 'yyyy-MM-dd')"
+            :align="handleAttribute(formData[key].component.align, 'left')"
+            :popper-class="handleAttribute(formData[key].component.popperClass, null)"
+            :picker-options="handleAttribute(formData[key].component.pickerOptions, {})"
+            :range-separator="handleAttribute(formData[key].component.rangeSeparator, '-')"
+            :default-value="handleAttribute(formData[key].component.defaultValue, null)"
+            :default-time="handleAttribute(formData[key].component.defaultTime, null)"
+            :value-format="handleAttribute(formData[key].component.valueFormat, null)"
+            :unlink-panels="handleAttribute(formData[key].component.unlinkPanels, false)"
+            :prefix-icon="handleAttribute(formData[key].component.prefixIcon, 'el-icon-date')"
+            :clear-icon="handleAttribute(formData[key].component.clearIcon, 'el-icon-circle-close')"
           >
           </el-date-picker>
+          <el-rate
+            v-else-if="formData[key].component.name === 'el-rate'"
+            v-model="formData[key].value"
+            :max="handleAttribute(formData[key].component.max, 5)"
+            :disabled="handleAttribute(formData[key].component.disabled, false)"
+            :allow-half="handleAttribute(formData[key].component.allowHalf, false)"
+            :low-threshold="handleAttribute(formData[key].component.lowThreshold, 2)"
+            :high-threshold="handleAttribute(formData[key].component.highThreshold, 4)"
+            :colors="handleAttribute(formData[key].component.colors, ['#F7BA2A', '#F7BA2A', '#F7BA2A'])"
+            :void-color="handleAttribute(formData[key].component.voidColors, '#C6D1DE')"
+            :disabled-void-color="handleAttribute(formData[key].component.disabledVoidColor, '#EFF2F7')"
+            :icon-classes="handleAttribute(formData[key].component.iconClasses, ['el-icon-star-on', 'el-icon-star-on','el-icon-star-on'])"
+            :void-icon-class="handleAttribute(formData[key].component.voidIconClass, 'el-icon-star-off')"
+            :disabled-void-icon-class="handleAttribute(formData[key].component.disabledVoidIconClass, 'el-icon-star-on')"
+            :show-text="handleAttribute(formData[key].component.showText, false)"
+            :show-score="handleAttribute(formData[key].component.showScore, false)"
+            :text-color="handleAttribute(formData[key].component.textColor, '#1F2D3D')"
+            :texts="handleAttribute(formData[key].component.texts, ['极差', '失望', '一般', '满意', '惊喜'])"
+            :score-template="handleAttribute(formData[key].component.scoreTemplate, '{value}')"
+          >
+          </el-rate>
+          <el-color-picker
+            v-else-if="formData[key].component.name === 'el-color-picker'"
+            v-model="formData[key].value"
+            :disabled="handleAttribute(formData[key].component.disabled, false)"
+            :size="handleAttribute(formData[key].component.size, null)"
+            :show-alpha="handleAttribute(formData[key].component.showAlpha, false)"
+            :color-format="handleAttribute(formData[key].component.colorFormat, formData[key].component.showAlpha ? 'rgb' : 'hex')"
+            :popper-class="handleAttribute(formData[key].component.popperClass, null)"
+            :predefine="handleAttribute(formData[key].component.predefine, null)"
+          >
+          </el-color-picker>
         </el-form-item>
       </el-form>
       <div slot="footer">
