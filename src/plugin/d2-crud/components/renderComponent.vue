@@ -5,7 +5,7 @@ export default {
     /**
      * @description 传入的render函数
      */
-    renderFunc: {
+    renderFunction: {
       type: Function,
       required: true,
     },
@@ -13,8 +13,7 @@ export default {
      * @description 传入的scope
      */
     scope: {
-      type: Object,
-      required: true,
+      default: '',
     },
   },
   render(h) {
@@ -22,7 +21,10 @@ export default {
   },
   methods: {
     handleRender(h, scope) {
-      return this.renderFunc(h, scope);
+      if (this.scope) {
+        return this.renderFunction(h, scope);
+      }
+      return this.renderFunction(h);
     },
   },
 };

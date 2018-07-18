@@ -4,6 +4,7 @@
       功能 1 <d2-icon name="caret-right"/> 页面 1
     </h1>
     <d2-crud
+      style="width: 100%"
       ref="d2Crud"
       :columns="columns"
       :data="data"
@@ -14,7 +15,6 @@
       :default-sort="defaultSort"
       :row-handle="rowHandle"
       :form-template="formTemplate"
-      style="width: 100%"
       @current-change="handleCurrentChange"
       @selection-change="handleSelectionChange"
       @row-save="handleRowSave"

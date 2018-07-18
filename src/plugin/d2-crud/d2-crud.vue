@@ -102,7 +102,7 @@
             :icon="handleAttribute(rowHandle.edit.icon, null)"
             @click="handleEdit(scope.$index, scope.row)"
           >编辑</el-button>
-          <el-button
+          <!-- <el-button
             v-if="rowHandle.save"
             :size="rowHandle.save.size ? rowHandle.save.size : 'mini'"
             :type="rowHandle.save.type ? rowHandle.save.type : 'primary'"
@@ -115,7 +115,14 @@
             :type="rowHandle.remove.type ? rowHandle.remove.type : 'danger'"
             :icon="rowHandle.remove.icon ? rowHandle.remove.icon : null"
             @click="handleRemove(scope.$index, scope.row)"
-          >删除</el-button>
+          >删除</el-button> -->
+          <!-- <el-button
+            v-else
+            :size="handleAttribute(rowHandle.edit.size, 'mini')"
+            :type="handleAttribute(rowHandle.edit.type, null)"
+            :icon="handleAttribute(rowHandle.edit.icon, null)"
+            @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -395,6 +402,11 @@
             :predefine="handleAttribute(formData[key].component.predefine, null)"
           >
           </el-color-picker>
+          <render-component
+            v-else-if="formData[key].component.render"
+            :render-function="formData[key].component.render"
+          >
+          </render-component>
         </el-form-item>
       </el-form>
       <div slot="footer">
@@ -412,6 +424,7 @@ import edit from './mixin/edit';
 import save from './mixin/save';
 import remove from './mixin/remove';
 import dialog from './mixin/dialog';
+import renderComponent from './components/renderComponent.vue';
 // import d2Column from './components/d2-column.vue';
 
 export default {
@@ -426,6 +439,7 @@ export default {
     dialog,
   ],
   components: {
+    renderComponent,
     // d2Column,
   },
   props: {
