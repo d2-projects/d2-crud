@@ -102,27 +102,14 @@
             :icon="handleAttribute(rowHandle.edit.icon, null)"
             @click="handleEdit(scope.$index, scope.row)"
           >编辑</el-button>
-          <!-- <el-button
-            v-if="rowHandle.save"
-            :size="rowHandle.save.size ? rowHandle.save.size : 'mini'"
-            :type="rowHandle.save.type ? rowHandle.save.type : 'primary'"
-            :icon="rowHandle.save.icon ? rowHandle.save.icon : null"
-            @click="handleSave(scope.$index, scope.row)"
-          >保存</el-button>
           <el-button
-            v-if="rowHandle.remove"
-            :size="rowHandle.remove.size ? rowHandle.remove.size : 'mini'"
-            :type="rowHandle.remove.type ? rowHandle.remove.type : 'danger'"
-            :icon="rowHandle.remove.icon ? rowHandle.remove.icon : null"
-            @click="handleRemove(scope.$index, scope.row)"
-          >删除</el-button> -->
-          <!-- <el-button
-            v-else
-            :size="handleAttribute(rowHandle.edit.size, 'mini')"
-            :type="handleAttribute(rowHandle.edit.type, null)"
-            :icon="handleAttribute(rowHandle.edit.icon, null)"
-            @click="handleEdit(scope.$index, scope.row)"
-          >编辑</el-button> -->
+            v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
+            :key="index"
+            :size="handleAttribute(item.size, 'mini')"
+            :type="handleAttribute(item.type, 'primary')"
+            :icon="handleAttribute(item.icon, null)"
+            @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
+          >{{item.name}}</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -421,8 +408,6 @@ import base from './mixin/base';
 import handleRow from './mixin/handleRow';
 import data from './mixin/data';
 import edit from './mixin/edit';
-import save from './mixin/save';
-import remove from './mixin/remove';
 import dialog from './mixin/dialog';
 import renderComponent from './components/renderComponent.vue';
 // import d2Column from './components/d2-column.vue';
@@ -434,8 +419,6 @@ export default {
     data,
     handleRow,
     edit,
-    save,
-    remove,
     dialog,
   ],
   components: {

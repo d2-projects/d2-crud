@@ -237,6 +237,9 @@ export default {
         order: 'descending',
       },
       rowHandle: {
+        label: '操作1',
+        width: '80',
+        fixed: 'right',
         edit: {
           handleClose: false,
           handleSave: false,
@@ -244,13 +247,12 @@ export default {
           labelPosition: 'left',
           labelWidth: '80px',
         },
-        save: {
-        },
-        remove: {
-        },
-        label: '操作1',
-        width: '220',
-        fixed: 'right',
+        custom: [
+          {
+            name: '保存1',
+            emit: 'row-save',
+          },
+        ],
       },
     };
   },
@@ -262,7 +264,7 @@ export default {
       // console.log(val);
     },
     handleRowSave({ index, row }) {
-      console.log(index);
+      console.log(index, row);
     },
     handleEditCancel() {
       // this.$refs.d2Crud.closeDialog();
