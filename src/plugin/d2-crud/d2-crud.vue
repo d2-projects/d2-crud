@@ -114,287 +114,296 @@
       </el-table-column>
     </el-table>
     <el-dialog
+      v-if="rowHandle.edit"
       title="提示"
       :visible.sync="showDialog"
       :before-close="handleEditCancel"
       :width="handleAttribute(rowHandle.edit.dialogWidth, '50%')">
       <el-form
         ref="form"
+        :inline="handleAttribute(rowHandle.edit.inline, false)"
         :model="formData"
         :label-position="handleAttribute(rowHandle.edit.labelPosition, 'right')"
         :label-width="handleAttribute(rowHandle.edit.labelWidth, '50px')"
       >
-        <el-form-item
-          v-for="(value, key, index) in formData"
-          :label="formData[key].title"
-          :key="index"
-        >
-          <el-input
-            v-if="(!formData[key].component) || formData[key].component.name === 'el-input'"
-            v-model="formData[key].value"
-            :type="formData[key].component ? handleAttribute(formData[key].component.type, 'text') : 'text'"
-            :maxlength="formData[key].component ? handleAttribute(formData[key].component.maxlength, null) : null"
-            :minlength="formData[key].component ? handleAttribute(formData[key].component.minlength, null) : null"
-            :placeholder="formData[key].component ? handleAttribute(formData[key].component.placeholder, null) : null"
-            :clearable="formData[key].component ? handleAttribute(formData[key].component.clearable, false) : false"
-            :disabled="formData[key].component ? handleAttribute(formData[key].component.disabled, false) : false"
-            :size="formData[key].component ? handleAttribute(formData[key].component.size, null) : null"
-            :prefix-icon="formData[key].component ? handleAttribute(formData[key].component.prefixIcon, null) : null"
-            :suffix-icon="formData[key].component ? handleAttribute(formData[key].component.suffixIcon, null) : null"
-            :rows="formData[key].component ? handleAttribute(formData[key].component.rows, 2) : 2"
-            :autosize="formData[key].component ? handleAttribute(formData[key].component.autosize, false) : false"
-            :auto-complete="formData[key].component ? handleAttribute(formData[key].component.autoComplete, 'off') : 'off'"
-            :readonly="formData[key].component ? handleAttribute(formData[key].component.readonly, false) : false"
-            :max="formData[key].component ? handleAttribute(formData[key].component.max, null) : null"
-            :min="formData[key].component ? handleAttribute(formData[key].component.min, null) : null"
-            :step="formData[key].component ? handleAttribute(formData[key].component.step, null) : null"
-            :resize="formData[key].component ? handleAttribute(formData[key].component.resize, null) : null"
-            :autofocus="formData[key].component ? handleAttribute(formData[key].component.autofocus, false) : false"
-            :label="formData[key].component ? handleAttribute(formData[key].component.label, null) : null"
-            :tabindex="formData[key].component ? handleAttribute(formData[key].component.tabindex, null) : null"
+        <el-row :gutter="handleAttribute(rowHandle.edit.gutter, 0)">
+          <el-col
+            v-for="(value, key, index) in formData"
+            :key="index"
+            :span="formData[key].component ? handleAttribute(formData[key].component.span, 24) : 24"
+            :offset="formData[key].component ? handleAttribute(formData[key].component.offset, 0) : 0"
           >
-          </el-input>
-          <el-input-number
-            v-else-if="formData[key].component.name === 'el-input-number'"
-            v-model="formData[key].value"
-            :min="handleAttribute(formData[key].component.min, -Infinity)"
-            :max="handleAttribute(formData[key].component.max, Infinity)"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :step="handleAttribute(formData[key].component.step, 1)"
-            :precision="handleAttribute(formData[key].component.precision, 0)"
-            :controls="handleAttribute(formData[key].component.controls, true)"
-            :controls-position="handleAttribute(formData[key].component.controlsPosition, null)"
-            :size="handleAttribute(formData[key].component.size, null)"
-          >
-          </el-input-number>
-          <el-radio-group
-            v-else-if="formData[key].component.name === 'el-radio'"
-            v-model="formData[key].value"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :size="handleAttribute(formData[key].component.size, null)"
-            :text-color="handleAttribute(formData[key].component.textColor, '#ffffff')"
-            :fill="handleAttribute(formData[key].component.fill, '#409EFF')"
-          >
-            <template v-if="formData[key].component.buttonMode">
-              <el-radio-button
-                v-for="option in formData[key].component.options"
-                :key="option.value"
-                :label="option.value"
-              >
-                {{option.label}}
-              </el-radio-button>
-            </template>
-            <template v-else>
-              <el-radio
-                v-for="option in formData[key].component.options"
-                :key="option.value"
-                :label="option.value"
-              >
-                {{option.label}}
-              </el-radio>
-            </template>
-          </el-radio-group>
-          <el-checkbox-group
-            v-else-if="formData[key].component.name === 'el-checkbox'"
-            v-model="formData[key].value"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :size="handleAttribute(formData[key].component.size, null)"
-            :min="handleAttribute(formData[key].component.min, null)"
-            :max="handleAttribute(formData[key].component.max, null)"
-            :text-color="handleAttribute(formData[key].component.textColor, '#ffffff')"
-            :fill="handleAttribute(formData[key].component.fill, '#409EFF')"
-          >
-            <template v-if="formData[key].component.buttonMode">
-              <el-checkbox-button
-                v-for="option in formData[key].component.options"
-                :key="option.value"
-                :label="option.value"
-              >
-                {{option.label}}
-              </el-checkbox-button>
-            </template>
-            <template v-else>
-              <el-checkbox
-                v-for="option in formData[key].component.options"
-                :key="option.value"
-                :label="option.value"
-              >
-                {{option.label}}
-              </el-checkbox>
-            </template>
-          </el-checkbox-group>
-          <el-select
-            v-else-if="formData[key].component.name === 'el-select'"
-            v-model="formData[key].value"
-            :multiple="handleAttribute(formData[key].component.multiple, false)"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :size="handleAttribute(formData[key].component.size, null)"
-            :clearable="handleAttribute(formData[key].component.clearable, false)"
-            :collapse-tags="handleAttribute(formData[key].component.collapseTags, false)"
-            :multiple-limit="handleAttribute(formData[key].component.multipleLimit, 0)"
-            :auto-complete="handleAttribute(formData[key].component.autoComplete, 'off')"
-            :placeholder="handleAttribute(formData[key].component.placeholder, '请选择')"
-            :filterable="handleAttribute(formData[key].component.filterable, false)"
-            :allow-create="handleAttribute(formData[key].component.allowCreate, false)"
-            :filter-method="handleAttribute(formData[key].component.filterMethod, null)"
-            :remote="handleAttribute(formData[key].component.remote, false)"
-            :remote-method="handleAttribute(formData[key].component.remoteMethod, null)"
-            :loading="handleAttribute(formData[key].component.loading, false)"
-            :loading-text="handleAttribute(formData[key].component.loadingText, '加载中')"
-            :no-match-text="handleAttribute(formData[key].component.noMatchText, '无匹配数据')"
-            :no-data-text="handleAttribute(formData[key].component.noDataText, '无数据')"
-            :popper-class="handleAttribute(formData[key].component.popperClass, null)"
-            :reserve-keyword="handleAttribute(formData[key].component.reserveKeyword, false)"
-            :default-first-option="handleAttribute(formData[key].component.defaultFirstOption, false)"
-            :popper-append-to-body="handleAttribute(formData[key].component.popperAppendToBody, true)"
-            :automatic-dropdown="handleAttribute(formData[key].component.automaticDropdown, false)"
-          >
-            <el-option
-              v-for="option in formData[key].component.options"
-              :key="option.value"
-              :label="option.label"
-              :value="option.value"
-              :disabled="handleAttribute(option.disabled, false)"
+            <el-form-item
+              :label="formData[key].title"
             >
-            </el-option>
-          </el-select>
-          <el-switch
-            v-else-if="formData[key].component.name === 'el-switch'"
-            v-model="formData[key].value"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :width="handleAttribute(formData[key].component.width, 40)"
-            :active-icon-class="handleAttribute(formData[key].component.activeIconClass, null)"
-            :inactive-icon-class="handleAttribute(formData[key].component.inactiveIconClass, null)"
-            :active-text="handleAttribute(formData[key].component.activeText, null)"
-            :inactive-text="handleAttribute(formData[key].component.inactiveText, null)"
-            :active-value="handleAttribute(formData[key].component.activeValue, true)"
-            :inactive-value="handleAttribute(formData[key].component.inactiveValue, false)"
-            :active-color="handleAttribute(formData[key].component.activeColor, '#409EFF')"
-            :inactive-color="handleAttribute(formData[key].component.inactiveColor, '#C0CCDA')"
-          >
-          </el-switch>
-          <el-slider
-            v-else-if="formData[key].component.name === 'el-slider'"
-            v-model="formData[key].value"
-            :min="handleAttribute(formData[key].component.min, 0)"
-            :max="handleAttribute(formData[key].component.max, 100)"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :step="handleAttribute(formData[key].component.step, 1)"
-            :show-input="handleAttribute(formData[key].component.showInput, false)"
-            :show-input-controls="handleAttribute(formData[key].component.showInputControls, true)"
-            :input-size="handleAttribute(formData[key].component.inputSize, 'small')"
-            :show-stops="handleAttribute(formData[key].component.showStops, false)"
-            :show-tooltip="handleAttribute(formData[key].component.showTooltip, true)"
-            :format-tooltip="handleAttribute(formData[key].component.formatTooltip, null)"
-            :range="handleAttribute(formData[key].component.range, false)"
-            :debounce="handleAttribute(formData[key].component.debounce, 300)"
-            :tooltip-class="handleAttribute(formData[key].component.tooltipClass, null)"
-          >
-          </el-slider>
-          <el-time-select
-            v-else-if="formData[key].component.name === 'el-time-select'"
-            v-model="formData[key].value"
-            :readonly="handleAttribute(formData[key].component.readonly, false)"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :editable="handleAttribute(formData[key].component.editable, true)"
-            :clearable="handleAttribute(formData[key].component.clearable, true)"
-            :size="handleAttribute(formData[key].component.size, null)"
-            :placeholder="handleAttribute(formData[key].component.placeholder, null)"
-            :start-placeholder="handleAttribute(formData[key].component.startPlaceholder, null)"
-            :end-placeholder="handleAttribute(formData[key].component.endPlaceholder, null)"
-            :align="handleAttribute(formData[key].component.align, 'left')"
-            :picker-options="handleAttribute(formData[key].component.pickerOptions, {})"
-            :range-separator="handleAttribute(formData[key].component.rangeSeparator, '-')"
-            :default-value="handleAttribute(formData[key].component.defaultValue, null)"
-            :prefix-icon="handleAttribute(formData[key].component.prefixIcon, 'el-icon-time')"
-            :clear-icon="handleAttribute(formData[key].component.clearIcon, 'el-icon-circle-close')"
-          >
-          </el-time-select>
-          <el-time-picker
-            v-else-if="formData[key].component.name === 'el-time-picker'"
-            v-model="formData[key].value"
-            :readonly="handleAttribute(formData[key].component.readonly, false)"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :editable="handleAttribute(formData[key].component.editable, true)"
-            :clearable="handleAttribute(formData[key].component.clearable, true)"
-            :size="handleAttribute(formData[key].component.size, null)"
-            :placeholder="handleAttribute(formData[key].component.placeholder, null)"
-            :start-placeholder="handleAttribute(formData[key].component.startPlaceholder, null)"
-            :end-placeholder="handleAttribute(formData[key].component.endPlaceholder, null)"
-            :is-range="handleAttribute(formData[key].component.isRange, false)"
-            :arrow-control="handleAttribute(formData[key].component.arrowControl, false)"
-            :align="handleAttribute(formData[key].component.align, 'left')"
-            :popper-class="handleAttribute(formData[key].component.popperClass, null)"
-            :picker-options="handleAttribute(formData[key].component.pickerOptions, {})"
-            :range-separator="handleAttribute(formData[key].component.rangeSeparator, '-')"
-            :value-format="handleAttribute(formData[key].component.valueFormat, null)"
-            :default-value="handleAttribute(formData[key].component.defaultValue, null)"
-            :prefix-icon="handleAttribute(formData[key].component.prefixIcon, 'el-icon-time')"
-            :clear-icon="handleAttribute(formData[key].component.clearIcon, 'el-icon-circle-close')"
-          >
-          </el-time-picker>
-          <el-date-picker
-            v-else-if="formData[key].component.name === 'el-date-picker'"
-            v-model="formData[key].value"
-            :readonly="handleAttribute(formData[key].component.readonly, false)"
-            :editable="handleAttribute(formData[key].component.editable, true)"
-            :clearable="handleAttribute(formData[key].component.clearable, true)"
-            :size="handleAttribute(formData[key].component.size, null)"
-            :placeholder="handleAttribute(formData[key].component.placeholder, null)"
-            :start-placeholder="handleAttribute(formData[key].component.startPlaceholder, null)"
-            :end-placeholder="handleAttribute(formData[key].component.endPlaceholder, null)"
-            :type="handleAttribute(formData[key].component.type, 'date')"
-            :format="handleAttribute(formData[key].component.format, 'yyyy-MM-dd')"
-            :align="handleAttribute(formData[key].component.align, 'left')"
-            :popper-class="handleAttribute(formData[key].component.popperClass, null)"
-            :picker-options="handleAttribute(formData[key].component.pickerOptions, {})"
-            :range-separator="handleAttribute(formData[key].component.rangeSeparator, '-')"
-            :default-value="handleAttribute(formData[key].component.defaultValue, null)"
-            :default-time="handleAttribute(formData[key].component.defaultTime, null)"
-            :value-format="handleAttribute(formData[key].component.valueFormat, null)"
-            :unlink-panels="handleAttribute(formData[key].component.unlinkPanels, false)"
-            :prefix-icon="handleAttribute(formData[key].component.prefixIcon, 'el-icon-date')"
-            :clear-icon="handleAttribute(formData[key].component.clearIcon, 'el-icon-circle-close')"
-          >
-          </el-date-picker>
-          <el-rate
-            v-else-if="formData[key].component.name === 'el-rate'"
-            v-model="formData[key].value"
-            :max="handleAttribute(formData[key].component.max, 5)"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :allow-half="handleAttribute(formData[key].component.allowHalf, false)"
-            :low-threshold="handleAttribute(formData[key].component.lowThreshold, 2)"
-            :high-threshold="handleAttribute(formData[key].component.highThreshold, 4)"
-            :colors="handleAttribute(formData[key].component.colors, ['#F7BA2A', '#F7BA2A', '#F7BA2A'])"
-            :void-color="handleAttribute(formData[key].component.voidColors, '#C6D1DE')"
-            :disabled-void-color="handleAttribute(formData[key].component.disabledVoidColor, '#EFF2F7')"
-            :icon-classes="handleAttribute(formData[key].component.iconClasses, ['el-icon-star-on', 'el-icon-star-on','el-icon-star-on'])"
-            :void-icon-class="handleAttribute(formData[key].component.voidIconClass, 'el-icon-star-off')"
-            :disabled-void-icon-class="handleAttribute(formData[key].component.disabledVoidIconClass, 'el-icon-star-on')"
-            :show-text="handleAttribute(formData[key].component.showText, false)"
-            :show-score="handleAttribute(formData[key].component.showScore, false)"
-            :text-color="handleAttribute(formData[key].component.textColor, '#1F2D3D')"
-            :texts="handleAttribute(formData[key].component.texts, ['极差', '失望', '一般', '满意', '惊喜'])"
-            :score-template="handleAttribute(formData[key].component.scoreTemplate, '{value}')"
-          >
-          </el-rate>
-          <el-color-picker
-            v-else-if="formData[key].component.name === 'el-color-picker'"
-            v-model="formData[key].value"
-            :disabled="handleAttribute(formData[key].component.disabled, false)"
-            :size="handleAttribute(formData[key].component.size, null)"
-            :show-alpha="handleAttribute(formData[key].component.showAlpha, false)"
-            :color-format="handleAttribute(formData[key].component.colorFormat, formData[key].component.showAlpha ? 'rgb' : 'hex')"
-            :popper-class="handleAttribute(formData[key].component.popperClass, null)"
-            :predefine="handleAttribute(formData[key].component.predefine, null)"
-          >
-          </el-color-picker>
-          <render-component
-            v-else-if="formData[key].component.render"
-            :render-function="formData[key].component.render"
-          >
-          </render-component>
-        </el-form-item>
+              <el-input
+                v-if="(!formData[key].component) || formData[key].component.name === 'el-input'"
+                v-model="formData[key].value"
+                :type="formData[key].component ? handleAttribute(formData[key].component.type, 'text') : 'text'"
+                :maxlength="formData[key].component ? handleAttribute(formData[key].component.maxlength, null) : null"
+                :minlength="formData[key].component ? handleAttribute(formData[key].component.minlength, null) : null"
+                :placeholder="formData[key].component ? handleAttribute(formData[key].component.placeholder, null) : null"
+                :clearable="formData[key].component ? handleAttribute(formData[key].component.clearable, false) : false"
+                :disabled="formData[key].component ? handleAttribute(formData[key].component.disabled, false) : false"
+                :size="formData[key].component ? handleAttribute(formData[key].component.size, null) : null"
+                :prefix-icon="formData[key].component ? handleAttribute(formData[key].component.prefixIcon, null) : null"
+                :suffix-icon="formData[key].component ? handleAttribute(formData[key].component.suffixIcon, null) : null"
+                :rows="formData[key].component ? handleAttribute(formData[key].component.rows, 2) : 2"
+                :autosize="formData[key].component ? handleAttribute(formData[key].component.autosize, false) : false"
+                :auto-complete="formData[key].component ? handleAttribute(formData[key].component.autoComplete, 'off') : 'off'"
+                :readonly="formData[key].component ? handleAttribute(formData[key].component.readonly, false) : false"
+                :max="formData[key].component ? handleAttribute(formData[key].component.max, null) : null"
+                :min="formData[key].component ? handleAttribute(formData[key].component.min, null) : null"
+                :step="formData[key].component ? handleAttribute(formData[key].component.step, null) : null"
+                :resize="formData[key].component ? handleAttribute(formData[key].component.resize, null) : null"
+                :autofocus="formData[key].component ? handleAttribute(formData[key].component.autofocus, false) : false"
+                :label="formData[key].component ? handleAttribute(formData[key].component.label, null) : null"
+                :tabindex="formData[key].component ? handleAttribute(formData[key].component.tabindex, null) : null"
+              >
+              </el-input>
+              <el-input-number
+                v-else-if="formData[key].component.name === 'el-input-number'"
+                v-model="formData[key].value"
+                :min="handleAttribute(formData[key].component.min, -Infinity)"
+                :max="handleAttribute(formData[key].component.max, Infinity)"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :step="handleAttribute(formData[key].component.step, 1)"
+                :precision="handleAttribute(formData[key].component.precision, 0)"
+                :controls="handleAttribute(formData[key].component.controls, true)"
+                :controls-position="handleAttribute(formData[key].component.controlsPosition, null)"
+                :size="handleAttribute(formData[key].component.size, null)"
+              >
+              </el-input-number>
+              <el-radio-group
+                v-else-if="formData[key].component.name === 'el-radio'"
+                v-model="formData[key].value"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :size="handleAttribute(formData[key].component.size, null)"
+                :text-color="handleAttribute(formData[key].component.textColor, '#ffffff')"
+                :fill="handleAttribute(formData[key].component.fill, '#409EFF')"
+              >
+                <template v-if="formData[key].component.buttonMode">
+                  <el-radio-button
+                    v-for="option in formData[key].component.options"
+                    :key="option.value"
+                    :label="option.value"
+                  >
+                    {{option.label}}
+                  </el-radio-button>
+                </template>
+                <template v-else>
+                  <el-radio
+                    v-for="option in formData[key].component.options"
+                    :key="option.value"
+                    :label="option.value"
+                  >
+                    {{option.label}}
+                  </el-radio>
+                </template>
+              </el-radio-group>
+              <el-checkbox-group
+                v-else-if="formData[key].component.name === 'el-checkbox'"
+                v-model="formData[key].value"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :size="handleAttribute(formData[key].component.size, null)"
+                :min="handleAttribute(formData[key].component.min, null)"
+                :max="handleAttribute(formData[key].component.max, null)"
+                :text-color="handleAttribute(formData[key].component.textColor, '#ffffff')"
+                :fill="handleAttribute(formData[key].component.fill, '#409EFF')"
+              >
+                <template v-if="formData[key].component.buttonMode">
+                  <el-checkbox-button
+                    v-for="option in formData[key].component.options"
+                    :key="option.value"
+                    :label="option.value"
+                  >
+                    {{option.label}}
+                  </el-checkbox-button>
+                </template>
+                <template v-else>
+                  <el-checkbox
+                    v-for="option in formData[key].component.options"
+                    :key="option.value"
+                    :label="option.value"
+                  >
+                    {{option.label}}
+                  </el-checkbox>
+                </template>
+              </el-checkbox-group>
+              <el-select
+                v-else-if="formData[key].component.name === 'el-select'"
+                v-model="formData[key].value"
+                :multiple="handleAttribute(formData[key].component.multiple, false)"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :size="handleAttribute(formData[key].component.size, null)"
+                :clearable="handleAttribute(formData[key].component.clearable, false)"
+                :collapse-tags="handleAttribute(formData[key].component.collapseTags, false)"
+                :multiple-limit="handleAttribute(formData[key].component.multipleLimit, 0)"
+                :auto-complete="handleAttribute(formData[key].component.autoComplete, 'off')"
+                :placeholder="handleAttribute(formData[key].component.placeholder, '请选择')"
+                :filterable="handleAttribute(formData[key].component.filterable, false)"
+                :allow-create="handleAttribute(formData[key].component.allowCreate, false)"
+                :filter-method="handleAttribute(formData[key].component.filterMethod, null)"
+                :remote="handleAttribute(formData[key].component.remote, false)"
+                :remote-method="handleAttribute(formData[key].component.remoteMethod, null)"
+                :loading="handleAttribute(formData[key].component.loading, false)"
+                :loading-text="handleAttribute(formData[key].component.loadingText, '加载中')"
+                :no-match-text="handleAttribute(formData[key].component.noMatchText, '无匹配数据')"
+                :no-data-text="handleAttribute(formData[key].component.noDataText, '无数据')"
+                :popper-class="handleAttribute(formData[key].component.popperClass, null)"
+                :reserve-keyword="handleAttribute(formData[key].component.reserveKeyword, false)"
+                :default-first-option="handleAttribute(formData[key].component.defaultFirstOption, false)"
+                :popper-append-to-body="handleAttribute(formData[key].component.popperAppendToBody, true)"
+                :automatic-dropdown="handleAttribute(formData[key].component.automaticDropdown, false)"
+              >
+                <el-option
+                  v-for="option in formData[key].component.options"
+                  :key="option.value"
+                  :label="option.label"
+                  :value="option.value"
+                  :disabled="handleAttribute(option.disabled, false)"
+                >
+                </el-option>
+              </el-select>
+              <el-switch
+                v-else-if="formData[key].component.name === 'el-switch'"
+                v-model="formData[key].value"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :width="handleAttribute(formData[key].component.width, 40)"
+                :active-icon-class="handleAttribute(formData[key].component.activeIconClass, null)"
+                :inactive-icon-class="handleAttribute(formData[key].component.inactiveIconClass, null)"
+                :active-text="handleAttribute(formData[key].component.activeText, null)"
+                :inactive-text="handleAttribute(formData[key].component.inactiveText, null)"
+                :active-value="handleAttribute(formData[key].component.activeValue, true)"
+                :inactive-value="handleAttribute(formData[key].component.inactiveValue, false)"
+                :active-color="handleAttribute(formData[key].component.activeColor, '#409EFF')"
+                :inactive-color="handleAttribute(formData[key].component.inactiveColor, '#C0CCDA')"
+              >
+              </el-switch>
+              <el-slider
+                v-else-if="formData[key].component.name === 'el-slider'"
+                v-model="formData[key].value"
+                :min="handleAttribute(formData[key].component.min, 0)"
+                :max="handleAttribute(formData[key].component.max, 100)"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :step="handleAttribute(formData[key].component.step, 1)"
+                :show-input="handleAttribute(formData[key].component.showInput, false)"
+                :show-input-controls="handleAttribute(formData[key].component.showInputControls, true)"
+                :input-size="handleAttribute(formData[key].component.inputSize, 'small')"
+                :show-stops="handleAttribute(formData[key].component.showStops, false)"
+                :show-tooltip="handleAttribute(formData[key].component.showTooltip, true)"
+                :format-tooltip="handleAttribute(formData[key].component.formatTooltip, null)"
+                :range="handleAttribute(formData[key].component.range, false)"
+                :debounce="handleAttribute(formData[key].component.debounce, 300)"
+                :tooltip-class="handleAttribute(formData[key].component.tooltipClass, null)"
+              >
+              </el-slider>
+              <el-time-select
+                v-else-if="formData[key].component.name === 'el-time-select'"
+                v-model="formData[key].value"
+                :readonly="handleAttribute(formData[key].component.readonly, false)"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :editable="handleAttribute(formData[key].component.editable, true)"
+                :clearable="handleAttribute(formData[key].component.clearable, true)"
+                :size="handleAttribute(formData[key].component.size, null)"
+                :placeholder="handleAttribute(formData[key].component.placeholder, null)"
+                :start-placeholder="handleAttribute(formData[key].component.startPlaceholder, null)"
+                :end-placeholder="handleAttribute(formData[key].component.endPlaceholder, null)"
+                :align="handleAttribute(formData[key].component.align, 'left')"
+                :picker-options="handleAttribute(formData[key].component.pickerOptions, {})"
+                :range-separator="handleAttribute(formData[key].component.rangeSeparator, '-')"
+                :default-value="handleAttribute(formData[key].component.defaultValue, null)"
+                :prefix-icon="handleAttribute(formData[key].component.prefixIcon, 'el-icon-time')"
+                :clear-icon="handleAttribute(formData[key].component.clearIcon, 'el-icon-circle-close')"
+              >
+              </el-time-select>
+              <el-time-picker
+                v-else-if="formData[key].component.name === 'el-time-picker'"
+                v-model="formData[key].value"
+                :readonly="handleAttribute(formData[key].component.readonly, false)"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :editable="handleAttribute(formData[key].component.editable, true)"
+                :clearable="handleAttribute(formData[key].component.clearable, true)"
+                :size="handleAttribute(formData[key].component.size, null)"
+                :placeholder="handleAttribute(formData[key].component.placeholder, null)"
+                :start-placeholder="handleAttribute(formData[key].component.startPlaceholder, null)"
+                :end-placeholder="handleAttribute(formData[key].component.endPlaceholder, null)"
+                :is-range="handleAttribute(formData[key].component.isRange, false)"
+                :arrow-control="handleAttribute(formData[key].component.arrowControl, false)"
+                :align="handleAttribute(formData[key].component.align, 'left')"
+                :popper-class="handleAttribute(formData[key].component.popperClass, null)"
+                :picker-options="handleAttribute(formData[key].component.pickerOptions, {})"
+                :range-separator="handleAttribute(formData[key].component.rangeSeparator, '-')"
+                :value-format="handleAttribute(formData[key].component.valueFormat, null)"
+                :default-value="handleAttribute(formData[key].component.defaultValue, null)"
+                :prefix-icon="handleAttribute(formData[key].component.prefixIcon, 'el-icon-time')"
+                :clear-icon="handleAttribute(formData[key].component.clearIcon, 'el-icon-circle-close')"
+              >
+              </el-time-picker>
+              <el-date-picker
+                v-else-if="formData[key].component.name === 'el-date-picker'"
+                v-model="formData[key].value"
+                :readonly="handleAttribute(formData[key].component.readonly, false)"
+                :editable="handleAttribute(formData[key].component.editable, true)"
+                :clearable="handleAttribute(formData[key].component.clearable, true)"
+                :size="handleAttribute(formData[key].component.size, null)"
+                :placeholder="handleAttribute(formData[key].component.placeholder, null)"
+                :start-placeholder="handleAttribute(formData[key].component.startPlaceholder, null)"
+                :end-placeholder="handleAttribute(formData[key].component.endPlaceholder, null)"
+                :type="handleAttribute(formData[key].component.type, 'date')"
+                :format="handleAttribute(formData[key].component.format, 'yyyy-MM-dd')"
+                :align="handleAttribute(formData[key].component.align, 'left')"
+                :popper-class="handleAttribute(formData[key].component.popperClass, null)"
+                :picker-options="handleAttribute(formData[key].component.pickerOptions, {})"
+                :range-separator="handleAttribute(formData[key].component.rangeSeparator, '-')"
+                :default-value="handleAttribute(formData[key].component.defaultValue, null)"
+                :default-time="handleAttribute(formData[key].component.defaultTime, null)"
+                :value-format="handleAttribute(formData[key].component.valueFormat, null)"
+                :unlink-panels="handleAttribute(formData[key].component.unlinkPanels, false)"
+                :prefix-icon="handleAttribute(formData[key].component.prefixIcon, 'el-icon-date')"
+                :clear-icon="handleAttribute(formData[key].component.clearIcon, 'el-icon-circle-close')"
+              >
+              </el-date-picker>
+              <el-rate
+                v-else-if="formData[key].component.name === 'el-rate'"
+                v-model="formData[key].value"
+                :max="handleAttribute(formData[key].component.max, 5)"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :allow-half="handleAttribute(formData[key].component.allowHalf, false)"
+                :low-threshold="handleAttribute(formData[key].component.lowThreshold, 2)"
+                :high-threshold="handleAttribute(formData[key].component.highThreshold, 4)"
+                :colors="handleAttribute(formData[key].component.colors, ['#F7BA2A', '#F7BA2A', '#F7BA2A'])"
+                :void-color="handleAttribute(formData[key].component.voidColors, '#C6D1DE')"
+                :disabled-void-color="handleAttribute(formData[key].component.disabledVoidColor, '#EFF2F7')"
+                :icon-classes="handleAttribute(formData[key].component.iconClasses, ['el-icon-star-on', 'el-icon-star-on','el-icon-star-on'])"
+                :void-icon-class="handleAttribute(formData[key].component.voidIconClass, 'el-icon-star-off')"
+                :disabled-void-icon-class="handleAttribute(formData[key].component.disabledVoidIconClass, 'el-icon-star-on')"
+                :show-text="handleAttribute(formData[key].component.showText, false)"
+                :show-score="handleAttribute(formData[key].component.showScore, false)"
+                :text-color="handleAttribute(formData[key].component.textColor, '#1F2D3D')"
+                :texts="handleAttribute(formData[key].component.texts, ['极差', '失望', '一般', '满意', '惊喜'])"
+                :score-template="handleAttribute(formData[key].component.scoreTemplate, '{value}')"
+              >
+              </el-rate>
+              <el-color-picker
+                v-else-if="formData[key].component.name === 'el-color-picker'"
+                v-model="formData[key].value"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :size="handleAttribute(formData[key].component.size, null)"
+                :show-alpha="handleAttribute(formData[key].component.showAlpha, false)"
+                :color-format="handleAttribute(formData[key].component.colorFormat, formData[key].component.showAlpha ? 'rgb' : 'hex')"
+                :popper-class="handleAttribute(formData[key].component.popperClass, null)"
+                :predefine="handleAttribute(formData[key].component.predefine, null)"
+              >
+              </el-color-picker>
+              <render-component
+                v-else-if="formData[key].component.render"
+                :render-function="formData[key].component.render"
+              >
+              </render-component>
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <div slot="footer">
         <el-button type="primary" @click="handleEditSave">确 定</el-button>

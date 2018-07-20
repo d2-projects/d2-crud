@@ -19,7 +19,8 @@ export default {
     handleEdit(index, row) {
       this.showDialog = true;
       this.editIndex = index;
-      this.formData = clone(this.formTemplate);
+      // this.formData = clone(this.formTemplate);
+      this.formData = clone(this.rowHandle.edit.formTemplate ? this.rowHandle.edit.formTemplate : {});
       _forEach(this.formData, (value, key) => {
         this.formData[key].value = row[key];
       });

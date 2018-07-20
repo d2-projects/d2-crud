@@ -14,7 +14,6 @@
       :selection-row="selectionRow"
       :default-sort="defaultSort"
       :row-handle="rowHandle"
-      :form-template="formTemplate"
       @current-change="handleCurrentChange"
       @selection-change="handleSelectionChange"
       @row-save="handleRowSave"
@@ -164,64 +163,6 @@ export default {
           address: '中华人民共和国上海市普陀区金沙江路 1516 弄',
         },
       ],
-      formTemplate: {
-        date: {
-          title: '日期',
-          value: '11',
-          component: {
-            name: 'el-input',
-          },
-        },
-        shortName: {
-          title: '小名',
-          value: '22',
-        },
-        fullName: {
-          title: '大名',
-          value: '33',
-        },
-        sex: {
-          title: '性别',
-          value: '',
-          component: {
-            // name: 'el-select',
-            // options: [
-            //   {
-            //     value: '1',
-            //     label: '男',
-            //   },
-            //   {
-            //     value: '0',
-            //     label: '女',
-            //   },
-            // ]
-            name: 'el-switch',
-            activeValue: '1',
-            inactiveValue: '0',
-            activeText: '男',
-            inactiveText: '女',
-          },
-        },
-        province: {
-          title: '省份',
-          value: '',
-        },
-        city: {
-          title: '市区',
-          value: '',
-        },
-        zip: {
-          title: '邮编',
-          value: '',
-          component: {
-            name: 'el-input-number',
-          },
-        },
-        address: {
-          title: '地址',
-          value: '',
-        },
-      },
       indexRow: {
         show: true,
         width: 50,
@@ -247,6 +188,71 @@ export default {
           dialogWidth: '60%',
           labelPosition: 'left',
           labelWidth: '80px',
+          inline: false,
+          gutter: 20,
+          formTemplate: {
+            date: {
+              title: '日期',
+              value: '11',
+              component: {
+                name: 'el-input',
+                span: 12,
+              },
+            },
+            shortName: {
+              title: '小名',
+              value: '22',
+              component: {
+                name: 'el-input',
+                span: 12,
+              },
+            },
+            fullName: {
+              title: '大名',
+              value: '33',
+            },
+            sex: {
+              title: '性别',
+              value: '',
+              component: {
+                // name: 'el-select',
+                // options: [
+                //   {
+                //     value: '1',
+                //     label: '男',
+                //   },
+                //   {
+                //     value: '0',
+                //     label: '女',
+                //   },
+                // ]
+                name: 'el-switch',
+                activeValue: '1',
+                inactiveValue: '0',
+                activeText: '男',
+                inactiveText: '女',
+              },
+            },
+            province: {
+              title: '省份',
+              value: '',
+            },
+            city: {
+              title: '市区',
+              value: '',
+            },
+            zip: {
+              title: '邮编',
+              value: '',
+              component: {
+                name: 'el-input-number',
+              },
+            },
+            address: {
+              title: '地址',
+              value: '',
+            },
+          },
         },
         custom: [
           {
