@@ -238,9 +238,10 @@ export default {
       },
       rowHandle: {
         label: '操作1',
-        width: '80',
+        width: '160',
         fixed: 'right',
         edit: {
+          text: '编辑1',
           handleClose: false,
           handleSave: false,
           dialogWidth: '60%',
@@ -249,7 +250,7 @@ export default {
         },
         custom: [
           {
-            name: '保存1',
+            text: '保存1',
             emit: 'row-save',
           },
         ],

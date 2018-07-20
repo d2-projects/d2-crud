@@ -101,7 +101,7 @@
             :type="handleAttribute(rowHandle.edit.type, null)"
             :icon="handleAttribute(rowHandle.edit.icon, null)"
             @click="handleEdit(scope.$index, scope.row)"
-          >编辑</el-button>
+          >{{handleAttribute(rowHandle.edit.text, '编辑')}}</el-button>
           <el-button
             v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
             :key="index"
@@ -109,7 +109,7 @@
             :type="handleAttribute(item.type, 'primary')"
             :icon="handleAttribute(item.icon, null)"
             @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
-          >{{item.name}}</el-button>
+          >{{item.text}}</el-button>
         </template>
       </el-table-column>
     </el-table>
