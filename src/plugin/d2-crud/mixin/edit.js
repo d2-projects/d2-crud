@@ -19,14 +19,10 @@ export default {
     handleEdit(index, row) {
       this.showDialog = true;
       this.editIndex = index;
-      // this.formData = clone(this.formTemplate);
       this.formData = clone(this.rowHandle.edit.formTemplate ? this.rowHandle.edit.formTemplate : {});
       _forEach(this.formData, (value, key) => {
         this.formData[key].value = row[key];
       });
-      console.log('*************************************');
-      console.log(this.formData);
-      console.log('*************************************');
     },
     /**
      * @description 保存行数据
@@ -54,6 +50,9 @@ export default {
       }
       this.$emit('edit-cancel');
     },
+    /**
+     * @description 关闭模态框
+     */
     closeDialog() {
       this.showDialog = false;
     },
