@@ -265,6 +265,25 @@
                 >
                 </el-option>
               </el-select>
+              <el-cascader
+                v-else-if="formData[key].component.name === 'el-cascader'"
+                v-model="formData[key].value"
+                :disabled="handleAttribute(formData[key].component.disabled, false)"
+                :clearable="handleAttribute(formData[key].component.clearable, false)"
+                :size="handleAttribute(formData[key].component.size, null)"
+                :options="handleAttribute(formData[key].component.options, null)"
+                :props="handleAttribute(formData[key].component.props, null)"
+                :separator="handleAttribute(formData[key].component.separator, '/')"
+                :popper-class="handleAttribute(formData[key].component.popperClass, null)"
+                :placeholder="handleAttribute(formData[key].component.placeholder, null)"
+                :expand-trigger="handleAttribute(formData[key].component.expandTrigger, 'click')"
+                :show-all-levels="handleAttribute(formData[key].component.showAllLevels, true)"
+                :filterable="handleAttribute(formData[key].component.filterable, false)"
+                :debounce="handleAttribute(formData[key].component.debounce, 300)"
+                :change-on-select="handleAttribute(formData[key].component.changeOnSelect, false)"
+                :before-filter="handleAttribute(formData[key].component.beforeFilter, null)"
+              >
+              </el-cascader>
               <el-switch
                 v-else-if="formData[key].component.name === 'el-switch'"
                 v-model="formData[key].value"
