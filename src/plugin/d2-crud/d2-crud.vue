@@ -10,6 +10,8 @@
       :row-class-name="tableRowClassName"
       :highlight-current-row="highlightCurrentRow"
       :default-sort="defaultSort"
+      :show-summary="showSummary"
+      :summary-method="summaryMethod"
       @current-change="handleCurrentChange"
       @selection-change="handleSelectionChange"
       @sort-change="handleSortChange"

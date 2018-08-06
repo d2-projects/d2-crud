@@ -63,5 +63,19 @@ export default {
       type: Object,
       default: null,
     },
+    /**
+     * @description 表尾合计行
+     */
+    showSummary: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * @description 合计计算方法
+     */
+    summaryMethod: {
+      type: Function,
+      default: null,
+    },
   },
 };
