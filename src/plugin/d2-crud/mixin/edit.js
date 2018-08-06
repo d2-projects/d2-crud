@@ -1,5 +1,5 @@
 import _forEach from 'lodash.foreach';
-import clone from '../utils/clone';
+import _clonedeep from 'lodash.clonedeep';
 
 export default {
   data() {
@@ -19,7 +19,7 @@ export default {
     handleEdit(index, row) {
       this.showDialog = true;
       this.editIndex = index;
-      this.formData = clone(this.rowHandle.edit.formTemplate ? this.rowHandle.edit.formTemplate : {});
+      this.formData = this.rowHandle.edit.formTemplate ? _clonedeep(this.rowHandle.edit.formTemplate) : {};
       _forEach(this.formData, (value, key) => {
         this.formData[key].value = row[key];
       });

@@ -1,4 +1,4 @@
-import clone from '../utils/clone';
+import _clonedeep from 'lodash.clonedeep';
 
 export default {
   props: {
@@ -36,7 +36,7 @@ export default {
      */
     handleDataChange() {
       if (this.d2Data !== this.data) {
-        this.d2Data = clone(this.data);
+        this.d2Data = _clonedeep(this.data);
       }
     },
     /**
