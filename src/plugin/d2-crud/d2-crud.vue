@@ -16,7 +16,6 @@
       @selection-change="handleSelectionChange"
       @sort-change="handleSortChange"
     >
-      <!-- <d2-column :columns="columns"></d2-column> -->
       <el-table-column
         v-if="selectionRow"
         type="selection"
@@ -31,7 +30,8 @@
         :width="handleAttribute(indexRow.width, null)"
         :fixed="handleAttribute(indexRow.fixed, false)">
       </el-table-column>
-      <el-table-column
+      <d2-column :columns="columns"></d2-column>
+      <!-- <el-table-column
         v-for="(item, index) of columns"
         :key="index"
         :label="handleAttribute(item.title, '')"
@@ -48,6 +48,9 @@
         :filter-method="handleAttribute(item.filterMethod, null)"
         :filter-placement="handleAttribute(item.filterPlacement, null)"
       >
+        <template slot-scope="scope">
+          <el-input v-model="scope.row[item.key]"></el-input>
+        </template>
         <template v-if="item.children">
           <el-table-column
             v-for="(item2, index2) in item.children"
@@ -66,6 +69,9 @@
             :filter-method="handleAttribute(item2.filterMethod, null)"
             :filter-placement="handleAttribute(item2.filterPlacement, null)"
           >
+            <template slot-scope="scope">
+              <el-input v-model="scope.row[item2.key]"></el-input>
+            </template>
             <template v-if="item2.children">
               <el-table-column
                 v-for="(item3, index3) in item2.children"
@@ -88,7 +94,7 @@
             </template>
           </el-table-column>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         v-if="rowHandle"
         :label="handleAttribute(rowHandle.label, '操作')"
@@ -440,7 +446,7 @@ import data from './mixin/data';
 import edit from './mixin/edit';
 import dialog from './mixin/dialog';
 import renderComponent from './components/renderComponent.vue';
-// import d2Column from './components/d2-column.vue';
+import d2Column from './components/d2-column.vue';
 
 export default {
   name: 'd2-crud',
@@ -453,7 +459,7 @@ export default {
   ],
   components: {
     renderComponent,
-    // d2Column,
+    d2Column,
   },
   props: {
   },
