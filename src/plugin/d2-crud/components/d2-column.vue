@@ -23,8 +23,13 @@
 </template>
 
 <script>
+import utils from '../mixin/utils';
+
 export default {
   name: 'd2-column',
+  mixins: [
+    utils,
+  ],
   props: {
     /**
      * @description 表头数据
@@ -32,14 +37,6 @@ export default {
     columns: {
       type: Array,
       required: true,
-    },
-  },
-  methods: {
-    /**
-     * @description 组件属性默认值
-     */
-    handleAttribute(attribute, defaultValue) {
-      return attribute || defaultValue;
     },
   },
 };

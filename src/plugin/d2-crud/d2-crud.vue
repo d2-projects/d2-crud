@@ -445,6 +445,7 @@ import handleRow from './mixin/handleRow';
 import data from './mixin/data';
 import edit from './mixin/edit';
 import dialog from './mixin/dialog';
+import utils from './mixin/utils';
 import renderComponent from './components/renderComponent.vue';
 import d2Column from './components/d2-column.vue';
 
@@ -456,6 +457,7 @@ export default {
     handleRow,
     edit,
     dialog,
+    utils,
   ],
   components: {
     renderComponent,
@@ -468,12 +470,6 @@ export default {
     };
   },
   methods: {
-    /**
-     * @description 组件属性默认值
-     */
-    handleAttribute(attribute, defaultValue) {
-      return attribute || defaultValue;
-    },
     /**
      * @description 表格状态
      */
