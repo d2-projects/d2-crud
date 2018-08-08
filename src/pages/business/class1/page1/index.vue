@@ -33,28 +33,31 @@ export default {
         {
           title: '日期',
           key: 'date',
-          width: '100',
+          width: '250',
           sortable: true,
           component: {
-            name: 'el-input',
+            name: 'el-date-picker',
           },
         },
         {
           title: '姓名',
-          key: '',
           width: '300',
           children: [
             {
               title: '小名',
               key: 'shortName',
+              width: '100',
               component: {
                 name: 'el-input',
-                clearable: true,
               },
             },
             {
               title: '大名',
               key: 'fullName',
+              width: '100',
+              component: {
+                name: 'el-input',
+              },
             },
           ],
         },
@@ -62,30 +65,52 @@ export default {
           title: '性别',
           key: 'sex',
           width: '100',
+          component: {
+            name: 'el-select',
+            options: [
+              {
+                value: '1',
+                label: '男',
+              },
+              {
+                value: '0',
+                label: '女',
+              },
+            ],
+          },
         },
         {
           title: '省份',
           key: 'province',
-          width: '300',
-          formatter(row, column, cellValue, index) {
-            return `${row.province}市`;
+          width: '100',
+          component: {
+            name: 'el-input',
           },
         },
         {
           title: '市区',
           key: 'city',
-          width: '300',
+          width: '100',
+          component: {
+            name: 'el-tag',
+          },
         },
         {
           title: '邮编',
           key: 'zip',
-          width: '300',
+          width: '200',
+          component: {
+            name: 'el-input',
+          },
         },
         {
           title: '地址',
           key: 'address',
           width: '220',
           showOverflowTooltip: true,
+          component: {
+            name: 'el-input',
+          },
         },
       ],
       data: [
@@ -204,7 +229,7 @@ export default {
               title: '日期',
               value: '11',
               component: {
-                name: 'el-input',
+                name: 'el-date-picker',
                 span: 12,
               },
             },

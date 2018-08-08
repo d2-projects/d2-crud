@@ -297,6 +297,16 @@
           :predefine="handleAttribute(item.component.predefine, null)"
         >
         </el-color-picker>
+        <el-tag
+          v-else-if="item.component && item.component.name === 'el-tag'"
+          :type="handleAttribute(item.component.type, null)"
+          :size="handleAttribute(item.component.size, null)"
+          :disable-transitions="handleAttribute(item.component.disableTransitions, false)"
+          :hit="handleAttribute(item.component.hit, false)"
+          :color="handleAttribute(item.component.color, null)"
+        >
+          {{scope.row[item.key]}}
+        </el-tag>
         <render-component
           v-else-if="item.component && item.component.render"
           :render-function="item.component.render"
