@@ -35,6 +35,9 @@ export default {
           key: 'date',
           width: '100',
           sortable: true,
+          component: {
+            name: 'el-input',
+          },
         },
         {
           title: '姓名',
@@ -44,6 +47,10 @@ export default {
             {
               title: '小名',
               key: 'shortName',
+              component: {
+                name: 'el-input',
+                clearable: true,
+              },
             },
             {
               title: '大名',

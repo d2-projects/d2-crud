@@ -13,7 +13,7 @@ export default {
      * @description 传入的scope
      */
     scope: {
-      default: '',
+      default: null,
     },
   },
   render(h) {
