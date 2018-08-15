@@ -21,8 +21,8 @@ export default {
   },
   methods: {
     handleRender(h, scope) {
-      if (this.scope) {
-        return this.renderFunction(h, scope);
+      if (scope) {
+        return this.renderFunction(h, scope.row, scope.column, scope.$index);
       }
       return this.renderFunction(h);
     },

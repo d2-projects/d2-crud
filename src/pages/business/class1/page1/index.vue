@@ -84,7 +84,14 @@ export default {
           key: 'province',
           width: '100',
           component: {
-            name: 'el-input',
+            // name: 'el-input',
+            render(h, row, column, index) {
+              return h('div', {
+                style: {
+                  color: 'red',
+                },
+              }, '11');
+            },
           },
         },
         {

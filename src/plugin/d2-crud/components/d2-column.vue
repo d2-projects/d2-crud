@@ -148,10 +148,14 @@
 </template>
 
 <script>
+import utils from '../mixin/utils';
 import renderComponent from '../components/renderComponent.vue';
 
 export default {
   name: 'd2-column',
+  mixins: [
+    utils,
+  ],
   components: {
     renderComponent,
   },
@@ -162,14 +166,6 @@ export default {
     columns: {
       type: Array,
       required: true,
-    },
-  },
-  methods: {
-    /**
-     * @description 组件属性默认值
-     */
-    handleAttribute(attribute, defaultValue) {
-      return attribute || defaultValue;
     },
   },
 };
