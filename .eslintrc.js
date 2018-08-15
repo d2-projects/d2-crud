@@ -20,6 +20,7 @@ module.exports = {
     'arrow-parens': 0,
     'prefer-destructuring': 0,
     'no-restricted-globals': 0,
+    'no-param-reassign': 0,
   },
   parserOptions: {
     parser: 'babel-eslint'

@@ -57,6 +57,7 @@ export default {
               width: '100',
               component: {
                 name: 'el-input',
+                // size: 'medium'
               },
             },
           ],

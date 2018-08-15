@@ -11,19 +11,19 @@
         <el-input
           v-if="item.component && item.component.name === 'el-input'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
         </el-input>
         <el-input-number
           v-else-if="item.component && item.component.name === 'el-input-number'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
         </el-input-number>
         <el-radio-group
           v-else-if="item.component && item.component.name === 'el-radio'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
           <template v-if="item.component.buttonMode">
             <el-radio-button
@@ -47,7 +47,7 @@
         <el-checkbox-group
           v-else-if="item.component && item.component.name === 'el-checkbox'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
           <template v-if="item.component.buttonMode">
             <el-checkbox-button
@@ -71,7 +71,7 @@
         <el-select
           v-else-if="item.component && item.component.name === 'el-select'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
           <el-option
             v-for="option in item.component.options"
@@ -83,7 +83,7 @@
         <el-cascader
           v-else-if="item.component && item.component.name === 'el-cascader'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
         </el-cascader>
         <el-switch
@@ -101,19 +101,19 @@
         <el-time-select
           v-else-if="item.component && item.component.name === 'el-time-select'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
         </el-time-select>
         <el-time-picker
           v-else-if="item.component && item.component.name === 'el-time-picker'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
         </el-time-picker>
         <el-date-picker
           v-else-if="item.component && item.component.name === 'el-date-picker'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
         </el-date-picker>
         <el-rate
@@ -125,12 +125,12 @@
         <el-color-picker
           v-else-if="item.component && item.component.name === 'el-color-picker'"
           v-model="scope.row[item.key]"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
         </el-color-picker>
         <el-tag
           v-else-if="item.component && item.component.name === 'el-tag'"
-          v-bind="item.component"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
         >
           {{scope.row[item.key]}}
         </el-tag>

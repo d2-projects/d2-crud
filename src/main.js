@@ -26,7 +26,7 @@ import App from './App.vue';
 import router from './router/index';
 
 Vue.use(ElementUI);
-Vue.use(d2Crud);
+Vue.use(d2Crud, { size: 'small' });
 
 Vue.config.productionTip = false;
 
