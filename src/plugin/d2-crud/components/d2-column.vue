@@ -3,6 +3,8 @@
     <el-table-column
       v-for="(item, index) in columns"
       :key="index"
+      :label="handleAttribute(item.title, '')"
+      :prop="handleAttribute(item.key, null)"
       v-bind="item"
     >
       <template slot-scope="scope">
@@ -160,6 +162,14 @@ export default {
     columns: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    /**
+     * @description 组件属性默认值
+     */
+    handleAttribute(attribute, defaultValue) {
+      return attribute || defaultValue;
     },
   },
 };
