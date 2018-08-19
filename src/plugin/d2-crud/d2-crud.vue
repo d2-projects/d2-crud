@@ -4,9 +4,11 @@
       <span>表格标题</span>
       <div class="fr">
           <el-button
+            :icon="addButton ? handleAttribute(addButton.icon, 'el-icon-plus') : 'el-icon-plus'"
             v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, addButton) : addButton"
+            @click="handleAdd"
           >
-            新增
+            {{addButton ? handleAttribute(addButton.text, '新增') : '新增'}}
           </el-button>
       </div>
     </div>
@@ -62,9 +64,9 @@
     </div>
     <el-dialog
       v-if="rowHandle.edit"
-      title="提示"
+      :title="formMode === 'edit' ? '编辑' : '新增'"
       :visible.sync="showDialog"
-      :before-close="handleEditCancel"
+      :before-close="handleDialogCancel"
       :width="handleAttribute(rowHandle.edit.dialogWidth, '50%')">
       <el-form
         ref="form"
@@ -213,7 +215,7 @@
         </el-row>
       </el-form>
       <div slot="footer">
-        <el-button type="primary" @click="handleEditSave">确 定</el-button>
+        <el-button type="primary" @click="handleDialogSave">确 定</el-button>
       </div>
     </el-dialog>
   </div>

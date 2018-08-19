@@ -61,5 +61,17 @@ export default {
         });
       }
     },
+    /**
+     * @description 新增行数据
+     * @param {Object} row 新增的表格行数据
+     */
+    addRow(row) {
+      this.$set(this.d2Data, this.d2Data.length, row);
+      if (this.defaultSort) {
+        this.$nextTick(() => {
+          this.d2Data = this.$refs.elTable.store.states.data;
+        });
+      }
+    },
   },
 };

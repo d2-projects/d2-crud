@@ -19,7 +19,7 @@
       @current-change="handleCurrentChange"
       @selection-change="handleSelectionChange"
       @row-save="handleRowSave"
-      @edit-cancel="handleEditCancel"
+      @dialog-cancel="handleDialogCancel"
     >
     </d2-crud>
   </d2-container>
@@ -315,7 +315,7 @@ export default {
     handleRowSave({ index, row }) {
       console.log(index, row);
     },
-    handleEditCancel() {
+    handleDialogCancel() {
       // this.$refs.d2Crud.closeDialog();
     },
     getSummaries(param) {

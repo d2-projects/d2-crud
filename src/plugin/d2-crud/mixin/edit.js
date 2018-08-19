@@ -17,44 +17,13 @@ export default {
      * @param {Object} row 行数据
      */
     handleEdit(index, row) {
+      this.formMode = 'edit';
       this.showDialog = true;
       this.editIndex = index;
       this.formData = this.rowHandle.edit.formTemplate ? _clonedeep(this.rowHandle.edit.formTemplate) : {};
       _forEach(this.formData, (value, key) => {
         this.formData[key].value = row[key];
       });
-    },
-    /**
-     * @description 保存行数据
-     */
-    handleEditSave() {
-      const rowData = {};
-      _forEach(this.formData, (value, key) => {
-        rowData[key] = value.value;
-      });
-      this.updateRow(this.editIndex, rowData);
-      this.$emit('row-save', {
-        index: this.editIndex,
-        row: rowData,
-      });
-      if (!this.rowHandle.edit.handleSave) {
-        this.closeDialog();
-      }
-    },
-    /**
-     * @description 取消保存行数据
-     */
-    handleEditCancel() {
-      if (!this.rowHandle.edit.handleClose) {
-        this.closeDialog();
-      }
-      this.$emit('edit-cancel');
-    },
-    /**
-     * @description 关闭模态框
-     */
-    closeDialog() {
-      this.showDialog = false;
     },
   },
 };

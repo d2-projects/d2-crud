@@ -1,3 +1,6 @@
+import _forEach from 'lodash.foreach';
+import _clonedeep from 'lodash.clonedeep';
+
 export default {
   props: {
     /**
@@ -6,6 +9,16 @@ export default {
     addButton: {
       type: Object,
       default: null,
+    },
+  },
+  methods: {
+    /**
+     * @description 新增行数据
+     */
+    handleAdd() {
+      this.formMode = 'add';
+      this.showDialog = true;
+      this.formData = this.rowHandle.edit.formTemplate ? _clonedeep(this.rowHandle.edit.formTemplate) : {};
     },
   },
 };
