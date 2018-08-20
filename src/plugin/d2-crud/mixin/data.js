@@ -57,7 +57,7 @@ export default {
       this.$set(this.d2Data, index, row);
       if (this.defaultSort) {
         this.$nextTick(() => {
-          this.d2Data = this.$refs.elTable.store.states.data;
+          this.d2Data = _clonedeep(this.$refs.elTable.store.states.data);
         });
       }
     },
@@ -67,6 +67,18 @@ export default {
      */
     addRow(row) {
       this.$set(this.d2Data, this.d2Data.length, row);
+      if (this.defaultSort) {
+        this.$nextTick(() => {
+          this.d2Data = this.$refs.elTable.store.states.data;
+        });
+      }
+    },
+    /**
+     * @description 删除行
+     * @param {Object} index 被删除行索引
+     */
+    removeRow(index) {
+      this.$delete(this.d2Data, index);
       if (this.defaultSort) {
         this.$nextTick(() => {
           this.d2Data = this.$refs.elTable.store.states.data;

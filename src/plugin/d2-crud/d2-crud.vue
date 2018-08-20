@@ -51,13 +51,25 @@
               v-if="rowHandle.edit"
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.edit) : rowHandle.edit"
               @click="handleEdit(scope.$index, scope.row)"
-            >{{handleAttribute(rowHandle.edit.text, '编辑')}}</el-button>
+            >
+              {{handleAttribute(rowHandle.edit.text, '编辑')}}
+            </el-button>
+            <el-button
+              v-if="rowHandle.remove"
+              :type="handleAttribute(rowHandle.remove.type, 'danger')"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.remove) : rowHandle.remove"
+              @click="handleRemove(scope.$index, scope.row)"
+            >
+              {{handleAttribute(rowHandle.remove.text, '删除')}}
+            </el-button>
             <el-button
               v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
               :key="index"
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
               @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
-            >{{item.text}}</el-button>
+            >
+              {{item.text}}
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -72,6 +84,7 @@
         ref="form"
         :inline="handleAttribute(rowHandle.edit.inline, false)"
         :model="formData"
+        :rules="formRules"
         :label-position="handleAttribute(rowHandle.edit.labelPosition, 'right')"
         :label-width="handleAttribute(rowHandle.edit.labelWidth, '50px')"
       >
@@ -79,32 +92,33 @@
           <el-col
             v-for="(value, key, index) in formData"
             :key="index"
-            :span="formData[key].component ? handleAttribute(formData[key].component.span, 24) : 24"
-            :offset="formData[key].component ? handleAttribute(formData[key].component.offset, 0) : 0"
+            :span="formTemplate[key].component ? handleAttribute(formTemplate[key].component.span, 24) : 24"
+            :offset="formTemplate[key].component ? handleAttribute(formTemplate[key].component.offset, 0) : 0"
           >
             <el-form-item
-              :label="formData[key].title"
+              :label="formTemplate[key].title"
+              :prop="key"
             >
               <el-input
-                v-if="(!formData[key].component) || formData[key].component.name === 'el-input'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-if="(!formTemplate[key].component) || formTemplate[key].component.name === 'el-input'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
               </el-input>
               <el-input-number
-                v-else-if="formData[key].component.name === 'el-input-number'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-input-number'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
               </el-input-number>
               <el-radio-group
-                v-else-if="formData[key].component.name === 'el-radio'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-radio'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
-                <template v-if="formData[key].component.buttonMode">
+                <template v-if="formTemplate[key].component.buttonMode">
                   <el-radio-button
-                    v-for="option in formData[key].component.options"
+                    v-for="option in formTemplate[key].component.options"
                     :key="option.value"
                     :label="option.value"
                   >
@@ -113,7 +127,7 @@
                 </template>
                 <template v-else>
                   <el-radio
-                    v-for="option in formData[key].component.options"
+                    v-for="option in formTemplate[key].component.options"
                     :key="option.value"
                     :label="option.value"
                   >
@@ -122,13 +136,13 @@
                 </template>
               </el-radio-group>
               <el-checkbox-group
-                v-else-if="formData[key].component.name === 'el-checkbox'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-checkbox'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
-                <template v-if="formData[key].component.buttonMode">
+                <template v-if="formTemplate[key].component.buttonMode">
                   <el-checkbox-button
-                    v-for="option in formData[key].component.options"
+                    v-for="option in formTemplate[key].component.options"
                     :key="option.value"
                     :label="option.value"
                   >
@@ -137,7 +151,7 @@
                 </template>
                 <template v-else>
                   <el-checkbox
-                    v-for="option in formData[key].component.options"
+                    v-for="option in formTemplate[key].component.options"
                     :key="option.value"
                     :label="option.value"
                   >
@@ -146,68 +160,68 @@
                 </template>
               </el-checkbox-group>
               <el-select
-                v-else-if="formData[key].component.name === 'el-select'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-select'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
                 <el-option
-                  v-for="option in formData[key].component.options"
+                  v-for="option in formTemplate[key].component.options"
                   :key="option.value"
                   v-bind="option"
                 >
                 </el-option>
               </el-select>
               <el-cascader
-                v-else-if="formData[key].component.name === 'el-cascader'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-cascader'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
               </el-cascader>
               <el-switch
-                v-else-if="formData[key].component.name === 'el-switch'"
-                v-model="formData[key].value"
-                v-bind="formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-switch'"
+                v-model="formData[key]"
+                v-bind="formTemplate[key].component"
               >
               </el-switch>
               <el-slider
-                v-else-if="formData[key].component.name === 'el-slider'"
-                v-model="formData[key].value"
-                v-bind="formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-slider'"
+                v-model="formData[key]"
+                v-bind="formTemplate[key].component"
               >
               </el-slider>
               <el-time-select
-                v-else-if="formData[key].component.name === 'el-time-select'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-time-select'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
               </el-time-select>
               <el-time-picker
-                v-else-if="formData[key].component.name === 'el-time-picker'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-time-picker'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
               </el-time-picker>
               <el-date-picker
-                v-else-if="formData[key].component.name === 'el-date-picker'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-date-picker'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
               </el-date-picker>
               <el-rate
-                v-else-if="formData[key].component.name === 'el-rate'"
-                v-model="formData[key].value"
-                v-bind="formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-rate'"
+                v-model="formData[key]"
+                v-bind="formTemplate[key].component"
               >
               </el-rate>
               <el-color-picker
-                v-else-if="formData[key].component.name === 'el-color-picker'"
-                v-model="formData[key].value"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formData[key].component) : formData[key].component"
+                v-else-if="formTemplate[key].component.name === 'el-color-picker'"
+                v-model="formData[key]"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
               </el-color-picker>
               <render-component
-                v-else-if="formData[key].component.render"
-                :render-function="formData[key].component.render"
+                v-else-if="formTemplate[key].component.render"
+                :render-function="formTemplate[key].component.render"
               >
               </render-component>
             </el-form-item>
@@ -227,6 +241,7 @@ import handleRow from './mixin/handleRow';
 import data from './mixin/data';
 import edit from './mixin/edit';
 import add from './mixin/add';
+import remove from './mixin/remove';
 import dialog from './mixin/dialog';
 import utils from './mixin/utils';
 import renderComponent from './components/renderComponent.vue';
@@ -240,6 +255,7 @@ export default {
     handleRow,
     edit,
     add,
+    remove,
     dialog,
     utils,
   ],

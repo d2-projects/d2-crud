@@ -20,9 +20,9 @@ export default {
       this.formMode = 'edit';
       this.showDialog = true;
       this.editIndex = index;
-      this.formData = this.rowHandle.edit.formTemplate ? _clonedeep(this.rowHandle.edit.formTemplate) : {};
+      this.formData = this.formTemplate ? _clonedeep(this.formTemplate) : {};
       _forEach(this.formData, (value, key) => {
-        this.formData[key].value = row[key];
+        this.formData[key] = row[key] ? row[key] : '';
       });
     },
   },

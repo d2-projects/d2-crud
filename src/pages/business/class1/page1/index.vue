@@ -8,6 +8,8 @@
       ref="d2Crud"
       :columns="columns"
       :data="data"
+      :form-template="formTemplate"
+      :form-rules="formRules"
       border
       highlight-current-row
       :index-row="indexRow"
@@ -205,6 +207,78 @@ export default {
           address: '中华人民共和国上海市普陀区金沙江路 1516 弄',
         },
       ],
+      formTemplate: {
+        date: {
+          title: '日期',
+          value: '11',
+          component: {
+            name: 'el-input',
+            span: 12,
+          },
+        },
+        shortName: {
+          title: '小名',
+          value: '22',
+          component: {
+            name: 'el-input',
+            span: 12,
+          },
+        },
+        fullName: {
+          title: '大名',
+          value: '33',
+        },
+        sex: {
+          title: '性别',
+          value: '',
+          component: {
+            // name: 'el-select',
+            // options: [
+            //   {
+            //     value: '1',
+            //     label: '男',
+            //   },
+            //   {
+            //     value: '0',
+            //     label: '女',
+            //   },
+            // ]
+            name: 'el-switch',
+            activeValue: '1',
+            inactiveValue: '0',
+            activeText: '男',
+            inactiveText: '女',
+          },
+        },
+        province: {
+          title: '省份',
+          value: '',
+        },
+        city: {
+          title: '市区',
+          value: '',
+        },
+        zip: {
+          title: '邮编',
+          value: '',
+          component: {
+            name: 'el-input-number',
+          },
+        },
+        address: {
+          title: '地址',
+          value: '',
+        },
+        hidden: {
+          title: '隐藏',
+          value: '',
+        },
+      },
+      formRules: {
+        province: [
+          { required: true, message: '请输入省份', trigger: 'blur' },
+        ],
+      },
       indexRow: {
         show: true,
         width: 50,
@@ -221,8 +295,11 @@ export default {
       },
       rowHandle: {
         label: '操作1',
-        width: '160',
+        width: '240',
         fixed: 'right',
+        remove: {
+          type: 'warning',
+        },
         edit: {
           text: '编辑1',
           handleClose: false,
@@ -232,69 +309,6 @@ export default {
           labelWidth: '80px',
           inline: false,
           gutter: 20,
-          formTemplate: {
-            date: {
-              title: '日期',
-              value: '11',
-              component: {
-                name: 'el-date-picker',
-                span: 12,
-              },
-            },
-            shortName: {
-              title: '小名',
-              value: '22',
-              component: {
-                name: 'el-input',
-                span: 12,
-              },
-            },
-            fullName: {
-              title: '大名',
-              value: '33',
-            },
-            sex: {
-              title: '性别',
-              value: '',
-              component: {
-                // name: 'el-select',
-                // options: [
-                //   {
-                //     value: '1',
-                //     label: '男',
-                //   },
-                //   {
-                //     value: '0',
-                //     label: '女',
-                //   },
-                // ]
-                name: 'el-switch',
-                activeValue: '1',
-                inactiveValue: '0',
-                activeText: '男',
-                inactiveText: '女',
-              },
-            },
-            province: {
-              title: '省份',
-              value: '',
-            },
-            city: {
-              title: '市区',
-              value: '',
-            },
-            zip: {
-              title: '邮编',
-              value: '',
-              component: {
-                name: 'el-input-number',
-              },
-            },
-            address: {
-              title: '地址',
-              value: '',
-            },
-          },
         },
         custom: [
           {
@@ -313,7 +327,7 @@ export default {
       // console.log(val);
     },
     handleRowSave({ index, row }) {
-      console.log(index, row);
+      // console.log(index, row);
     },
     handleDialogCancel() {
       // this.$refs.d2Crud.closeDialog();

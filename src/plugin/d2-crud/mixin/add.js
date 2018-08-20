@@ -18,7 +18,10 @@ export default {
     handleAdd() {
       this.formMode = 'add';
       this.showDialog = true;
-      this.formData = this.rowHandle.edit.formTemplate ? _clonedeep(this.rowHandle.edit.formTemplate) : {};
+      this.formData = this.formTemplate ? _clonedeep(this.formTemplate) : {};
+      _forEach(this.formData, (value, key) => {
+        this.formData[key] = this.formTemplate[key].value;
+      });
     },
   },
 };

@@ -4,6 +4,13 @@ import _clonedeep from 'lodash.clonedeep';
 export default {
   props: {
     /**
+     * @description 表单模板
+     */
+    formTemplate: {
+      type: Object,
+      default: null,
+    },
+    /**
      * @description 表单校验规则
      */
     formRules: {
@@ -32,29 +39,33 @@ export default {
      * @description 保存行数据
      */
     handleDialogSave() {
-      const rowData = {};
-      _forEach(this.formData, (value, key) => {
-        rowData[key] = value.value;
-      });
-      if (this.formMode === 'edit') {
-        _forEach(this.formData, (value, key) => {
-          rowData[key] = value.value;
-        });
-        this.updateRow(this.editIndex, rowData);
-        this.$emit('row-save', {
-          index: this.editIndex,
-          row: rowData,
-        });
-        if (!this.rowHandle.edit.handleSave) {
+      this.$refs.form.validate((valid) => {
+        if (!valid) {
+          return false;
+        }
+        const rowData = {};
+        // _forEach(this.formData, (value, key) => {
+        //   rowData[key] = value.value;
+        // });
+        if (this.formMode === 'edit') {
+          _forEach(this.formData, (value, key) => {
+            rowData[key] = value;
+          });
+          this.updateRow(this.editIndex, rowData);
+          this.$emit('row-save', {
+            index: this.editIndex,
+            row: rowData,
+          });
+          this.closeDialog();
+        } else if (this.formMode === 'add') {
+          _forEach(this.formData, (value, key) => {
+            rowData[key] = value;
+          });
+          this.addRow(rowData);
+          this.$emit('row-add', rowData);
           this.closeDialog();
         }
-      } else if (this.formMode === 'add') {
-        _forEach(this.formData, (value, key) => {
-          rowData[key] = value.value;
-        });
-        this.addRow(rowData);
-        this.closeDialog();
-      }
+      });
     },
     /**
      * @description 取消保存行数据
