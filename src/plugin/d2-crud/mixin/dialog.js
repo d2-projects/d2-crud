@@ -4,6 +4,13 @@ import _clonedeep from 'lodash.clonedeep';
 export default {
   props: {
     /**
+     * @description dialog配置
+     */
+    formOption: {
+      type: Object,
+      default: null,
+    },
+    /**
      * @description 表单模板
      */
     formTemplate: {
@@ -44,9 +51,6 @@ export default {
           return false;
         }
         const rowData = {};
-        // _forEach(this.formData, (value, key) => {
-        //   rowData[key] = value.value;
-        // });
         if (this.formMode === 'edit') {
           _forEach(this.formData, (value, key) => {
             rowData[key] = value;

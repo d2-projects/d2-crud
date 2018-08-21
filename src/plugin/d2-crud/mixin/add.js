@@ -4,7 +4,14 @@ import _clonedeep from 'lodash.clonedeep';
 export default {
   props: {
     /**
-     * @description 新增按钮
+     * @description 是否显示新增按钮
+     */
+    addMode: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * @description 新增按钮配置
      */
     addButton: {
       type: Object,

@@ -1,15 +1,16 @@
 <template>
   <div class="d2-crud">
     <div class="d2-crud-title">
-      <span>表格标题</span>
+      <span>{{title}}</span>
       <div class="fr">
-          <el-button
-            :icon="addButton ? handleAttribute(addButton.icon, 'el-icon-plus') : 'el-icon-plus'"
-            v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, addButton) : addButton"
-            @click="handleAdd"
-          >
-            {{addButton ? handleAttribute(addButton.text, '新增') : '新增'}}
-          </el-button>
+        <el-button
+          v-if="addMode"
+          :icon="addButton ? handleAttribute(addButton.icon, 'el-icon-plus') : 'el-icon-plus'"
+          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, addButton) : addButton"
+          @click="handleAdd"
+        >
+          {{addButton ? handleAttribute(addButton.text, '新增') : '新增'}}
+        </el-button>
       </div>
     </div>
     <div class="d2-crud-body">
@@ -75,20 +76,18 @@
       </el-table>
     </div>
     <el-dialog
-      v-if="rowHandle.edit"
       :title="formMode === 'edit' ? '编辑' : '新增'"
       :visible.sync="showDialog"
       :before-close="handleDialogCancel"
-      :width="handleAttribute(rowHandle.edit.dialogWidth, '50%')">
+      v-bind="formOption"
+    >
       <el-form
         ref="form"
-        :inline="handleAttribute(rowHandle.edit.inline, false)"
         :model="formData"
         :rules="formRules"
-        :label-position="handleAttribute(rowHandle.edit.labelPosition, 'right')"
-        :label-width="handleAttribute(rowHandle.edit.labelWidth, '50px')"
+        v-bind="formOption"
       >
-        <el-row :gutter="handleAttribute(rowHandle.edit.gutter, 0)">
+        <el-row v-bind="formOption">
           <el-col
             v-for="(value, key, index) in formData"
             :key="index"
@@ -306,7 +305,6 @@ export default {
     line-height: 45px;
     font-size: 14px;
     font-weight: bold;
-    text-transform: uppercase;
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   }
   .d2-crud-body {
@@ -315,4 +313,3 @@ export default {
   }
 }
 </style>
-

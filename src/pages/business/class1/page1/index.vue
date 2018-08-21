@@ -6,6 +6,8 @@
     <d2-crud
       style="width: 100%"
       ref="d2Crud"
+      title="表格标题"
+      addMode
       :columns="columns"
       :data="data"
       :form-template="formTemplate"
