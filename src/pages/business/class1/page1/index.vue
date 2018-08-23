@@ -4,9 +4,8 @@
       功能 1 <d2-icon name="caret-right"/> 页面 1
     </h1>
     <d2-crud
-      style="width: 100%"
       ref="d2Crud"
-      title="表格标题"
+      title="D2CRUD"
       addMode
       :columns="columns"
       :data="data"
@@ -304,8 +303,6 @@ export default {
         },
         edit: {
           text: '编辑1',
-          handleClose: false,
-          handleSave: false,
           dialogWidth: '60%',
           labelPosition: 'left',
           labelWidth: '80px',
@@ -331,7 +328,11 @@ export default {
     handleRowSave({ index, row }) {
       // console.log(index, row);
     },
-    handleDialogCancel() {
+    handleDialogCancel(done) {
+      console.log('*************************************');
+      console.log('done');
+      console.log('*************************************');
+      done();
       // this.$refs.d2Crud.closeDialog();
     },
     getSummaries(param) {

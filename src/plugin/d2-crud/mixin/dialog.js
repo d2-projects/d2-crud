@@ -74,11 +74,8 @@ export default {
     /**
      * @description 取消保存行数据
      */
-    handleDialogCancel() {
-      if (!this.rowHandle.edit.handleClose) {
-        this.closeDialog();
-      }
-      this.$emit('dialog-cancel');
+    handleDialogCancel(done) {
+      this.$emit('dialog-cancel', done);
     },
     /**
      * @description 关闭模态框

@@ -84,4 +84,27 @@ export default {
       default: null,
     },
   },
+  methods: {
+    /**
+     * @description 表格状态
+     */
+    tableRowClassName({ row }) {
+      if (row.rowClassName) {
+        return row.rowClassName;
+      }
+      return null;
+    },
+    /**
+     * @description 行选中状态
+     */
+    handleCurrentChange(val) {
+      this.$emit('current-change', val);
+    },
+    /**
+     * @description 复选框选中转状态
+     */
+    handleSelectionChange(val) {
+      this.$emit('selection-change', val);
+    },
+  },
 };

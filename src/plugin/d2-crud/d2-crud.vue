@@ -1,6 +1,6 @@
 <template>
   <div class="d2-crud">
-    <div class="d2-crud-title">
+    <div class="d2-crud-title" v-if="title || addMode">
       <span>{{title}}</span>
       <div class="fr">
         <el-button
@@ -11,6 +11,7 @@
         >
           {{addButton ? handleAttribute(addButton.text, '新增') : '新增'}}
         </el-button>
+        <slot name="headerButton"></slot>
       </div>
     </div>
     <div class="d2-crud-body">
@@ -261,35 +262,6 @@ export default {
   components: {
     renderComponent,
     d2Column,
-  },
-  props: {
-  },
-  data() {
-    return {
-    };
-  },
-  methods: {
-    /**
-     * @description 表格状态
-     */
-    tableRowClassName({ row }) {
-      if (row.rowClassName) {
-        return row.rowClassName;
-      }
-      return null;
-    },
-    /**
-     * @description 行选中状态
-     */
-    handleCurrentChange(val) {
-      this.$emit('current-change', val);
-    },
-    /**
-     * @description 复选框选中转状态
-     */
-    handleSelectionChange(val) {
-      this.$emit('selection-change', val);
-    },
   },
 };
 </script>
