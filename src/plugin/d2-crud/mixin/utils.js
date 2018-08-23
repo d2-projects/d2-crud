@@ -1,5 +1,3 @@
-import _forEach from 'lodash.foreach';
-
 export default {
   methods: {
     /**

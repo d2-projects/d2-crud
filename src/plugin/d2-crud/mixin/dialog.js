@@ -1,5 +1,4 @@
 import _forEach from 'lodash.foreach';
-import _clonedeep from 'lodash.clonedeep';
 
 export default {
   props: {
