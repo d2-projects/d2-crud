@@ -7,13 +7,13 @@ export default {
      */
     renderFunction: {
       type: Function,
-      required: true,
+      required: true
     },
     /**
      * @description 传入的scope
      */
     scope: {
-      default: null,
+      default: null
     },
   },
   render(h) {
@@ -22,10 +22,10 @@ export default {
   methods: {
     handleRender(h, scope) {
       if (scope) {
-        return this.renderFunction(h, scope.row, scope.column, scope.$index);
+        return this.renderFunction(h, scope.row, scope.column, scope.$index)
       }
-      return this.renderFunction(h);
-    },
-  },
-};
+      return this.renderFunction(h)
+    }
+  }
+}
 </script>

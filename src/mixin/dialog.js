@@ -1,4 +1,4 @@
-import _forEach from 'lodash.foreach';
+import _forEach from 'lodash.foreach'
 
 export default {
   props: {
@@ -7,24 +7,24 @@ export default {
      */
     formOption: {
       type: Object,
-      default: null,
+      default: null
     },
     /**
      * @description 表单模板
      */
     formTemplate: {
       type: Object,
-      default: null,
+      default: null
     },
     /**
      * @description 表单校验规则
      */
     formRules: {
       type: Object,
-      default: null,
-    },
+      default: null
+    }
   },
-  data() {
+  data () {
     return {
       /**
        * @description dialog显示与隐藏
@@ -37,50 +37,50 @@ export default {
       /**
        * @description 表单模式
        */
-      formMode: 'edit',
-    };
+      formMode: 'edit'
+    }
   },
   methods: {
     /**
      * @description 保存行数据
      */
-    handleDialogSave() {
+    handleDialogSave () {
       this.$refs.form.validate((valid) => {
         if (!valid) {
-          return false;
+          return false
         }
-        const rowData = {};
+        const rowData = {}
         if (this.formMode === 'edit') {
           _forEach(this.formData, (value, key) => {
-            rowData[key] = value;
-          });
-          this.updateRow(this.editIndex, rowData);
+            rowData[key] = value
+          })
+          this.updateRow(this.editIndex, rowData)
           this.$emit('row-save', {
             index: this.editIndex,
-            row: rowData,
-          });
-          this.closeDialog();
+            row: rowData
+          })
+          this.closeDialog()
         } else if (this.formMode === 'add') {
           _forEach(this.formData, (value, key) => {
-            rowData[key] = value;
-          });
-          this.addRow(rowData);
-          this.$emit('row-add', rowData);
-          this.closeDialog();
+            rowData[key] = value
+          })
+          this.addRow(rowData)
+          this.$emit('row-add', rowData)
+          this.closeDialog()
         }
-      });
+      })
     },
     /**
      * @description 取消保存行数据
      */
-    handleDialogCancel(done) {
-      this.$emit('dialog-cancel', done);
+    handleDialogCancel (done) {
+      this.$emit('dialog-cancel', done)
     },
     /**
      * @description 关闭模态框
      */
-    closeDialog() {
-      this.showDialog = false;
-    },
-  },
-};
+    closeDialog () {
+      this.showDialog = false
+    }
+  }
+}

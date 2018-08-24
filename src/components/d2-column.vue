@@ -154,10 +154,10 @@ import renderComponent from '../components/renderComponent.vue';
 export default {
   name: 'd2-column',
   mixins: [
-    utils,
+    utils
   ],
   components: {
-    renderComponent,
+    renderComponent
   },
   props: {
     /**
@@ -166,7 +166,7 @@ export default {
     columns: {
       type: Array,
       required: true,
-    },
-  },
-};
+    }
+  }
+}
 </script>

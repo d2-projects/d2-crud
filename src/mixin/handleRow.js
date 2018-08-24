@@ -5,7 +5,7 @@ export default {
      */
     rowHandle: {
       type: Object,
-      default: null,
-    },
-  },
-};
+      default: null
+    }
+  }
+}
