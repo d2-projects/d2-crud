@@ -148,8 +148,8 @@
 </template>
 
 <script>
-import utils from '../mixin/utils';
-import renderComponent from '../components/renderComponent.vue';
+import utils from '../mixin/utils'
+import renderComponent from '../components/renderComponent.vue'
 
 export default {
   name: 'd2-column',

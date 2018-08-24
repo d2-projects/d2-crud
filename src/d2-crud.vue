@@ -236,16 +236,16 @@
 </template>
 
 <script>
-import base from './mixin/base';
-import handleRow from './mixin/handleRow';
-import data from './mixin/data';
-import edit from './mixin/edit';
-import add from './mixin/add';
-import remove from './mixin/remove';
-import dialog from './mixin/dialog';
-import utils from './mixin/utils';
-import renderComponent from './components/renderComponent.vue';
-import d2Column from './components/d2-column.vue';
+import base from './mixin/base'
+import handleRow from './mixin/handleRow'
+import data from './mixin/data'
+import edit from './mixin/edit'
+import add from './mixin/add'
+import remove from './mixin/remove'
+import dialog from './mixin/dialog'
+import utils from './mixin/utils'
+import renderComponent from './components/renderComponent.vue'
+import d2Column from './components/d2-column.vue'
 
 export default {
   name: 'd2-crud',
@@ -257,13 +257,13 @@ export default {
     add,
     remove,
     dialog,
-    utils,
+    utils
   ],
   components: {
     renderComponent,
-    d2Column,
-  },
-};
+    d2Column
+  }
+}
 </script>
 
 <style lang="scss" scoped>

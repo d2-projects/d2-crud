@@ -16,11 +16,11 @@ export default {
       default: null
     },
   },
-  render(h) {
-    return this.handleRender(h, this.scope);
+  render (h) {
+    return this.handleRender(h, this.scope)
   },
   methods: {
-    handleRender(h, scope) {
+    handleRender (h, scope) {
       if (scope) {
         return this.renderFunction(h, scope.row, scope.column, scope.$index)
       }
