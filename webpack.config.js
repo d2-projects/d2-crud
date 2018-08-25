@@ -7,7 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
     filename: 'd2-crud.js',
-    library: 'd2Crud',
+    library: 'D2Crud',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
