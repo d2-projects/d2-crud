@@ -35,7 +35,444 @@
           v-bind="indexRow"
         >
         </el-table-column>
-        <d2-column :columns="columns"></d2-column>
+        <!-- 暂不使用d2-column递归组件，有bug -->
+        <el-table-column
+          v-for="(item, index) in columns"
+          :key="index"
+          :label="handleAttribute(item.title, '')"
+          :prop="handleAttribute(item.key, null)"
+          v-bind="item"
+        >
+          <template slot-scope="scope">
+            <el-input
+              v-if="item.component && item.component.name === 'el-input'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+            </el-input>
+            <el-input-number
+              v-else-if="item.component && item.component.name === 'el-input-number'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+            </el-input-number>
+            <el-radio-group
+              v-else-if="item.component && item.component.name === 'el-radio'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+              <template v-if="item.component.buttonMode">
+                <el-radio-button
+                  v-for="option in item.component.options"
+                  :key="option.value"
+                  :label="option.value"
+                >
+                  {{option.label}}
+                </el-radio-button>
+              </template>
+              <template v-else>
+                <el-radio
+                  v-for="option in item.component.options"
+                  :key="option.value"
+                  :label="option.value"
+                >
+                  {{option.label}}
+                </el-radio>
+              </template>
+            </el-radio-group>
+            <el-checkbox-group
+              v-else-if="item.component && item.component.name === 'el-checkbox'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+              <template v-if="item.component.buttonMode">
+                <el-checkbox-button
+                  v-for="option in item.component.options"
+                  :key="option.value"
+                  :label="option.value"
+                >
+                  {{option.label}}
+                </el-checkbox-button>
+              </template>
+              <template v-else>
+                <el-checkbox
+                  v-for="option in item.component.options"
+                  :key="option.value"
+                  :label="option.value"
+                >
+                  {{option.label}}
+                </el-checkbox>
+              </template>
+            </el-checkbox-group>
+            <el-select
+              v-else-if="item.component && item.component.name === 'el-select'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+              <el-option
+                v-for="option in item.component.options"
+                :key="option.value"
+                v-bind="option"
+              >
+              </el-option>
+            </el-select>
+            <el-cascader
+              v-else-if="item.component && item.component.name === 'el-cascader'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+            </el-cascader>
+            <el-switch
+              v-else-if="item.component && item.component.name === 'el-switch'"
+              v-model="scope.row[item.key]"
+              v-bind="item.component"
+            >
+            </el-switch>
+            <el-slider
+              v-else-if="item.component && item.component.name === 'el-slider'"
+              v-model="scope.row[item.key]"
+              v-bind="item.component"
+            >
+            </el-slider>
+            <el-time-select
+              v-else-if="item.component && item.component.name === 'el-time-select'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+            </el-time-select>
+            <el-time-picker
+              v-else-if="item.component && item.component.name === 'el-time-picker'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+            </el-time-picker>
+            <el-date-picker
+              v-else-if="item.component && item.component.name === 'el-date-picker'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+            </el-date-picker>
+            <el-rate
+              v-else-if="item.component && item.component.name === 'el-rate'"
+              v-model="scope.row[item.key]"
+              v-bind="item.component"
+            >
+            </el-rate>
+            <el-color-picker
+              v-else-if="item.component && item.component.name === 'el-color-picker'"
+              v-model="scope.row[item.key]"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+            </el-color-picker>
+            <el-tag
+              v-else-if="item.component && item.component.name === 'el-tag'"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
+            >
+              {{scope.row[item.key]}}
+            </el-tag>
+            <render-component
+              v-else-if="item.component && item.component.render"
+              :render-function="item.component.render"
+              :scope="scope"
+            >
+            </render-component>
+            <template v-else>{{scope.row[item.key]}}</template>
+          </template>
+          <template v-if="item.children">
+            <el-table-column
+              v-for="(item2, index2) in item.children"
+              :key="index2"
+              :label="handleAttribute(item2.title, '')"
+              :prop="handleAttribute(item2.key, null)"
+              v-bind="item2"
+            >
+              <template slot-scope="scope">
+                <el-input
+                  v-if="item2.component && item2.component.name === 'el-input'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                </el-input>
+                <el-input-number
+                  v-else-if="item2.component && item2.component.name === 'el-input-number'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                </el-input-number>
+                <el-radio-group
+                  v-else-if="item2.component && item2.component.name === 'el-radio'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                  <template v-if="item2.component.buttonMode">
+                    <el-radio-button
+                      v-for="option in item2.component.options"
+                      :key="option.value"
+                      :label="option.value"
+                    >
+                      {{option.label}}
+                    </el-radio-button>
+                  </template>
+                  <template v-else>
+                    <el-radio
+                      v-for="option in item2.component.options"
+                      :key="option.value"
+                      :label="option.value"
+                    >
+                      {{option.label}}
+                    </el-radio>
+                  </template>
+                </el-radio-group>
+                <el-checkbox-group
+                  v-else-if="item2.component && item2.component.name === 'el-checkbox'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                  <template v-if="item2.component.buttonMode">
+                    <el-checkbox-button
+                      v-for="option in item2.component.options"
+                      :key="option.value"
+                      :label="option.value"
+                    >
+                      {{option.label}}
+                    </el-checkbox-button>
+                  </template>
+                  <template v-else>
+                    <el-checkbox
+                      v-for="option in item2.component.options"
+                      :key="option.value"
+                      :label="option.value"
+                    >
+                      {{option.label}}
+                    </el-checkbox>
+                  </template>
+                </el-checkbox-group>
+                <el-select
+                  v-else-if="item2.component && item2.component.name === 'el-select'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                  <el-option
+                    v-for="option in item2.component.options"
+                    :key="option.value"
+                    v-bind="option"
+                  >
+                  </el-option>
+                </el-select>
+                <el-cascader
+                  v-else-if="item2.component && item2.component.name === 'el-cascader'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                </el-cascader>
+                <el-switch
+                  v-else-if="item2.component && item2.component.name === 'el-switch'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="item2.component"
+                >
+                </el-switch>
+                <el-slider
+                  v-else-if="item2.component && item2.component.name === 'el-slider'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="item2.component"
+                >
+                </el-slider>
+                <el-time-select
+                  v-else-if="item2.component && item2.component.name === 'el-time-select'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                </el-time-select>
+                <el-time-picker
+                  v-else-if="item2.component && item2.component.name === 'el-time-picker'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                </el-time-picker>
+                <el-date-picker
+                  v-else-if="item2.component && item2.component.name === 'el-date-picker'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                </el-date-picker>
+                <el-rate
+                  v-else-if="item2.component && item2.component.name === 'el-rate'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="item2.component"
+                >
+                </el-rate>
+                <el-color-picker
+                  v-else-if="item2.component && item2.component.name === 'el-color-picker'"
+                  v-model="scope.row[item2.key]"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                </el-color-picker>
+                <el-tag
+                  v-else-if="item2.component && item2.component.name === 'el-tag'"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
+                >
+                  {{scope.row[item2.key]}}
+                </el-tag>
+                <render-component
+                  v-else-if="item2.component && item2.component.render"
+                  :render-function="item2.component.render"
+                  :scope="scope"
+                >
+                </render-component>
+                <template v-else>{{scope.row[item2.key]}}</template>
+              </template>
+              <template v-if="item2.children">
+                <el-table-column
+                  v-for="(item3, index3) in item2.children"
+                  :key="index3"
+                  :label="handleAttribute(item3.title, '')"
+                  :prop="handleAttribute(item3.key, null)"
+                  v-bind="item3"
+                >
+                  <template slot-scope="scope">
+                    <el-input
+                      v-if="item3.component && item3.component.name === 'el-input'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                    </el-input>
+                    <el-input-number
+                      v-else-if="item3.component && item3.component.name === 'el-input-number'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                    </el-input-number>
+                    <el-radio-group
+                      v-else-if="item3.component && item3.component.name === 'el-radio'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                      <template v-if="item3.component.buttonMode">
+                        <el-radio-button
+                          v-for="option in item3.component.options"
+                          :key="option.value"
+                          :label="option.value"
+                        >
+                          {{option.label}}
+                        </el-radio-button>
+                      </template>
+                      <template v-else>
+                        <el-radio
+                          v-for="option in item3.component.options"
+                          :key="option.value"
+                          :label="option.value"
+                        >
+                          {{option.label}}
+                        </el-radio>
+                      </template>
+                    </el-radio-group>
+                    <el-checkbox-group
+                      v-else-if="item3.component && item3.component.name === 'el-checkbox'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                      <template v-if="item3.component.buttonMode">
+                        <el-checkbox-button
+                          v-for="option in item3.component.options"
+                          :key="option.value"
+                          :label="option.value"
+                        >
+                          {{option.label}}
+                        </el-checkbox-button>
+                      </template>
+                      <template v-else>
+                        <el-checkbox
+                          v-for="option in item3.component.options"
+                          :key="option.value"
+                          :label="option.value"
+                        >
+                          {{option.label}}
+                        </el-checkbox>
+                      </template>
+                    </el-checkbox-group>
+                    <el-select
+                      v-else-if="item3.component && item3.component.name === 'el-select'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                      <el-option
+                        v-for="option in item3.component.options"
+                        :key="option.value"
+                        v-bind="option"
+                      >
+                      </el-option>
+                    </el-select>
+                    <el-cascader
+                      v-else-if="item3.component && item3.component.name === 'el-cascader'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                    </el-cascader>
+                    <el-switch
+                      v-else-if="item3.component && item3.component.name === 'el-switch'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="item3.component"
+                    >
+                    </el-switch>
+                    <el-slider
+                      v-else-if="item3.component && item3.component.name === 'el-slider'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="item3.component"
+                    >
+                    </el-slider>
+                    <el-time-select
+                      v-else-if="item3.component && item3.component.name === 'el-time-select'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                    </el-time-select>
+                    <el-time-picker
+                      v-else-if="item3.component && item3.component.name === 'el-time-picker'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                    </el-time-picker>
+                    <el-date-picker
+                      v-else-if="item3.component && item3.component.name === 'el-date-picker'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                    </el-date-picker>
+                    <el-rate
+                      v-else-if="item3.component && item3.component.name === 'el-rate'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="item3.component"
+                    >
+                    </el-rate>
+                    <el-color-picker
+                      v-else-if="item3.component && item3.component.name === 'el-color-picker'"
+                      v-model="scope.row[item3.key]"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                    </el-color-picker>
+                    <el-tag
+                      v-else-if="item3.component && item3.component.name === 'el-tag'"
+                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
+                    >
+                      {{scope.row[item3.key]}}
+                    </el-tag>
+                    <render-component
+                      v-else-if="item3.component && item3.component.render"
+                      :render-function="item3.component.render"
+                      :scope="scope"
+                    >
+                    </render-component>
+                    <template v-else>{{scope.row[item3.key]}}</template>
+                  </template>
+                  <!-- <d2-column v-if="item.children" :columns="item.children"></d2-column> -->
+                </el-table-column>
+              </template>
+              <!-- <d2-column v-if="item.children" :columns="item.children"></d2-column> -->
+            </el-table-column>
+          </template>
+          <!-- <d2-column v-if="item.children" :columns="item.children"></d2-column> -->
+        </el-table-column>
+        <!-- <d2-column :columns="columns"></d2-column> -->
         <el-table-column
           v-if="rowHandle"
           v-bind="rowHandle"
@@ -237,7 +674,7 @@ import remove from './mixin/remove'
 import dialog from './mixin/dialog'
 import utils from './mixin/utils'
 import renderComponent from './components/renderComponent.vue'
-import d2Column from './components/d2-column.vue'
+// import d2Column from './components/d2-column.vue'
 
 export default {
   name: 'd2-crud',
@@ -252,8 +689,8 @@ export default {
     utils
   ],
   components: {
-    renderComponent,
-    d2Column
+    renderComponent
+    // d2Column
   }
 }
 </script>
