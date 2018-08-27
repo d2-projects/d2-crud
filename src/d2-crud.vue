@@ -1,6 +1,6 @@
 <template>
   <div class="d2-crud">
-    <div class="d2-crud-title" v-if="title || addMode">
+    <div class="d2-crud-title" v-if="title || addMode || $slots.headerButton">
       <span>{{title}}</span>
       <div class="fr">
         <el-button
@@ -30,7 +30,7 @@
         >
         </el-table-column>
         <el-table-column
-          v-if="indexRow"
+          v-if="indexRow || indexRow === ''"
           type="index"
           v-bind="indexRow"
         >
@@ -475,6 +475,7 @@
         <!-- <d2-column :columns="columns"></d2-column> -->
         <el-table-column
           v-if="rowHandle"
+          :label="handleAttribute(rowHandle.columnText, '操作')"
           v-bind="rowHandle"
         >
           <template slot-scope="scope">

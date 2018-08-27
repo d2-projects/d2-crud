@@ -24,8 +24,7 @@ export default {
      * @description 索引
      */
     indexRow: {
-      type: Object,
-      default: null
+      default: false
     },
     /**
      * @description 多选
@@ -39,8 +38,8 @@ export default {
     /**
      * @description 行选中状态
      */
-    handleCurrentChange (val) {
-      this.$emit('current-change', val)
+    handleCurrentChange (val, oldVal) {
+      this.$emit('current-change', val, oldVal)
     },
     /**
      * @description 复选框选中转状态
