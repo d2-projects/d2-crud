@@ -24,13 +24,12 @@ export default {
      * @description 索引
      */
     indexRow: {
-      default: false
+      default: null
     },
     /**
      * @description 多选
      */
     selectionRow: {
-      type: Object,
       default: null
     }
   },

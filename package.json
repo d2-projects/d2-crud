@@ -1,14 +1,14 @@
 {
   "name": "@d2-projects/d2-crud",
   "description": "A d2-projects project",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "author": "孙昊翔 <673686754@qq.com>",
   "license": "MIT",
   "private": false,
   "main": "dist/d2-crud.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sunhaoxiang/d2-crud"
+    "url": "https://github.com/d2-projects/d2-crud"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"

@@ -31,4 +31,5 @@ new Vue({
 })
 ```
 
-之后就可以在项目中使用`D2-Crud`了，具体使用方法请参考 [使用指南](./api.md)
+之后就可以在项目中使用`D2-Crud`了。   
+[API](http://app.d3collection.cn/d2-admin-doc/lastest/zh/ecosystem-d2-crud/)  [表格实例](https://fairyever.gitee.io/d2-admin-preview/#/demo/d2-crud/index)  

@@ -5,7 +5,7 @@ export default {
     /**
      * @description dialog配置
      */
-    formOption: {
+    formOptions: {
       type: Object,
       default: null
     },
@@ -54,19 +54,19 @@ export default {
           _forEach(this.formData, (value, key) => {
             rowData[key] = value
           })
-          this.updateRow(this.editIndex, rowData)
-          this.$emit('row-save', {
+          this.$emit('row-edit', {
             index: this.editIndex,
             row: rowData
+          }, () => {
+            this.handleDialogSaveDone(rowData)
           })
-          this.closeDialog()
         } else if (this.formMode === 'add') {
           _forEach(this.formData, (value, key) => {
             rowData[key] = value
           })
-          this.addRow(rowData)
-          this.$emit('row-add', rowData)
-          this.closeDialog()
+          this.$emit('row-add', rowData, () => {
+            this.handleDialogSaveDone(rowData)
+          })
         }
       })
     },
@@ -75,6 +75,17 @@ export default {
      */
     handleDialogCancel (done) {
       this.$emit('dialog-cancel', done)
+    },
+    /**
+     * @description 保存完成
+     */
+    handleDialogSaveDone (rowData) {
+      if (this.formMode === 'edit') {
+        this.updateRow(this.editIndex, rowData)
+      } else if (this.formMode === 'add') {
+        this.addRow(rowData)
+      }
+      this.closeDialog()
     },
     /**
      * @description 关闭模态框

@@ -15,11 +15,7 @@ export default {
       /**
        * @description 表格内部数据
        */
-      d2Data: [],
-      /**
-       * @description 表格内部数据展示层
-       */
-      d2DataView: []
+      d2Data: []
     }
   },
   watch: {

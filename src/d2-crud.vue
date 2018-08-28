@@ -24,15 +24,15 @@
         @sort-change="handleSortChange"
       >
         <el-table-column
-          v-if="selectionRow"
-          type="selection"
-          v-bind="selectionRow"
-        >
-        </el-table-column>
-        <el-table-column
           v-if="indexRow || indexRow === ''"
           type="index"
           v-bind="indexRow"
+        >
+        </el-table-column>
+        <el-table-column
+          v-if="selectionRow || selectionRow === ''"
+          type="selection"
+          v-bind="selectionRow"
         >
         </el-table-column>
         <!-- 暂不使用d2-column递归组件，有bug -->
@@ -475,7 +475,7 @@
         <!-- <d2-column :columns="columns"></d2-column> -->
         <el-table-column
           v-if="rowHandle"
-          :label="handleAttribute(rowHandle.columnText, '操作')"
+          :label="handleAttribute(rowHandle.columnHeader, '操作')"
           v-bind="rowHandle"
         >
           <template slot-scope="scope">
@@ -510,15 +510,15 @@
       :title="formMode === 'edit' ? '编辑' : '新增'"
       :visible.sync="showDialog"
       :before-close="handleDialogCancel"
-      v-bind="formOption"
+      v-bind="formOptions"
     >
       <el-form
         ref="form"
         :model="formData"
         :rules="formRules"
-        v-bind="formOption"
+        v-bind="formOptions"
       >
-        <el-row v-bind="formOption">
+        <el-row v-bind="formOptions">
           <el-col
             v-for="(value, key, index) in formData"
             :key="index"
@@ -530,7 +530,7 @@
               :prop="key"
             >
               <el-input
-                v-if="(!formTemplate[key].component) || formTemplate[key].component.name === 'el-input'"
+                v-if="(!formTemplate[key].component) ||(!formTemplate[key].component.name) || formTemplate[key].component.name === 'el-input'"
                 v-model="formData[key]"
                 v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
@@ -659,7 +659,7 @@
         </el-row>
       </el-form>
       <div slot="footer">
-        <el-button type="primary" @click="handleDialogSave">确 定</el-button>
+        <el-button type="primary" :loading="formOptions ? handleAttribute(formOptions.saveLoading, false) : false" @click="handleDialogSave">确 定</el-button>
       </div>
     </el-dialog>
   </div>
