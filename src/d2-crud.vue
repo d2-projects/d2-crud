@@ -20,18 +20,31 @@
         :data="d2Data"
         v-bind="options"
         @current-change="handleCurrentChange"
+        @select="handleSelect"
+        @select-all="handleSelectAll"
         @selection-change="handleSelectionChange"
         @sort-change="handleSortChange"
+        @cell-mouse-enter="handleCellMouseEnter"
+        @cell-mouse-leave="handleCellMouseLeave"
+        @cell-click="handleCellClick"
+        @cell-dblclick="handleCellDblclick"
+        @row-click="handleRowClick"
+        @row-contextmenu="handleRowContextmenu"
+        @row-dblclick="handleRowDblclick"
+        @header-click="handleHeaderClick"
+        @header-contextmenu="handleHeaderContextmenu"
       >
         <el-table-column
           v-if="indexRow || indexRow === ''"
           type="index"
+          :label="handleAttribute(indexRow.title, '')"
           v-bind="indexRow"
         >
         </el-table-column>
         <el-table-column
           v-if="selectionRow || selectionRow === ''"
           type="selection"
+          :label="handleAttribute(selectionRow.title, '')"
           v-bind="selectionRow"
         >
         </el-table-column>
@@ -659,7 +672,15 @@
         </el-row>
       </el-form>
       <div slot="footer">
-        <el-button type="primary" :loading="formOptions ? handleAttribute(formOptions.saveLoading, false) : false" @click="handleDialogSave">确 定</el-button>
+        <el-button
+        :size="$d2CrudSize ? Object.assign({ saveButtonSize: $d2CrudSize}, formOptions) : null"
+        :type="formOptions ? handleAttribute(formOptions.saveButtonType, null) : null"
+        :icon="formOptions ? handleAttribute(formOptions.saveButtonIcon, null) : null"
+        :loading="formOptions ? handleAttribute(formOptions.saveLoading, false) : false"
+        @click="handleDialogSave"
+      >
+      确 定
+      </el-button>
       </div>
     </el-dialog>
   </div>

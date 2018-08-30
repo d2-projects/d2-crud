@@ -21,6 +21,9 @@ export default {
   watch: {
     data () {
       this.handleDataChange()
+    },
+    d2Data (val) {
+      this.$emit('d2-data-change', val)
     }
   },
   mounted () {
