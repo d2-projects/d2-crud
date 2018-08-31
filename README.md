@@ -3,6 +3,11 @@
 ## 介绍
 `D2-Crud`是一套基于[Vue.js 2.2.0+](https://cn.vuejs.org/)和[Element 2.0.0+](http://element-cn.eleme.io/#/zh-CN)的表格组件，`D2-Crud`将 `Element` 的功能进行了封装，并增加了表格的增删改查、数据校验、表格内编辑等常用的功能。大部分功能可根据配置的json实现，大大简化了开发流程。
 
+
+## 文档
+[API](http://app.d3collection.cn/d2-admin-doc/lastest/zh/ecosystem-d2-crud/) | 
+[使用示例](https://fairyever.gitee.io/d2-admin-preview/#/demo/d2-crud/index) 
+
 ## 功能
 - 继承了 Element 中表格所有功能
 - 新增表格数据
@@ -41,8 +46,3 @@ new Vue({
 ```
 
 之后就可以在项目中使用`D2-Crud`了。
-
-## 文档
-[API](http://app.d3collection.cn/d2-admin-doc/lastest/zh/ecosystem-d2-crud/)
-
-[使用示例](https://fairyever.gitee.io/d2-admin-preview/#/demo/d2-crud/index) 
