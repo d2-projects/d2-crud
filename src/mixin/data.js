@@ -39,6 +39,24 @@ export default {
       }
     },
     /**
+     * @description key存在嵌套时的处理
+     */
+    handleColumnKey (row, key) {
+      if (key.indexOf('.') < 0) {
+        return row[key]
+      }
+      let keyList = key.split('.')
+      let keyResult = row
+      for (let i = 0; i < keyList.length; i++) {
+        if (i === 0) {
+          keyResult = row[keyList[0]]
+        } else {
+          keyResult = keyResult[keyList[i]]
+        }
+      }
+      return keyResult
+    },
+    /**
      * @description 排序状态
      */
     handleSortChange ({ column, prop, order }) {
