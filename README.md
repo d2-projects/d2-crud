@@ -1,4 +1,4 @@
-[](https://raw.githubusercontent.com/d2-projects/d2-crud/master/doc/image/banner.png)
+![](https://raw.githubusercontent.com/d2-projects/d2-crud/master/doc/image/banner.png)
 
 ## 介绍
 `D2-Crud`是一套基于[Vue.js 2.2.0+](https://cn.vuejs.org/)和[Element 2.0.0+](http://element-cn.eleme.io/#/zh-CN)的表格组件，`D2-Crud`将 `Element` 的功能进行了封装，并增加了表格的增删改查、数据校验、表格内编辑等常用的功能。大部分功能可根据配置的json实现，大大简化了开发流程。
