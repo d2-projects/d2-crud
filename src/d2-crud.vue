@@ -189,7 +189,7 @@
               :scope="scope"
             >
             </render-component>
-            <template v-else>{{scope.row[item.key]}}</template>
+            <template v-else>{{item.formatter ? item.formatter(handleColumnKey(scope.row, item.key)) : handleColumnKey(scope.row, item.key)}}</template>
           </template>
           <template v-if="item.children">
             <el-table-column
@@ -332,7 +332,7 @@
                   :scope="scope"
                 >
                 </render-component>
-                <template v-else>{{scope.row[item2.key]}}</template>
+                <template v-else>{{item2.formatter ? item2.formatter(handleColumnKey(scope.row, item2.key)) : handleColumnKey(scope.row, item2.key)}}</template>
               </template>
               <template v-if="item2.children">
                 <el-table-column
@@ -475,7 +475,7 @@
                       :scope="scope"
                     >
                     </render-component>
-                    <template v-else>{{scope.row[item3.key]}}</template>
+                    <template v-else>{{item3.formatter ? item3.formatter(handleColumnKey(scope.row, item3.key)) : handleColumnKey(scope.row, item3.key)}}</template>
                   </template>
                   <!-- <d2-column v-if="item.children" :columns="item.children"></d2-column> -->
                 </el-table-column>
