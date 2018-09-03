@@ -35,17 +35,17 @@
         @header-contextmenu="handleHeaderContextmenu"
       >
         <el-table-column
-          v-if="indexRow || indexRow === ''"
-          type="index"
-          :label="handleAttribute(indexRow.title, '')"
-          v-bind="indexRow"
-        >
-        </el-table-column>
-        <el-table-column
           v-if="selectionRow || selectionRow === ''"
           type="selection"
           :label="handleAttribute(selectionRow.title, '')"
           v-bind="selectionRow"
+        >
+        </el-table-column>
+        <el-table-column
+          v-if="indexRow || indexRow === ''"
+          type="index"
+          :label="handleAttribute(indexRow.title, '')"
+          v-bind="indexRow"
         >
         </el-table-column>
         <!-- 暂不使用d2-column递归组件，有bug -->
