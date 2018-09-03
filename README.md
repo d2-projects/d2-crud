@@ -6,7 +6,7 @@
 
 ## 文档
 GitHub：<https://github.com/d2-projects/d2-crud>   
-文档：<http://app.d3collection.cn/d2-admin-doc/lastest/zh/ecosystem-d2-crud/>   
+文档：<https://d2-projects.github.io/d2-admin-doc/zh/ecosystem-d2-crud/>   
 示例：<https://fairyever.gitee.io/d2-admin-preview/#/demo/d2-crud/index>
 
 ## 功能
