@@ -1,7 +1,7 @@
 {
   "name": "@d2-projects/d2-crud",
   "description": "A d2-projects project",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "孙昊翔 <673686754@qq.com>",
   "license": "MIT",
   "private": false,
@@ -23,6 +23,8 @@
   "dependencies": {
     "lodash.clonedeep": "^4.5.0",
     "lodash.foreach": "^4.5.0",
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2",
     "vue": "^2.5.11"
   },
   "browserslist": [

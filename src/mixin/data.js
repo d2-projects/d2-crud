@@ -1,4 +1,6 @@
 import _clonedeep from 'lodash.clonedeep'
+import _get from 'lodash.get'
+import _set from 'lodash.set'
 
 export default {
   props: {
@@ -31,30 +33,20 @@ export default {
   },
   methods: {
     /**
+     * @description lodash.get
+     */
+    _get,
+    /**
+     * @description lodash.set
+     */
+    _set,
+    /**
      * @description 同步外部表格数据到d2Data内部
      */
     handleDataChange () {
       if (this.d2Data !== this.data) {
         this.d2Data = _clonedeep(this.data)
       }
-    },
-    /**
-     * @description key存在嵌套时的处理
-     */
-    handleColumnKey (row, key) {
-      if (key.indexOf('.') < 0) {
-        return row[key]
-      }
-      let keyList = key.split('.')
-      let keyResult = row
-      for (let i = 0; i < keyList.length; i++) {
-        if (i === 0) {
-          keyResult = row[keyList[0]]
-        } else {
-          keyResult = keyResult[keyList[i]]
-        }
-      }
-      return keyResult
     },
     /**
      * @description 排序状态

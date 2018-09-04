@@ -52,7 +52,7 @@ export default {
         const rowData = {}
         if (this.formMode === 'edit') {
           _forEach(this.formData, (value, key) => {
-            rowData[key] = value
+            this._set(rowData, key, value)
           })
           this.$emit('row-edit', {
             index: this.editIndex,
@@ -62,7 +62,7 @@ export default {
           })
         } else if (this.formMode === 'add') {
           _forEach(this.formData, (value, key) => {
-            rowData[key] = value
+            this._set(rowData, key, value)
           })
           this.$emit('row-add', rowData, () => {
             this.handleDialogSaveDone(rowData)
