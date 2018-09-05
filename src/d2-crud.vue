@@ -543,7 +543,7 @@
               :prop="key"
             >
               <el-input
-                v-if="(!formTemplate[key].component) ||(!formTemplate[key].component.name) || formTemplate[key].component.name === 'el-input'"
+                v-if="(!formTemplate[key].component) ||((!formTemplate[key].component.name) && (!formTemplate[key].component.render)) || formTemplate[key].component.name === 'el-input'"
                 v-model="formData[key]"
                 v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
@@ -665,6 +665,7 @@
               <render-component
                 v-else-if="formTemplate[key].component.render"
                 :render-function="formTemplate[key].component.render"
+                :scope="formData[key]"
               >
               </render-component>
             </el-form-item>
