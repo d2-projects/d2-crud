@@ -21,10 +21,10 @@ export default {
   },
   methods: {
     handleRender (h, scope) {
-      if (scope) {
-        return this.renderFunction(h, scope.row, scope.column, scope.$index)
+      if (typeof scope === 'string') {
+        return this.renderFunction(h, scope)
       }
-      return this.renderFunction(h)
+      return this.renderFunction(h, scope.row, scope.column, scope.$index)
     }
   }
 }
