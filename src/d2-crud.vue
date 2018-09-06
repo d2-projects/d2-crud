@@ -493,28 +493,34 @@
         >
           <template slot-scope="scope">
             <el-button
-              v-if="rowHandle.edit"
+              v-if="rowHandle.edit && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
+              :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.edit) : rowHandle.edit"
               @click="handleEdit(scope.$index, scope.row)"
             >
               {{handleAttribute(rowHandle.edit.text, '编辑')}}
             </el-button>
             <el-button
-              v-if="rowHandle.remove"
+              v-if="rowHandle.remove && handleRowHandleButtonShow(rowHandle.remove.show, scope.$index, scope.row)"
               :type="handleAttribute(rowHandle.remove.type, 'danger')"
+              :disabled="handleRowHandleButtonDisabled(rowHandle.remove.disabled, scope.$index, scope.row)"
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.remove) : rowHandle.remove"
               @click="handleRemove(scope.$index, scope.row)"
             >
               {{handleAttribute(rowHandle.remove.text, '删除')}}
             </el-button>
-            <el-button
+            <template
               v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
-              :key="index"
-              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
-              @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
-            >
-              {{item.text}}
-            </el-button>
+              :key="index">
+              <el-button
+                v-if="handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
+                :disabled="handleRowHandleButtonDisabled(item.disabled, scope.$index, scope.row)"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
+                @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
+              >
+                {{item.text}}
+              </el-button>
+            </template>
           </template>
         </el-table-column>
       </el-table>
