@@ -177,12 +177,6 @@
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
             >
             </el-color-picker>
-            <el-tag
-              v-else-if="item.component && item.component.name === 'el-tag'"
-              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
-            >
-              {{scope.row[item.key]}}
-            </el-tag>
             <render-custom-component
               v-else-if="item.component && item.component.name"
               v-model="scope.row[item.key]"
@@ -325,12 +319,11 @@
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
                 >
                 </el-color-picker>
-                <el-tag
-                  v-else-if="item2.component && item2.component.name === 'el-tag'"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
-                >
-                  {{scope.row[item2.key]}}
-                </el-tag>
+                <render-custom-component
+                  v-else-if="item2.component && item2.component.name"
+                  v-model="scope.row[item2.key]"
+                  :component-name="item2.component.name">
+                </render-custom-component>
                 <render-component
                   v-else-if="item2.component && item2.component.render"
                   :render-function="item2.component.render"
@@ -468,12 +461,11 @@
                       v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
                     >
                     </el-color-picker>
-                    <el-tag
-                      v-else-if="item3.component && item3.component.name === 'el-tag'"
-                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
-                    >
-                      {{scope.row[item3.key]}}
-                    </el-tag>
+                    <render-custom-component
+                      v-else-if="item3.component && item3.component.name"
+                      v-model="scope.row[item3.key]"
+                      :component-name="item3.component.name">
+                    </render-custom-component>
                     <render-component
                       v-else-if="item3.component && item3.component.render"
                       :render-function="item3.component.render"
@@ -673,6 +665,11 @@
                 v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
               </el-color-picker>
+              <render-custom-component
+                v-else-if="formTemplate[key].component.name"
+                v-model="formData[key]"
+                :component-name="formTemplate[key].component.name">
+              </render-custom-component>
               <render-component
                 v-else-if="formTemplate[key].component.render"
                 :render-function="formTemplate[key].component.render"
