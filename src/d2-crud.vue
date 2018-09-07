@@ -177,12 +177,11 @@
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
             >
             </el-color-picker>
-            <el-tag
-              v-else-if="item.component && item.component.name === 'el-tag'"
-              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item.component) : item.component"
-            >
-              {{scope.row[item.key]}}
-            </el-tag>
+            <render-custom-component
+              v-else-if="item.component && item.component.name"
+              v-model="scope.row[item.key]"
+              :component-name="item.component.name">
+            </render-custom-component>
             <render-component
               v-else-if="item.component && item.component.render"
               :render-function="item.component.render"
@@ -320,12 +319,11 @@
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
                 >
                 </el-color-picker>
-                <el-tag
-                  v-else-if="item2.component && item2.component.name === 'el-tag'"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item2.component) : item2.component"
-                >
-                  {{scope.row[item2.key]}}
-                </el-tag>
+                <render-custom-component
+                  v-else-if="item2.component && item2.component.name"
+                  v-model="scope.row[item2.key]"
+                  :component-name="item2.component.name">
+                </render-custom-component>
                 <render-component
                   v-else-if="item2.component && item2.component.render"
                   :render-function="item2.component.render"
@@ -463,12 +461,11 @@
                       v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
                     >
                     </el-color-picker>
-                    <el-tag
-                      v-else-if="item3.component && item3.component.name === 'el-tag'"
-                      v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item3.component) : item3.component"
-                    >
-                      {{scope.row[item3.key]}}
-                    </el-tag>
+                    <render-custom-component
+                      v-else-if="item3.component && item3.component.name"
+                      v-model="scope.row[item3.key]"
+                      :component-name="item3.component.name">
+                    </render-custom-component>
                     <render-component
                       v-else-if="item3.component && item3.component.render"
                       :render-function="item3.component.render"
@@ -493,28 +490,34 @@
         >
           <template slot-scope="scope">
             <el-button
-              v-if="rowHandle.edit"
+              v-if="rowHandle.edit && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
+              :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.edit) : rowHandle.edit"
               @click="handleEdit(scope.$index, scope.row)"
             >
               {{handleAttribute(rowHandle.edit.text, '编辑')}}
             </el-button>
             <el-button
-              v-if="rowHandle.remove"
+              v-if="rowHandle.remove && handleRowHandleButtonShow(rowHandle.remove.show, scope.$index, scope.row)"
               :type="handleAttribute(rowHandle.remove.type, 'danger')"
+              :disabled="handleRowHandleButtonDisabled(rowHandle.remove.disabled, scope.$index, scope.row)"
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.remove) : rowHandle.remove"
               @click="handleRemove(scope.$index, scope.row)"
             >
               {{handleAttribute(rowHandle.remove.text, '删除')}}
             </el-button>
-            <el-button
+            <template
               v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
-              :key="index"
-              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
-              @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
-            >
-              {{item.text}}
-            </el-button>
+              :key="index">
+              <el-button
+                v-if="handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
+                :disabled="handleRowHandleButtonDisabled(item.disabled, scope.$index, scope.row)"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
+                @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
+              >
+                {{item.text}}
+              </el-button>
+            </template>
           </template>
         </el-table-column>
       </el-table>
@@ -662,6 +665,11 @@
                 v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
               >
               </el-color-picker>
+              <render-custom-component
+                v-else-if="formTemplate[key].component.name"
+                v-model="formData[key]"
+                :component-name="formTemplate[key].component.name">
+              </render-custom-component>
               <render-component
                 v-else-if="formTemplate[key].component.render"
                 :render-function="formTemplate[key].component.render"
@@ -697,6 +705,7 @@ import remove from './mixin/remove'
 import dialog from './mixin/dialog'
 import utils from './mixin/utils'
 import renderComponent from './components/renderComponent.vue'
+import renderCustomComponent from './components/renderCustomComponent.vue'
 // import d2Column from './components/d2-column.vue'
 
 export default {
@@ -712,7 +721,8 @@ export default {
     utils
   ],
   components: {
-    renderComponent
+    renderComponent,
+    renderCustomComponent
     // d2Column
   },
 }

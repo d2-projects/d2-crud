@@ -24,8 +24,11 @@ export default {
     data () {
       this.handleDataChange()
     },
-    d2Data (val) {
-      this.$emit('d2-data-change', val)
+    d2Data: {
+      handler (val) {
+        this.$emit('d2-data-change', val)
+      },
+      deep: true
     }
   },
   mounted () {
