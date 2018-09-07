@@ -183,6 +183,11 @@
             >
               {{scope.row[item.key]}}
             </el-tag>
+            <render-custom-component
+              v-else-if="item.component && item.component.name"
+              v-model="scope.row[item.key]"
+              :component-name="item.component.name">
+            </render-custom-component>
             <render-component
               v-else-if="item.component && item.component.render"
               :render-function="item.component.render"
@@ -703,6 +708,7 @@ import remove from './mixin/remove'
 import dialog from './mixin/dialog'
 import utils from './mixin/utils'
 import renderComponent from './components/renderComponent.vue'
+import renderCustomComponent from './components/renderCustomComponent.vue'
 // import d2Column from './components/d2-column.vue'
 
 export default {
@@ -718,7 +724,8 @@ export default {
     utils
   ],
   components: {
-    renderComponent
+    renderComponent,
+    renderCustomComponent
     // d2Column
   },
 }
