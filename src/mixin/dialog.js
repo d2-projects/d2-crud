@@ -84,6 +84,7 @@ export default {
     handleDialogSaveDone (rowData) {
       if (this.formMode === 'edit') {
         this.updateRow(this.editIndex, rowData)
+        this.editDatasSorage = {}
       } else if (this.formMode === 'add') {
         this.addRow(rowData)
       }
