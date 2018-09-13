@@ -18,6 +18,7 @@ export default {
      */
     handleEdit (index, row) {
       this.formMode = 'edit'
+      this.editDatasSorage = _clonedeep(row)
       this.showDialog = true
       this.editIndex = index
       this.formData = this.formTemplate ? _clonedeep(this.formTemplate) : {}

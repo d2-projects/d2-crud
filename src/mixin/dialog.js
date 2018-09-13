@@ -1,4 +1,5 @@
 import _forEach from 'lodash.foreach'
+import _clonedeep from 'lodash.clonedeep'
 
 export default {
   props: {
@@ -49,8 +50,9 @@ export default {
         if (!valid) {
           return false
         }
-        const rowData = {}
+        let rowData = {}
         if (this.formMode === 'edit') {
+          rowData = _clonedeep(this.editDatasSorage)
           _forEach(this.formData, (value, key) => {
             this._set(rowData, key, value)
           })
