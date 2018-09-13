@@ -17,7 +17,11 @@ export default {
       /**
        * @description 表格内部数据
        */
-      d2Data: []
+      d2Data: [],
+      /**
+       * @description 编辑暂存数据，用于储存不在formTemplate中的数据
+       */
+      editDatasSorage: {}
     }
   },
   watch: {

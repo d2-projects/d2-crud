@@ -724,7 +724,7 @@ export default {
     renderComponent,
     renderCustomComponent
     // d2Column
-  },
+  }
 }
 </script>
 
