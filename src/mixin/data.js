@@ -21,7 +21,7 @@ export default {
       /**
        * @description 编辑暂存数据，用于储存不在formTemplate中的数据
        */
-      editDatasSorage: {}
+      editDataStorage: {}
     }
   },
   watch: {
