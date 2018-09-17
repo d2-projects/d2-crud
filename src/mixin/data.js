@@ -19,9 +19,18 @@ export default {
        */
       d2Data: [],
       /**
+       * @description 表格当前分页数据
+       */
+      d2PaginationData: [],
+      /**
        * @description 编辑暂存数据，用于储存不在formTemplate中的数据
        */
       editDataStorage: {}
+    }
+  },
+  computed: {
+    d2DataLength () {
+      return this.d2Data.length
     }
   },
   watch: {
@@ -30,6 +39,9 @@ export default {
     },
     d2Data: {
       handler (val) {
+        if (this.pagination) {
+          this.d2PaginationData = this.d2Data.slice(this.paginationDataStart, this.paginationDataEnd)
+        }
         this.$emit('d2-data-change', val)
       },
       deep: true
@@ -53,15 +65,32 @@ export default {
     handleDataChange () {
       if (this.d2Data !== this.data) {
         this.d2Data = _clonedeep(this.data)
+        if (this.pagination) {
+          this.d2PaginationData = this.d2Data.slice(this.paginationDataStart, this.paginationDataEnd)
+        }
       }
+    },
+    /**
+     * @description 排序时数据变化
+     */
+    handleSortDataChange () {
+      this.$nextTick(() => {
+        if (this.pagination) {
+          let j = 0
+          for (let i = this.paginationDataStart; i < this.paginationDataEnd; i++) {
+            this.d2Data[i] = this.$refs.elTable.store.states.data[j]
+            j += 1
+          }
+        } else {
+          this.d2Data = this.$refs.elTable.store.states.data
+        }
+      })
     },
     /**
      * @description 排序状态
      */
     handleSortChange ({ column, prop, order }) {
-      this.$nextTick(() => {
-        this.d2Data = this.$refs.elTable.store.states.data
-      })
+      this.handleSortDataChange()
       this.$emit('sort-change', { column, prop, order })
     },
     /**
@@ -70,11 +99,13 @@ export default {
      * @param {Object} row 更新的表格行数据
      */
     updateRow (index, row) {
-      this.$set(this.d2Data, index, row)
+      if (this.pagination) {
+        this.$set(this.d2Data, index + this.paginationDataStart, row)
+      } else {
+        this.$set(this.d2Data, index, row)
+      }
       if (this.defaultSort) {
-        this.$nextTick(() => {
-          this.d2Data = _clonedeep(this.$refs.elTable.store.states.data)
-        })
+        this.handleSortDataChange()
       }
     },
     /**
@@ -84,9 +115,7 @@ export default {
     addRow (row) {
       this.$set(this.d2Data, this.d2Data.length, row)
       if (this.defaultSort) {
-        this.$nextTick(() => {
-          this.d2Data = this.$refs.elTable.store.states.data
-        })
+        this.handleSortDataChange()
       }
     },
     /**
@@ -94,11 +123,13 @@ export default {
      * @param {Object} index 被删除行索引
      */
     removeRow (index) {
-      this.$delete(this.d2Data, index)
+      if (this.pagination) {
+        this.$delete(this.d2Data, index + this.paginationDataStart)
+      } else {
+        this.$delete(this.d2Data, index)
+      }
       if (this.defaultSort) {
-        this.$nextTick(() => {
-          this.d2Data = this.$refs.elTable.store.states.data
-        })
+        this.handleSortDataChange()
       }
     }
   }

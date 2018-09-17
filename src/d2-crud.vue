@@ -17,7 +17,7 @@
     <div class="d2-crud-body">
       <el-table
         ref="elTable"
-        :data="d2Data"
+        :data="pagination ? d2PaginationData : d2Data"
         v-bind="options"
         @current-change="handleCurrentChange"
         @select="handleSelect"
@@ -522,6 +522,18 @@
         </el-table-column>
       </el-table>
     </div>
+    <div class="d2-crud-pagination" v-if="pagination">
+      <el-pagination
+        :total="d2DataLength"
+        :currentPage.sync="currentPage"
+        v-bind="pagination"
+        @size-change="handlePaginationSizeChange"
+        @current-change="handlePaginationCurrentChange"
+        @prev-click="handlePaginationPrevClick"
+        @next-click="handlePaginationNextClick"
+      >
+      </el-pagination>
+    </div>
     <el-dialog
       :title="formMode === 'edit' ? '编辑' : '新增'"
       :visible.sync="showDialog"
@@ -688,7 +700,7 @@
         :loading="formOptions ? handleAttribute(formOptions.saveLoading, false) : false"
         @click="handleDialogSave"
       >
-      确 定
+      {{formOptions ? handleAttribute(formOptions.saveButtonText, '确定') : '确定'}}
       </el-button>
       </div>
     </el-dialog>
@@ -703,6 +715,7 @@ import edit from './mixin/edit'
 import add from './mixin/add'
 import remove from './mixin/remove'
 import dialog from './mixin/dialog'
+import pagination from './mixin/pagination'
 import utils from './mixin/utils'
 import renderComponent from './components/renderComponent.vue'
 import renderCustomComponent from './components/renderCustomComponent.vue'
@@ -718,6 +731,7 @@ export default {
     add,
     remove,
     dialog,
+    pagination,
     utils
   ],
   components: {
@@ -744,6 +758,9 @@ export default {
   .d2-crud-body {
     padding: 15px 0;
     overflow: hidden;
+  }
+  .d2-crud-pagination {
+    padding: 15px 0;
   }
 }
 </style>
