@@ -1,5 +1,11 @@
 <template>
-  <div class="d2-crud">
+  <div
+    class="d2-crud"
+    v-loading="loading"
+    :element-loading-text="loadingOptions ? handleAttribute(loadingOptions.text, null) : null"
+    :element-loading-spinner="loadingOptions ? handleAttribute(loadingOptions.spinner, null) : null"
+    :element-loading-background="loadingOptions ? handleAttribute(loadingOptions.background, null) : null"
+  >
     <div class="d2-crud-title" v-if="title || addMode || $slots.headerButton">
       <span>{{title}}</span>
       <div class="fr">
