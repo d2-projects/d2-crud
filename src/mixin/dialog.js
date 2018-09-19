@@ -52,7 +52,7 @@ export default {
         }
         let rowData = {}
         if (this.formMode === 'edit') {
-          rowData = _clonedeep(this.editDatasSorage)
+          rowData = _clonedeep(this.editDataStorage)
           _forEach(this.formData, (value, key) => {
             this._set(rowData, key, value)
           })
@@ -84,7 +84,7 @@ export default {
     handleDialogSaveDone (rowData) {
       if (this.formMode === 'edit') {
         this.updateRow(this.editIndex, rowData)
-        this.editDatasSorage = {}
+        this.editDataStorage = {}
       } else if (this.formMode === 'add') {
         this.addRow(rowData)
       }
