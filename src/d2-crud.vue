@@ -701,14 +701,14 @@
       </el-form>
       <div slot="footer">
         <el-button
-        :size="$d2CrudSize ? Object.assign({ saveButtonSize: $d2CrudSize}, formOptions) : null"
-        :type="formOptions ? handleAttribute(formOptions.saveButtonType, null) : null"
-        :icon="formOptions ? handleAttribute(formOptions.saveButtonIcon, null) : null"
-        :loading="formOptions ? handleAttribute(formOptions.saveLoading, false) : false"
-        @click="handleDialogSave"
-      >
-      {{formOptions ? handleAttribute(formOptions.saveButtonText, '确定') : '确定'}}
-      </el-button>
+          :size="$d2CrudSize ? Object.assign({ saveButtonSize: $d2CrudSize}, formOptions) : null"
+          :type="formOptions ? handleAttribute(formOptions.saveButtonType, null) : null"
+          :icon="formOptions ? handleAttribute(formOptions.saveButtonIcon, null) : null"
+          :loading="formOptions ? handleAttribute(formOptions.saveLoading, false) : false"
+          @click="handleDialogSave"
+        >
+        {{formOptions ? handleAttribute(formOptions.saveButtonText, '确定') : '确定'}}
+        </el-button>
       </div>
     </el-dialog>
   </div>
