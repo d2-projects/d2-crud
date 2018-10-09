@@ -668,6 +668,7 @@
                 <el-date-picker
                   v-else-if="formTemplate[key].component.name === 'el-date-picker'"
                   v-model="formData[key]"
+                  value-format="yyyy-MM-dd HH:mm:ss"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
                 >
                 </el-date-picker>
@@ -745,7 +746,7 @@ export default {
     renderComponent,
     renderCustomComponent
     // d2Column
-  }
+    }
 }
 </script>
 

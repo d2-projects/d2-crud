@@ -9,7 +9,7 @@ const install = (Vue, options) => {
   Vue.component('d2Crud', d2Crud)
 }
 if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue)
+  install(window.Vue, {size:'mini'})
 }
 
 export default Object.assign(d2Crud, { install })
