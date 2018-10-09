@@ -33,6 +33,7 @@
     "not ie <= 8"
   ],
   "devDependencies": {
+    "@vue/component-compiler-utils": "^2.2.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
@@ -44,7 +45,8 @@
     "sass-loader": "^6.0.6",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
-    "webpack": "^3.6.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^2.9.1"
   }
 }

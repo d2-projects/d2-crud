@@ -1,4 +1,4 @@
-import d2Crud from './d2-crud.vue'
+import d2Crud from './d2-crud'
 
 const install = (Vue, options) => {
   if (options) {

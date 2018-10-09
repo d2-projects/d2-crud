@@ -725,8 +725,8 @@ import remove from './mixin/remove'
 import dialog from './mixin/dialog'
 import pagination from './mixin/pagination'
 import utils from './mixin/utils'
-import renderComponent from './components/renderComponent.vue'
-import renderCustomComponent from './components/renderCustomComponent.vue'
+import renderComponent from './components/renderComponent'
+import renderCustomComponent from './components/renderCustomComponent'
 // import d2Column from './components/d2-column.vue'
 
 export default {
