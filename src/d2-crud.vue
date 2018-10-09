@@ -757,6 +757,7 @@ export default {
 .fr {
   float: right;
 }
+
 .d2-crud {
   .d2-crud-title {
     color: #535351;
@@ -774,4 +775,12 @@ export default {
     padding: 15px 0;
   }
 }
+</style>
+
+<style lang="scss" >
+  .el-dialog__wrapper {
+    .el-dialog {
+      width:80%
+    }
+  }
 </style>
