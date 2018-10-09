@@ -512,8 +512,8 @@
             >
               {{handleAttribute(rowHandle.remove.text, '删除')}}
             </el-button>
-            <template
-              v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
+            <template>
+              <div v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
               :key="index">
               <el-button
                 v-if="handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
@@ -523,6 +523,7 @@
               >
                 {{item.text}}
               </el-button>
+              </div>
             </template>
           </template>
         </el-table-column>
@@ -553,7 +554,8 @@
         v-bind="formOptions"
       >
         <el-row v-bind="formOptions">
-          <template v-for="(value, key, index) in formData" :key="index">
+          <template>
+          <div v-for="(value, key, index) in formData" :key="index">
             <el-col
               v-if="formTemplate[key].component ? handleAttribute(formTemplate[key].component.show, true) : true"
               :span="formTemplate[key].component ? handleAttribute(formTemplate[key].component.span, 24) : 24"
@@ -697,6 +699,7 @@
                 </render-component>
               </el-form-item>
             </el-col>
+          </div>
           </template>
         </el-row>
       </el-form>

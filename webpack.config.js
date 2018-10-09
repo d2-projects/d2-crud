@@ -1,7 +1,10 @@
 var path = require('path')
 var webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
+  mode:'production',
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -10,6 +13,21 @@ module.exports = {
     library: 'D2Crud',
     libraryTarget: 'umd',
     umdNamedDefine: true
+  },
+  plugins: [
+    new VueLoaderPlugin(),
+    new webpack.SourceMapDevToolPlugin({
+      filename: "[file].map"
+    })
+  ],
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true
+      })
+    ]
   },
   module: {
     rules: [
@@ -86,7 +104,7 @@ module.exports = {
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  // devtool: '#eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {
