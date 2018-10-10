@@ -1,27 +1,42 @@
 <template>
-  <d2-crud
-    ref="d2Crud"
-    :columns="columns"
-    :data="viewData"
-    :options="options"
-    :form-template="formTemplate"
-    :form-options="formOptions"
-    :form-rules="formRules"
-    @dialog-cancel="handleDialogCancel"
-    @row-add="handleRowAdd"
-    @row-edit="handleRowEdit"
-    selection-row
-    @selection-change="selectionChangeHandle"
-    :pagination="pagination">
-  </d2-crud>
+  <div class="grid-btn">
+			<span v-if="hasPermission(permissionPath + 'save')">
+            <a class="btn btn-primary" @click="$emit('add')"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</span>
+      <span v-if="hasPermission(permissionPath + 'update')">
+            <a class="btn btn-primary" @click="$emit('save')"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</span>
+      <span v-if="hasPermission(permissionPath + 'delete')">
+            <a class="btn btn-primary" @click="$emit('del')"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</span>
+
+    <d2-crud
+      ref="d2Crud"
+      :columns="columns"
+      :data="viewData"
+      :options="options"
+      :form-template="formTemplate"
+      :form-options="formOptions"
+      :form-rules="formRules"
+      @dialog-cancel="handleDialogCancel"
+      @row-add="handleRowAdd"
+      @row-edit="handleRowEdit"
+      selection-row
+      @selection-change="selectionChangeHandle"
+      :pagination="pagination">
+    </d2-crud>
+  </div>
+
 </template>
 
 <script>
   // import d2Crud from './d2-crud'
   // import element from './element.js'
+  import crud from './mixin/crud.js'
 
   export default {
     name: 'crud',
+    mixins:[crud],
     data() {
       return {
         dataForm: {
@@ -48,14 +63,12 @@
           labelPosition: 'right',
           saveLoading: false,
           gutter: 10
-        }
+        },
+        permissionPath:''
       }
     },
     computed: {
       columns() { return this.colModel.map(it => ({'title': it.label, key: it.name, showOverflowTooltip: true}))},
-// const arr = columns.map(it => [it.key, {title:it.title}])
-// const map = new Map(arr)
-// const formTemplate = Object.fromEntries(map)
       formTemplate() {
         const formColumns = this.columns.filter(it => it.key != 'id')
         const formTemplate = {}
@@ -76,6 +89,7 @@
     created() {
       this.entityName = this.$parent.entityName
       this.colModel = this.$parent.colModel
+      this.permissionPath = this.$parent.modulePath.replace(/\//g,':')
       this.entityClass = spring.extend(this.entityName)
       this.$on('add', this.toAdd)
       this.$on('save', this.toUpdate)
@@ -89,7 +103,7 @@
       this.getDataList()
     },
     methods: {
-
+      hasPermission: window.hasPermission,
       // 每页数
       sizeChangeHandle(val) {
         this.pageSize = val
