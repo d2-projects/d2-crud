@@ -4,31 +4,34 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  mode:'production',
-  entry: './src/index.js',
+  mode:'development',
+  entry: {
+    // 'd2-crud': ['./src/index.js'],
+    crud: ['./src/crud.js']
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
+    filename: '[name].min.js',
     publicPath: '/dist/',
-    filename: 'd2-crud.js',
     library: 'D2Crud',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },
   plugins: [
     new VueLoaderPlugin(),
-    new webpack.SourceMapDevToolPlugin({
-      filename: "[file].map"
-    })
+    // new webpack.SourceMapDevToolPlugin({
+    //   filename: "[file].map"
+    // })
   ],
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true
-      })
-    ]
-  },
+  // optimization: {
+  //   minimizer: [
+  //     new UglifyJsPlugin({
+  //       cache: true,
+  //       parallel: true,
+  //       sourceMap: false
+  //     })
+  //   ]
+  // },
   module: {
     rules: [
       {
@@ -76,11 +79,11 @@ module.exports = {
           // other vue-loader options go here
         }
       },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
+      // {
+      //   test: /\.js$/,
+      //   loader: 'babel-loader',
+      //   exclude: /node_modules/
+      // },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
