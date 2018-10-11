@@ -45,7 +45,7 @@
         viewData: [],
         dataList: [],
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: 100,
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],

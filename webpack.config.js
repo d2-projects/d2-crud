@@ -4,9 +4,9 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  mode:'development',
+  mode:'production',
   entry: {
-    // 'd2-crud': ['./src/index.js'],
+    'd2-crud': ['./src/index.js'],
     crud: ['./src/crud.js']
   },
   output: {

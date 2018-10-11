@@ -194,7 +194,12 @@
               :scope="scope"
             >
             </render-component>
-            <template v-else>{{item.formatter ? item.formatter(scope.row, scope.column, _get(scope.row, item.key), scope.$index) : _get(scope.row, item.key)}}</template>
+            <template v-else>
+              <span v-if="item.formatter">
+                <span v-html="item.formatter(scope.row, scope.column, _get(scope.row, item.key), scope.$index)"></span>
+              </span>
+              <span v-else>{{_get(scope.row, item.key)}}</span>
+            </template>
           </template>
           <template v-if="item.children">
             <el-table-column
