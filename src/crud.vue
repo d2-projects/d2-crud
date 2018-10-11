@@ -9,7 +9,7 @@
       <span v-if="hasPermission(permissionPath + 'delete')">
             <a class="btn btn-primary" @click="$emit('del')"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
 			</span>
-
+    <slot name="headerButton"></slot>
     <d2-crud
       ref="d2Crud"
       :columns="columns"
@@ -152,6 +152,9 @@
       handleRowAdd(row, done) {
         this.formOptions.saveLoading = true
         this.current.patchData(row)
+        if(this.$parent.handleBeforeCreate){
+          this.$parent.handleBeforeCreate(this.current)
+        }
         this.addDate()
         this.current.save().then(this.success(done)).catch(this.fail)
         this.formOptions.saveLoading = false
