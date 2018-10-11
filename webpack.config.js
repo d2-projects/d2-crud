@@ -12,10 +12,10 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].min.js',
-    publicPath: '/dist/',
-    library: 'D2Crud',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    // publicPath: '/dist/',
+    // library: 'D2Crud',
+    // libraryTarget: 'umd',
+    // umdNamedDefine: true
   },
   plugins: [
     new VueLoaderPlugin(),

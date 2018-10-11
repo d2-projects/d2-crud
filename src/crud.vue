@@ -196,6 +196,9 @@
         }
         return await this.entityClass.findAll(param)
       },
+      async searchData(param, id) {
+        return await this.entityClass.search('findByCustomerId', {customerId: id, ...param})
+      },
       dateChange(val) {
         val.value = val.picker.date
       }
