@@ -64,27 +64,14 @@
           saveLoading: false,
           gutter: 10
         },
-        permissionPath:''
+        permissionPath:'',
+        columns:[],
+        formTemplate:{},
+        formRules:{}
       }
     },
     computed: {
-      columns() { return this.colModel.map(it => ({'title': it.label, key: it.name, showOverflowTooltip: true}))},
-      formTemplate() {
-        const formColumns = this.columns.filter(it => it.key != 'id')
-        const formTemplate = {}
-        formColumns.forEach(it => formTemplate[it.key] = {
-          title: it.title, component: {
-            span: 12
-          }
-        })
-        return formTemplate
-      },
-      formRules() {
-        const formColumns = this.columns.filter(it => it.key != 'id')
-        const formRules = {}
-        formColumns.forEach(it => formRules[it.key] = [{required: true, message: '请检查格式是否正确', trigger: 'blur'}])
-        return formRules
-      }
+
     },
     created() {
       this.entityName = this.$parent.entityName
@@ -101,6 +88,39 @@
       if (id) {this.id = id}
 
       this.getDataList()
+
+      let columns = this.colModel.map(it => ({'title': it.label, key: it.name, showOverflowTooltip: true}))
+
+      const formColumns = columns.filter(it => it.key != 'id')
+      const formTemplate = {}
+      // formColumns.forEach(it => formTemplate[it.key] = {
+      //   title: it.title, component: {
+      //     span: 12
+      //   }
+      // })
+      // const formTemplate = formColumns.reduce((a,it)=>{a[it.key]={
+      //   title: it.title, component: {span: 12}
+      // }
+      //   return a
+      // },{})
+      for( let it of formColumns){
+        formTemplate[it.key] = {
+          title: it.title, component: {
+            span: 12
+          }}
+      }
+
+      const formRules = {}
+      formColumns.forEach(it => formRules[it.key] = [{required: true, message: '请检查格式是否正确', trigger: 'blur'}])
+
+      // console.log(columns,formTemplate,formRules,this.id)
+
+      if(this.$parent.dataModel){
+        this.$parent.dataModel(columns,formTemplate,formRules,this.id)
+      }
+      this.columns = columns
+      this.formTemplate = formTemplate
+      this.formRules = formRules
     },
     methods: {
       hasPermission: window.hasPermission,
