@@ -93,16 +93,6 @@
 
       const formColumns = columns.filter(it => it.key != 'id')
       const formTemplate = {}
-      // formColumns.forEach(it => formTemplate[it.key] = {
-      //   title: it.title, component: {
-      //     span: 12
-      //   }
-      // })
-      // const formTemplate = formColumns.reduce((a,it)=>{a[it.key]={
-      //   title: it.title, component: {span: 12}
-      // }
-      //   return a
-      // },{})
       for( let it of formColumns){
         formTemplate[it.key] = {
           title: it.title, component: {
@@ -113,12 +103,15 @@
       const formRules = {}
       formColumns.forEach(it => formRules[it.key] = [{required: true, message: '请检查格式是否正确', trigger: 'blur'}])
 
-      // console.log(columns,formTemplate,formRules,this.id)
-
       if(this.$parent.dataModel){
-        this.$parent.dataModel(columns,formTemplate,formRules,this.id)
+        this.columns = await this.$parent.dataModel(columns,formTemplate,formRules,this.id)
+      } else {
+        this.columns = columns
       }
-      this.columns = columns
+      // if(this.columns === [] || this.columns === undefined){
+      //   this.columns = columns
+      // }
+
       this.formTemplate = formTemplate
       this.formRules = formRules
     },
