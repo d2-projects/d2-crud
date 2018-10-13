@@ -105,12 +105,13 @@
 
       if(this.$parent.dataModel){
         this.columns = await this.$parent.dataModel(columns,formTemplate,formRules,this.id)
-      } else {
-        this.columns = columns
       }
-      // if(this.columns === [] || this.columns === undefined){
+      // else {
       //   this.columns = columns
       // }
+      if(!this.columns || !this.columns[0]){
+        this.columns = columns
+      }
 
       this.formTemplate = formTemplate
       this.formRules = formRules
