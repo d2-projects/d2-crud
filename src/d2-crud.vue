@@ -39,6 +39,7 @@
         @row-dblclick="handleRowDblclick"
         @header-click="handleHeaderClick"
         @header-contextmenu="handleHeaderContextmenu"
+        style="width: 100%;"
       >
         <el-table-column
           v-if="selectionRow || selectionRow === ''"
@@ -773,11 +774,8 @@ export default {
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   }
   .d2-crud-body {
-    padding: 15px 0;
+    padding: 5px 0;
     overflow: hidden;
-  }
-  .d2-crud-pagination {
-    padding: 15px 0;
   }
 }
 </style>

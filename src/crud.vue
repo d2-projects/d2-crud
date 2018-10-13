@@ -82,7 +82,7 @@
       formRules() {
         const formColumns = this.columns.filter(it => it.key != 'id')
         const formRules = {}
-        formColumns.forEach(it => formRules[it.key] = [{required: true, message: '字段不能为空请输入', trigger: 'blur'}])
+        formColumns.forEach(it => formRules[it.key] = [{required: true, message: '请检查格式是否正确', trigger: 'blur'}])
         return formRules
       }
     },
