@@ -41,13 +41,13 @@ export default {
       await this.getInfo(id)
     },
     getUser() {
-      const user = alasql('SELECT * from crm.sys_user')
+      const user = alasql('SELECT * from user')
       if(user && user[0]){
         this.user = user[0]
       } else{
         $.getJSON(baseURL + 'sys/user/info?_' + $.now(), (r) => {
           this.user = r.user
-          alasql('SELECT * INTO crm.sys_user FROM ?', [[r.user]]);
+          alasql('SELECT * INTO user FROM ?', [[r.user]]);
         })
       }
 
