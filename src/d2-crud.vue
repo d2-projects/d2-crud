@@ -39,6 +39,7 @@
         @row-dblclick="handleRowDblclick"
         @header-click="handleHeaderClick"
         @header-contextmenu="handleHeaderContextmenu"
+        style="width: 100%;"
       >
         <el-table-column
           v-if="selectionRow || selectionRow === ''"
@@ -194,7 +195,12 @@
               :scope="scope"
             >
             </render-component>
-            <template v-else>{{item.formatter ? item.formatter(scope.row, scope.column, _get(scope.row, item.key), scope.$index) : _get(scope.row, item.key)}}</template>
+            <template v-else>
+              <span v-if="item.formatter">
+                <span v-html="item.formatter(scope.row, scope.column, _get(scope.row, item.key), scope.$index)"></span>
+              </span>
+              <span v-else>{{_get(scope.row, item.key)}}</span>
+            </template>
           </template>
           <template v-if="item.children">
             <el-table-column
@@ -512,8 +518,8 @@
             >
               {{handleAttribute(rowHandle.remove.text, '删除')}}
             </el-button>
-            <template
-              v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
+            <template>
+              <div v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
               :key="index">
               <el-button
                 v-if="handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
@@ -523,6 +529,7 @@
               >
                 {{item.text}}
               </el-button>
+              </div>
             </template>
           </template>
         </el-table-column>
@@ -553,7 +560,8 @@
         v-bind="formOptions"
       >
         <el-row v-bind="formOptions">
-          <template v-for="(value, key, index) in formData" :key="index">
+          <template>
+          <div v-for="(value, key, index) in formData" :key="index">
             <el-col
               v-if="formTemplate[key].component ? handleAttribute(formTemplate[key].component.show, true) : true"
               :span="formTemplate[key].component ? handleAttribute(formTemplate[key].component.span, 24) : 24"
@@ -668,6 +676,7 @@
                 <el-date-picker
                   v-else-if="formTemplate[key].component.name === 'el-date-picker'"
                   v-model="formData[key]"
+                  value-format="yyyy-MM-dd HH:mm:ss"
                   v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
                 >
                 </el-date-picker>
@@ -696,6 +705,7 @@
                 </render-component>
               </el-form-item>
             </el-col>
+          </div>
           </template>
         </el-row>
       </el-form>
@@ -724,8 +734,8 @@ import remove from './mixin/remove'
 import dialog from './mixin/dialog'
 import pagination from './mixin/pagination'
 import utils from './mixin/utils'
-import renderComponent from './components/renderComponent.vue'
-import renderCustomComponent from './components/renderCustomComponent.vue'
+import renderComponent from './components/renderComponent'
+import renderCustomComponent from './components/renderCustomComponent'
 // import d2Column from './components/d2-column.vue'
 
 export default {
@@ -745,7 +755,7 @@ export default {
     renderComponent,
     renderCustomComponent
     // d2Column
-  }
+    }
 }
 </script>
 
@@ -753,6 +763,7 @@ export default {
 .fr {
   float: right;
 }
+
 .d2-crud {
   .d2-crud-title {
     color: #535351;
@@ -763,11 +774,16 @@ export default {
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   }
   .d2-crud-body {
-    padding: 15px 0;
+    padding: 5px 0;
     overflow: hidden;
   }
-  .d2-crud-pagination {
-    padding: 15px 0;
-  }
 }
+</style>
+
+<style lang="scss" >
+  .el-dialog__wrapper {
+    .el-dialog {
+      width:80%
+    }
+  }
 </style>

@@ -23,7 +23,7 @@ export default {
       this.editIndex = index
       this.formData = this.formTemplate ? _clonedeep(this.formTemplate) : {}
       _forEach(this.formData, (value, key) => {
-        this.formData[key] = row.hasOwnProperty(key) ? row[key] : ''
+        this.formData[key] = row[key]
       })
     }
   }

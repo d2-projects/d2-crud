@@ -77,6 +77,7 @@ export default {
      */
     handleDialogCancel (done) {
       this.$emit('dialog-cancel', done)
+      this.$refs.form.resetFields()
     },
     /**
      * @description 保存完成
@@ -94,6 +95,7 @@ export default {
      * @description 关闭模态框
      */
     closeDialog () {
+
       this.showDialog = false
     }
   }

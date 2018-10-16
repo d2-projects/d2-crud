@@ -1,16 +1,37 @@
 var path = require('path')
 var webpack = require('webpack')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  mode:'production',
+  entry: {
+    'd2-crud': ['./src/index.js'],
+    crud: ['./src/crud.js']
+  },
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'd2-crud.js',
-    library: 'D2Crud',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    filename: '[name].min.js',
+    // publicPath: '/dist/',
+    // library: 'D2Crud',
+    // libraryTarget: 'umd',
+    // umdNamedDefine: true
   },
+  plugins: [
+    new VueLoaderPlugin(),
+    // new webpack.SourceMapDevToolPlugin({
+    //   filename: "[file].map"
+    // })
+  ],
+  // optimization: {
+  //   minimizer: [
+  //     new UglifyJsPlugin({
+  //       cache: true,
+  //       parallel: true,
+  //       sourceMap: false
+  //     })
+  //   ]
+  // },
   module: {
     rules: [
       {
@@ -58,11 +79,11 @@ module.exports = {
           // other vue-loader options go here
         }
       },
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/
-      },
+      // {
+      //   test: /\.js$/,
+      //   loader: 'babel-loader',
+      //   exclude: /node_modules/
+      // },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
@@ -78,34 +99,4 @@ module.exports = {
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map'
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  // http://vue-loader.vuejs.org/en/workflow/production.html
-  module.exports.plugins = (module.exports.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
 }
