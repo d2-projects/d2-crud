@@ -10,8 +10,8 @@
 
 
 ## 文档和示例
-文档：<https://d2-projects.github.io/d2-admin-doc/zh/ecosystem-d2-crud/>   
-示例：<https://d2-projects.github.io/d2-admin/#/demo/d2-crud/index>
+文档：<https://doc.d2admin.fairyever.com/zh/ecosystem-d2-crud/>   
+示例：<https://d2admin.fairyever.com/#/demo/d2-crud/index>
 
 ## 功能
 - 继承了 Element 中表格所有功能
