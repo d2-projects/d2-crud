@@ -701,7 +701,7 @@
       </el-form>
       <div slot="footer">
         <el-button
-          :size="$d2CrudSize ? Object.assign({ saveButtonSize: $d2CrudSize}, formOptions) : null"
+          :size="formOptions ? handleAttribute(formOptions.saveButtonSize, null) : null"
           :type="formOptions ? handleAttribute(formOptions.saveButtonType, null) : null"
           :icon="formOptions ? handleAttribute(formOptions.saveButtonIcon, null) : null"
           :loading="formOptions ? handleAttribute(formOptions.saveLoading, false) : false"
