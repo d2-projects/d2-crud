@@ -13,13 +13,20 @@ export default {
      */
     componentName: {
       required: true
+    },
+    /**
+     * @description 传入的行数据
+     */
+    scope: {
+      default: null
     }
   },
   render (h) {
     let self = this
-    return h(this.componentName, {
+    return h(self.componentName, {
       props: {
-        value: self.value
+        value: self.value,
+        scope: self.scope
       },
       on: {
         input: function (event) {

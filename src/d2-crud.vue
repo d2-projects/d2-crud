@@ -186,7 +186,8 @@
             <render-custom-component
               v-else-if="item.component && item.component.name"
               v-model="scope.row[item.key]"
-              :component-name="item.component.name">
+              :component-name="item.component.name"
+              :scope="scope">
             </render-custom-component>
             <render-component
               v-else-if="item.component && item.component.render"
@@ -328,7 +329,8 @@
                 <render-custom-component
                   v-else-if="item2.component && item2.component.name"
                   v-model="scope.row[item2.key]"
-                  :component-name="item2.component.name">
+                  :component-name="item2.component.name"
+                  :scope="scope">
                 </render-custom-component>
                 <render-component
                   v-else-if="item2.component && item2.component.render"
@@ -470,7 +472,8 @@
                     <render-custom-component
                       v-else-if="item3.component && item3.component.name"
                       v-model="scope.row[item3.key]"
-                      :component-name="item3.component.name">
+                      :component-name="item3.component.name"
+                      :scope="scope">
                     </render-custom-component>
                     <render-component
                       v-else-if="item3.component && item3.component.render"
@@ -701,7 +704,7 @@
       </el-form>
       <div slot="footer">
         <el-button
-          :size="$d2CrudSize ? Object.assign({ saveButtonSize: $d2CrudSize}, formOptions) : null"
+          :size="formOptions ? handleAttribute(formOptions.saveButtonSize, null) : null"
           :type="formOptions ? handleAttribute(formOptions.saveButtonType, null) : null"
           :icon="formOptions ? handleAttribute(formOptions.saveButtonIcon, null) : null"
           :loading="formOptions ? handleAttribute(formOptions.saveLoading, false) : false"
