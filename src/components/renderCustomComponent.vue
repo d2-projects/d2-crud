@@ -15,6 +15,12 @@ export default {
       required: true
     },
     /**
+     * @description 传入的自定义参数
+     */
+    props: {
+      default: null
+    },
+    /**
      * @description 传入的行数据
      */
     scope: {
@@ -26,6 +32,7 @@ export default {
     return h(self.componentName, {
       props: {
         value: self.value,
+        props: self.props,
         scope: self.scope
       },
       on: {

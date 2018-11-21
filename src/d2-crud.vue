@@ -187,6 +187,7 @@
               v-else-if="item.component && item.component.name"
               v-model="scope.row[item.key]"
               :component-name="item.component.name"
+              :props="item.component.props ? item.component.props : null"
               :scope="scope">
             </render-custom-component>
             <render-component
@@ -330,6 +331,7 @@
                   v-else-if="item2.component && item2.component.name"
                   v-model="scope.row[item2.key]"
                   :component-name="item2.component.name"
+                  :props="item2.component.props ? item2.component.props : null"
                   :scope="scope">
                 </render-custom-component>
                 <render-component
@@ -473,6 +475,7 @@
                       v-else-if="item3.component && item3.component.name"
                       v-model="scope.row[item3.key]"
                       :component-name="item3.component.name"
+                      :props="item3.component.props ? item3.component.props : null"
                       :scope="scope">
                     </render-custom-component>
                     <render-component
