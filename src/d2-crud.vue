@@ -692,7 +692,9 @@
                 <render-custom-component
                   v-else-if="formTemplate[key].component.name"
                   v-model="formData[key]"
-                  :component-name="formTemplate[key].component.name">
+                  :component-name="formTemplate[key].component.name"
+                  :props="formTemplate[key].component.props ? formTemplate[key].component.props : null"
+                >
                 </render-custom-component>
                 <render-component
                   v-else-if="formTemplate[key].component.render"
