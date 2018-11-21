@@ -547,6 +547,10 @@
       :title="formMode === 'edit' ? '编辑' : '新增'"
       :visible.sync="showDialog"
       :before-close="handleDialogCancel"
+      @open="handleDialogOpen"
+      @opened="handleDialogOpened"
+      @close="handleDialogClose"
+      @closed="handleDialogClosed"
       v-bind="formOptions"
     >
       <el-form
