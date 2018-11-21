@@ -32,8 +32,8 @@ export default {
     return h(self.componentName, {
       props: {
         value: self.value,
-        props: self.props,
-        scope: self.scope
+        scope: self.scope,
+        ...self.props
       },
       on: {
         input: function (event) {
