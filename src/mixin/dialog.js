@@ -59,15 +59,21 @@ export default {
           this.$emit('row-edit', {
             index: this.editIndex,
             row: rowData
-          }, () => {
-            this.handleDialogSaveDone(rowData)
+          }, (param = null) => {
+            this.handleDialogSaveDone({
+              ...rowData,
+              ...param
+            })
           })
         } else if (this.formMode === 'add') {
           _forEach(this.formData, (value, key) => {
             this._set(rowData, key, value)
           })
-          this.$emit('row-add', rowData, () => {
-            this.handleDialogSaveDone(rowData)
+          this.$emit('row-add', rowData, (param = null) => {
+            this.handleDialogSaveDone({
+              ...rowData,
+              ...param
+            })
           })
         }
       })
