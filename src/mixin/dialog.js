@@ -60,6 +60,10 @@ export default {
             index: this.editIndex,
             row: rowData
           }, (param = null) => {
+            if (param === false) {
+              this.closeDialog()
+              return
+            }
             this.handleDialogSaveDone({
               ...rowData,
               ...param
@@ -70,6 +74,10 @@ export default {
             this._set(rowData, key, value)
           })
           this.$emit('row-add', rowData, (param = null) => {
+            if (param === false) {
+              this.closeDialog()
+              return
+            }
             this.handleDialogSaveDone({
               ...rowData,
               ...param

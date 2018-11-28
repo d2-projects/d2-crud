@@ -1,7 +1,7 @@
 {
   "name": "@d2-projects/d2-crud",
   "description": "A d2-projects project",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "author": "孙昊翔 <673686754@qq.com>",
   "license": "MIT",
   "private": false,
