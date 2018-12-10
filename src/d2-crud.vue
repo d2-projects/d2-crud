@@ -23,7 +23,7 @@
     <div class="d2-crud-body">
       <el-table
         ref="elTable"
-        :data="pagination ? d2PaginationData : d2Data"
+        :data="d2CrudData"
         v-bind="options"
         @current-change="handleCurrentChange"
         @select="handleSelect"
@@ -536,8 +536,6 @@
     </div>
     <div class="d2-crud-pagination" v-if="pagination">
       <el-pagination
-        :total="d2DataLength"
-        :currentPage.sync="currentPage"
         v-bind="pagination"
         @size-change="handlePaginationSizeChange"
         @current-change="handlePaginationCurrentChange"
