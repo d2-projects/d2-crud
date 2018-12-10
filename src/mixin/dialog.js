@@ -11,6 +11,20 @@ export default {
       default: null
     },
     /**
+     * @description dialog新增标题
+     */
+    addTitle: {
+      type: String,
+      default: '添加'
+    },
+    /**
+     * @description dialog修改标题
+     */
+    editTitle: {
+      type: String,
+      default: '编辑'
+    },
+    /**
      * @description 新增表单模板
      */
     addTemplate: {

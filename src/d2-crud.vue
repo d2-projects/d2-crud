@@ -545,7 +545,7 @@
       </el-pagination>
     </div>
     <el-dialog
-      :title="formMode === 'edit' ? '编辑' : '新增'"
+      :title="formMode === 'edit' ? editTitle : addTitle"
       :visible.sync="showDialog"
       :before-close="handleDialogCancel"
       v-bind="formOptions"
