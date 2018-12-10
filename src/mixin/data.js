@@ -19,7 +19,7 @@ export default {
        */
       d2CrudData: [],
       /**
-       * @description 编辑暂存数据，用于储存不在formTemplate中的数据
+       * @description 编辑暂存数据，用于储存不在editTemplate中的数据
        */
       editDataStorage: {}
     }
@@ -59,15 +59,7 @@ export default {
      */
     handleSortDataChange () {
       this.$nextTick(() => {
-        if (this.pagination) {
-          let j = 0
-          for (let i = this.paginationDataStart; i < this.paginationDataEnd; i++) {
-            this.d2CrudData[i] = this.$refs.elTable.store.states.data[j]
-            j += 1
-          }
-        } else {
-          this.d2CrudData = this.$refs.elTable.store.states.data
-        }
+        this.d2CrudData = this.$refs.elTable.store.states.data
       })
     },
     /**
@@ -83,11 +75,7 @@ export default {
      * @param {Object} row 更新的表格行数据
      */
     updateRow (index, row) {
-      if (this.pagination) {
-        this.$set(this.d2CrudData, index + this.paginationDataStart, row)
-      } else {
-        this.$set(this.d2CrudData, index, row)
-      }
+      this.$set(this.d2CrudData, index, row)
       if (this.defaultSort) {
         this.handleSortDataChange()
       }
@@ -107,11 +95,7 @@ export default {
      * @param {Object} index 被删除行索引
      */
     removeRow (index) {
-      if (this.pagination) {
-        this.$delete(this.d2CrudData, index + this.paginationDataStart)
-      } else {
-        this.$delete(this.d2CrudData, index)
-      }
+      this.$delete(this.d2CrudData, index)
       if (this.defaultSort) {
         this.handleSortDataChange()
       }

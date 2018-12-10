@@ -11,9 +11,16 @@ export default {
       default: null
     },
     /**
-     * @description 表单模板
+     * @description 新增表单模板
      */
-    formTemplate: {
+    addTemplate: {
+      type: Object,
+      default: null
+    },
+    /**
+     * @description 修改表单模板
+     */
+    editTemplate: {
       type: Object,
       default: null
     },

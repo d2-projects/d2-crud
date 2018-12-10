@@ -559,34 +559,34 @@
         <el-row v-bind="formOptions">
           <template v-for="(value, key, index) in formData" :key="index">
             <el-col
-              v-if="formTemplate[key].component ? handleAttribute(formTemplate[key].component.show, true) : true"
-              :span="formTemplate[key].component ? handleAttribute(formTemplate[key].component.span, 24) : 24"
-              :offset="formTemplate[key].component ? handleAttribute(formTemplate[key].component.offset, 0) : 0"
+              v-if="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.show, true) : true"
+              :span="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.span, 24) : 24"
+              :offset="handleFormTemplateMode(key).component ? handleAttribute(handleFormTemplateMode(key).component.offset, 0) : 0"
             >
               <el-form-item
-                :label="formTemplate[key].title"
+                :label="handleFormTemplateMode(key).title"
                 :prop="key"
               >
                 <el-input
-                  v-if="(!formTemplate[key].component) ||((!formTemplate[key].component.name) && (!formTemplate[key].component.render)) || formTemplate[key].component.name === 'el-input'"
+                  v-if="(!handleFormTemplateMode(key).component) ||((!handleFormTemplateMode(key).component.name) && (!handleFormTemplateMode(key).component.render)) || handleFormTemplateMode(key).component.name === 'el-input'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
                 </el-input>
                 <el-input-number
-                  v-else-if="formTemplate[key].component.name === 'el-input-number'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-input-number'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
                 </el-input-number>
                 <el-radio-group
-                  v-else-if="formTemplate[key].component.name === 'el-radio'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-radio'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
-                  <template v-if="formTemplate[key].component.buttonMode">
+                  <template v-if="handleFormTemplateMode(key).component.buttonMode">
                     <el-radio-button
-                      v-for="option in formTemplate[key].component.options"
+                      v-for="option in handleFormTemplateMode(key).component.options"
                       :key="option.value"
                       :label="option.value"
                     >
@@ -595,7 +595,7 @@
                   </template>
                   <template v-else>
                     <el-radio
-                      v-for="option in formTemplate[key].component.options"
+                      v-for="option in handleFormTemplateMode(key).component.options"
                       :key="option.value"
                       :label="option.value"
                     >
@@ -604,13 +604,13 @@
                   </template>
                 </el-radio-group>
                 <el-checkbox-group
-                  v-else-if="formTemplate[key].component.name === 'el-checkbox'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-checkbox'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
-                  <template v-if="formTemplate[key].component.buttonMode">
+                  <template v-if="handleFormTemplateMode(key).component.buttonMode">
                     <el-checkbox-button
-                      v-for="option in formTemplate[key].component.options"
+                      v-for="option in handleFormTemplateMode(key).component.options"
                       :key="option.value"
                       :label="option.value"
                     >
@@ -619,7 +619,7 @@
                   </template>
                   <template v-else>
                     <el-checkbox
-                      v-for="option in formTemplate[key].component.options"
+                      v-for="option in handleFormTemplateMode(key).component.options"
                       :key="option.value"
                       :label="option.value"
                     >
@@ -628,75 +628,75 @@
                   </template>
                 </el-checkbox-group>
                 <el-select
-                  v-else-if="formTemplate[key].component.name === 'el-select'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-select'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
                   <el-option
-                    v-for="option in formTemplate[key].component.options"
+                    v-for="option in handleFormTemplateMode(key).component.options"
                     :key="option.value"
                     v-bind="option"
                   >
                   </el-option>
                 </el-select>
                 <el-cascader
-                  v-else-if="formTemplate[key].component.name === 'el-cascader'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-cascader'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
                 </el-cascader>
                 <el-switch
-                  v-else-if="formTemplate[key].component.name === 'el-switch'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-switch'"
                   v-model="formData[key]"
-                  v-bind="formTemplate[key].component"
+                  v-bind="handleFormTemplateMode(key).component"
                 >
                 </el-switch>
                 <el-slider
-                  v-else-if="formTemplate[key].component.name === 'el-slider'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-slider'"
                   v-model="formData[key]"
-                  v-bind="formTemplate[key].component"
+                  v-bind="handleFormTemplateMode(key).component"
                 >
                 </el-slider>
                 <el-time-select
-                  v-else-if="formTemplate[key].component.name === 'el-time-select'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-time-select'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
                 </el-time-select>
                 <el-time-picker
-                  v-else-if="formTemplate[key].component.name === 'el-time-picker'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-time-picker'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
                 </el-time-picker>
                 <el-date-picker
-                  v-else-if="formTemplate[key].component.name === 'el-date-picker'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-date-picker'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
                 </el-date-picker>
                 <el-rate
-                  v-else-if="formTemplate[key].component.name === 'el-rate'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-rate'"
                   v-model="formData[key]"
-                  v-bind="formTemplate[key].component"
+                  v-bind="handleFormTemplateMode(key).component"
                 >
                 </el-rate>
                 <el-color-picker
-                  v-else-if="formTemplate[key].component.name === 'el-color-picker'"
+                  v-else-if="handleFormTemplateMode(key).component.name === 'el-color-picker'"
                   v-model="formData[key]"
-                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, formTemplate[key].component) : formTemplate[key].component"
+                  v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, handleFormTemplateMode(key).component) : handleFormTemplateMode(key).component"
                 >
                 </el-color-picker>
                 <render-custom-component
-                  v-else-if="formTemplate[key].component.name"
+                  v-else-if="handleFormTemplateMode(key).component.name"
                   v-model="formData[key]"
-                  :component-name="formTemplate[key].component.name"
-                  :props="formTemplate[key].component.props ? formTemplate[key].component.props : null"
+                  :component-name="handleFormTemplateMode(key).component.name"
+                  :props="handleFormTemplateMode(key).component.props ? handleFormTemplateMode(key).component.props : null"
                 >
                 </render-custom-component>
                 <render-component
-                  v-else-if="formTemplate[key].component.render"
-                  :render-function="formTemplate[key].component.render"
+                  v-else-if="handleFormTemplateMode(key).component.render"
+                  :render-function="handleFormTemplateMode(key).component.render"
                   :scope="formData[key]"
                 >
                 </render-component>

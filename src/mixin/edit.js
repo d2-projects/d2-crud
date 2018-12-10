@@ -21,7 +21,7 @@ export default {
       this.editDataStorage = _clonedeep(row)
       this.showDialog = true
       this.editIndex = index
-      this.formData = this.formTemplate ? _clonedeep(this.formTemplate) : {}
+      this.formData = this.editTemplate ? _clonedeep(this.editTemplate) : {}
       _forEach(this.formData, (value, key) => {
         this.formData[key] = row.hasOwnProperty(key) ? row[key] : ''
       })
