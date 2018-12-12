@@ -25,6 +25,12 @@ export default {
      */
     handleRemoveDone (index) {
       this.removeRow(index)
+    },
+    /**
+     * @description 外部暴露的删除方法
+     */
+    crudRemoveRow (index) {
+      this.removeRow(index)
     }
   }
 }
