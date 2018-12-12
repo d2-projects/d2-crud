@@ -25,12 +25,6 @@ export default {
       _forEach(this.formData, (value, key) => {
         this.formData[key] = row.hasOwnProperty(key) ? row[key] : ''
       })
-    },
-    /**
-     * @description 外部暴露的编辑方法
-     */
-    crudEditRow (index) {
-      this.handleEdit(index, this.d2CrudData[index])
     }
   }
 }

@@ -99,15 +99,6 @@ export default {
       if (this.defaultSort) {
         this.handleSortDataChange()
       }
-    },
-    /**
-     * @description 外部暴露的更新单元格数据方法
-     */
-    setCellValue (key, value, rowIndex) {
-      this.$set(this.d2CrudData, rowIndex, {
-        ...this.d2CrudData[rowIndex],
-        [key]: value
-      })
     }
   }
 }

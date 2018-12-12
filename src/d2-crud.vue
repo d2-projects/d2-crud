@@ -742,6 +742,7 @@ import add from './mixin/add'
 import remove from './mixin/remove'
 import dialog from './mixin/dialog'
 import pagination from './mixin/pagination'
+import exposeMethods from './mixin/exposeMethods.js'
 import utils from './mixin/utils'
 import renderComponent from './components/renderComponent.vue'
 import renderCustomComponent from './components/renderCustomComponent.vue'
@@ -758,6 +759,7 @@ export default {
     remove,
     dialog,
     pagination,
+    exposeMethods,
     utils
   ],
   components: {

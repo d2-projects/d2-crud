@@ -29,12 +29,6 @@ export default {
       _forEach(this.formData, (value, key) => {
         this.formData[key] = this.addTemplate[key].value
       })
-    },
-    /**
-     * @description 外部暴露的新增方法
-     */
-    crudAddRow () {
-      this.handleAdd()
     }
   }
 }
