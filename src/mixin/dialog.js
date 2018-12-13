@@ -51,7 +51,7 @@ export default {
       /**
        * @description dialog显示与隐藏
        */
-      showDialog: false,
+      isDialogShow: false,
       /**
        * @description 表单数据
        */
@@ -82,7 +82,7 @@ export default {
             row: rowData
           }, (param = null) => {
             if (param === false) {
-              this.closeDialog()
+              this.handleCloseDialog()
               return
             }
             this.handleDialogSaveDone({
@@ -96,7 +96,7 @@ export default {
           })
           this.$emit('row-add', rowData, (param = null) => {
             if (param === false) {
-              this.closeDialog()
+              this.handleCloseDialog()
               return
             }
             this.handleDialogSaveDone({
@@ -118,18 +118,18 @@ export default {
      */
     handleDialogSaveDone (rowData) {
       if (this.formMode === 'edit') {
-        this.updateRow(this.editIndex, rowData)
+        this.handleUpdateRow(this.editIndex, rowData)
         this.editDataStorage = {}
       } else if (this.formMode === 'add') {
-        this.addRow(rowData)
+        this.handleAddRow(rowData)
       }
-      this.closeDialog()
+      this.handleCloseDialog()
     },
     /**
      * @description 关闭模态框
      */
-    closeDialog () {
-      this.showDialog = false
+    handleCloseDialog () {
+      this.isDialogShow = false
     }
   }
 }

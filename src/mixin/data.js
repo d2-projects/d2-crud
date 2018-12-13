@@ -74,7 +74,7 @@ export default {
      * @param {Number} index 表格数据索引
      * @param {Object} row 更新的表格行数据
      */
-    updateRow (index, row) {
+    handleUpdateRow (index, row) {
       this.$set(this.d2CrudData, index, row)
       if (this.defaultSort) {
         this.handleSortDataChange()
@@ -84,7 +84,7 @@ export default {
      * @description 新增行数据
      * @param {Object} row 新增的表格行数据
      */
-    addRow (row) {
+    handleAddRow (row) {
       this.$set(this.d2CrudData, this.d2CrudData.length, row)
       if (this.defaultSort) {
         this.handleSortDataChange()
@@ -94,7 +94,7 @@ export default {
      * @description 删除行
      * @param {Object} index 被删除行索引
      */
-    removeRow (index) {
+    handleRemoveRow (index) {
       this.$delete(this.d2CrudData, index)
       if (this.defaultSort) {
         this.handleSortDataChange()

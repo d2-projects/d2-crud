@@ -585,7 +585,7 @@
     </div>
     <el-dialog
       :title="formMode === 'edit' ? editTitle : addTitle"
-      :visible.sync="showDialog"
+      :visible.sync="isDialogShow"
       :before-close="handleDialogCancel"
       v-bind="formOptions"
     >

@@ -24,7 +24,7 @@ export default {
      */
     handleAdd () {
       this.formMode = 'add'
-      this.showDialog = true
+      this.isDialogShow = true
       this.formData = this.addTemplate ? _clonedeep(this.addTemplate) : {}
       _forEach(this.formData, (value, key) => {
         this.formData[key] = this.addTemplate[key].value

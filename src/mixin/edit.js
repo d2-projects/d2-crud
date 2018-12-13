@@ -19,7 +19,7 @@ export default {
     handleEdit (index, row) {
       this.formMode = 'edit'
       this.editDataStorage = _clonedeep(row)
-      this.showDialog = true
+      this.isDialogShow = true
       this.editIndex = index
       this.formData = this.editTemplate ? _clonedeep(this.editTemplate) : {}
       _forEach(this.formData, (value, key) => {

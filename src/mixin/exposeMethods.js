@@ -3,7 +3,7 @@ export default {
     /**
      * @description 外部暴露的更新单元格数据方法
      */
-    crudUpdateCell (rowIndex, key, value) {
+    updateCell (rowIndex, key, value) {
       this.$set(this.d2CrudData, rowIndex, {
         ...this.d2CrudData[rowIndex],
         [key]: value
@@ -12,25 +12,25 @@ export default {
     /**
      * @description 外部暴露的新增行方法
      */
-    crudAddRow (row) {
-      this.addRow(row)
+    addRow (row) {
+      this.handleAddRow(row)
     },
     /**
      * @description 外部暴露的编辑行方法
      */
-    crudUpdateRow (index, row) {
-      this.updateRow(index, row)
+    updateRow (index, row) {
+      this.handleUpdateRow(index, row)
     },
     /**
      * @description 外部暴露的删除行方法
      */
-    crudRemoveRow (index) {
-      this.removeRow(index)
+    removeRow (index) {
+      this.handleRemoveRow(index)
     },
     /**
-     * @description 外部暴露的触发模态框方法
+     * @description 外部暴露的打开模态框方法
      */
-    crudShowDialog (mode, rowIndex = null) {
+    showDialog (mode, rowIndex = null) {
       if (mode === 'edit') {
         if (!rowIndex) {
           return
@@ -39,6 +39,12 @@ export default {
       } else if (mode === 'add') {
         this.handleAdd()
       }
+    },
+    /**
+     * @description 外部暴露的关闭模态框方法
+     */
+    closeDialog () {
+      this.handleCloseDialog()
     }
   }
 }
