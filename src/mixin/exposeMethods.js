@@ -32,6 +32,9 @@ export default {
      */
     crudShowDialog (mode, rowIndex = null) {
       if (mode === 'edit') {
+        if (!rowIndex) {
+          return
+        }
         this.handleEdit(rowIndex, this.d2CrudData[rowIndex])
       } else if (mode === 'add') {
         this.handleAdd()
