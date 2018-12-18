@@ -7,7 +7,7 @@
     :element-loading-background="loadingOptions ? handleAttribute(loadingOptions.background, null) : null"
   >
     <div class="d2-crud-title" v-if="title || addMode || $slots.headerButton">
-      <span>{{title}}</span>
+      <!-- <span>{{title}}</span>
       <div class="fr">
         <el-button
           v-if="addMode"
@@ -18,7 +18,7 @@
           {{addButton ? handleAttribute(addButton.text, '新增') : '新增'}}
         </el-button>
         <slot name="headerButton"></slot>
-      </div>
+      </div> -->
     </div>
     <div class="d2-crud-body">
       <el-table
