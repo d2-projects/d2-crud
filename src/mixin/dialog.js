@@ -59,7 +59,15 @@ export default {
       /**
        * @description 表单模式
        */
-      formMode: 'edit'
+      formMode: 'edit',
+      /**
+       * @description 新增表单模板暂存
+       */
+      addTemplateStorage: {},
+      /**
+       * @description 修改表单模板暂存
+       */
+      editTemplateStorage: {}
     }
   },
   methods: {

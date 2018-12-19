@@ -6,19 +6,8 @@
     :element-loading-spinner="loadingOptions ? handleAttribute(loadingOptions.spinner, null) : null"
     :element-loading-background="loadingOptions ? handleAttribute(loadingOptions.background, null) : null"
   >
-    <div class="d2-crud-title" v-if="title || addMode || $slots.headerButton">
-      <!-- <span>{{title}}</span>
-      <div class="fr">
-        <el-button
-          v-if="addMode"
-          :icon="addButton ? handleAttribute(addButton.icon, 'el-icon-plus') : 'el-icon-plus'"
-          v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, addButton) : addButton"
-          @click="handleAdd"
-        >
-          {{addButton ? handleAttribute(addButton.text, '新增') : '新增'}}
-        </el-button>
-        <slot name="headerButton"></slot>
-      </div> -->
+    <div class="d2-crud-header" v-if="$slots.header">
+      <slot name="header"></slot>
     </div>
     <div class="d2-crud-body">
       <el-table
@@ -797,16 +786,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.fr {
-  float: right;
-}
 .d2-crud {
-  .d2-crud-title {
-    color: #535351;
-    height: 45px;
-    line-height: 45px;
-    font-size: 14px;
-    font-weight: bold;
+  .d2-crud-header {
     border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
   }
   .d2-crud-body {

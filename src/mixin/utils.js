@@ -14,9 +14,9 @@ export default {
      */
     handleFormTemplateMode (key) {
       if (this.formMode === 'edit') {
-        return this.editTemplate[key]
+        return this.editTemplateStorage[key]
       } else if (this.formMode === 'add') {
-        return this.addTemplate[key]
+        return this.addTemplateStorage[key]
       }
     }
   }

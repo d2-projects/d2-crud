@@ -30,14 +30,15 @@ export default {
     /**
      * @description 外部暴露的打开模态框方法
      */
-    showDialog (mode, rowIndex = null) {
+    showDialog ({
+      mode,
+      rowIndex = 0,
+      template = null
+    }) {
       if (mode === 'edit') {
-        if (!rowIndex) {
-          return
-        }
-        this.handleEdit(rowIndex, this.d2CrudData[rowIndex])
+        this.handleEdit(rowIndex, this.d2CrudData[rowIndex], template)
       } else if (mode === 'add') {
-        this.handleAdd()
+        this.handleAdd(template)
       }
     },
     /**
