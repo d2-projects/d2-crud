@@ -17,11 +17,7 @@ export default {
       /**
        * @description 表格内部数据
        */
-      d2CrudData: [],
-      /**
-       * @description 编辑暂存数据，用于储存不在editTemplate中的数据
-       */
-      editDataStorage: {}
+      d2CrudData: []
     }
   },
   computed: {

@@ -61,6 +61,10 @@ export default {
        */
       formMode: 'edit',
       /**
+       * @description 编辑暂存数据，用于储存不在editTemplate中的数据
+       */
+      editDataStorage: {},
+      /**
        * @description 新增表单模板暂存
        */
       addTemplateStorage: {},
