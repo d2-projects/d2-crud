@@ -39,9 +39,16 @@ export default {
       default: null
     },
     /**
-     * @description 表单校验规则
+     * @description 新增表单校验规则
      */
-    formRules: {
+    addRules: {
+      type: Object,
+      default: null
+    },
+    /**
+     * @description 编辑表单校验规则
+     */
+    editRules: {
       type: Object,
       default: null
     }

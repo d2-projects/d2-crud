@@ -581,7 +581,7 @@
       <el-form
         ref="form"
         :model="formData"
-        :rules="formRules"
+        :rules="handleFormTemplateMode()"
         v-bind="formOptions"
       >
         <el-row v-bind="formOptions">
