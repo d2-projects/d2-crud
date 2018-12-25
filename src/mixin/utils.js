@@ -22,7 +22,7 @@ export default {
     /**
      * @description 根据dialog模式渲染不同表单校验规则
      */
-    handleFormTemplateMode () {
+    handleFormRulesMode () {
       if (this.formMode === 'edit') {
         return this.editRules
       } else if (this.formMode === 'add') {
