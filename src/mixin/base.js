@@ -1,12 +1,6 @@
 export default {
   props: {
     /**
-     * @description 表格标题
-     */
-    title: {
-      default: ''
-    },
-    /**
      * @description 表头数据
      */
     columns: {

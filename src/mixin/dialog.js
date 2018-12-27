@@ -11,16 +11,44 @@ export default {
       default: null
     },
     /**
-     * @description 表单模板
+     * @description dialog新增标题
      */
-    formTemplate: {
+    addTitle: {
+      type: String,
+      default: '添加'
+    },
+    /**
+     * @description dialog修改标题
+     */
+    editTitle: {
+      type: String,
+      default: '编辑'
+    },
+    /**
+     * @description 新增表单模板
+     */
+    addTemplate: {
       type: Object,
       default: null
     },
     /**
-     * @description 表单校验规则
+     * @description 修改表单模板
      */
-    formRules: {
+    editTemplate: {
+      type: Object,
+      default: null
+    },
+    /**
+     * @description 新增表单校验规则
+     */
+    addRules: {
+      type: Object,
+      default: null
+    },
+    /**
+     * @description 编辑表单校验规则
+     */
+    editRules: {
       type: Object,
       default: null
     }
@@ -30,7 +58,7 @@ export default {
       /**
        * @description dialog显示与隐藏
        */
-      showDialog: false,
+      isDialogShow: false,
       /**
        * @description 表单数据
        */
@@ -38,7 +66,19 @@ export default {
       /**
        * @description 表单模式
        */
-      formMode: 'edit'
+      formMode: 'edit',
+      /**
+       * @description 编辑暂存数据，用于储存不在editTemplate中的数据
+       */
+      editDataStorage: {},
+      /**
+       * @description 新增表单模板暂存
+       */
+      addTemplateStorage: {},
+      /**
+       * @description 修改表单模板暂存
+       */
+      editTemplateStorage: {}
     }
   },
   methods: {
@@ -61,7 +101,7 @@ export default {
             row: rowData
           }, (param = null) => {
             if (param === false) {
-              this.closeDialog()
+              this.handleCloseDialog()
               return
             }
             this.handleDialogSaveDone({
@@ -75,7 +115,7 @@ export default {
           })
           this.$emit('row-add', rowData, (param = null) => {
             if (param === false) {
-              this.closeDialog()
+              this.handleCloseDialog()
               return
             }
             this.handleDialogSaveDone({
@@ -97,18 +137,18 @@ export default {
      */
     handleDialogSaveDone (rowData) {
       if (this.formMode === 'edit') {
-        this.updateRow(this.editIndex, rowData)
+        this.handleUpdateRow(this.editIndex, rowData)
         this.editDataStorage = {}
       } else if (this.formMode === 'add') {
-        this.addRow(rowData)
+        this.handleAddRow(rowData)
       }
-      this.closeDialog()
+      this.handleCloseDialog()
     },
     /**
      * @description 关闭模态框
      */
-    closeDialog () {
-      this.showDialog = false
+    handleCloseDialog () {
+      this.isDialogShow = false
     }
   }
 }

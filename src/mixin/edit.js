@@ -16,12 +16,22 @@ export default {
      * @param {Number} index 行所在索引
      * @param {Object} row 行数据
      */
-    handleEdit (index, row) {
+    handleEdit (index, row, templage = null) {
       this.formMode = 'edit'
       this.editDataStorage = _clonedeep(row)
-      this.showDialog = true
+      this.isDialogShow = true
+      this.$emit('dialog-open', {
+        mode: 'edit',
+        row
+      })
       this.editIndex = index
-      this.formData = this.formTemplate ? _clonedeep(this.formTemplate) : {}
+      if (templage) {
+        this.formData = _clonedeep(templage)
+        this.editTemplateStorage = _clonedeep(templage)
+      } else {
+        this.formData = this.editTemplate ? _clonedeep(this.editTemplate) : {}
+        this.editTemplateStorage = this.editTemplate ? _clonedeep(this.editTemplate) : {}
+      }
       _forEach(this.formData, (value, key) => {
         this.formData[key] = row.hasOwnProperty(key) ? row[key] : ''
       })
