@@ -17,34 +17,17 @@ export default {
       /**
        * @description 表格内部数据
        */
-      d2Data: [],
-      /**
-       * @description 表格当前分页数据
-       */
-      d2PaginationData: [],
-      /**
-       * @description 编辑暂存数据，用于储存不在formTemplate中的数据
-       */
-      editDataStorage: {}
+      d2CrudData: []
     }
   },
   computed: {
-    d2DataLength () {
-      return this.d2Data.length
+    d2CrudDataLength () {
+      return this.d2CrudData.length
     }
   },
   watch: {
     data () {
       this.handleDataChange()
-    },
-    d2Data: {
-      handler (val) {
-        if (this.pagination) {
-          this.d2PaginationData = this.d2Data.slice(this.paginationDataStart, this.paginationDataEnd)
-        }
-        this.$emit('d2-data-change', val)
-      },
-      deep: true
     }
   },
   mounted () {
@@ -60,14 +43,11 @@ export default {
      */
     _set,
     /**
-     * @description 同步外部表格数据到d2Data内部
+     * @description 同步外部表格数据到d2CrudData内部
      */
     handleDataChange () {
-      if (this.d2Data !== this.data) {
-        this.d2Data = _clonedeep(this.data)
-        if (this.pagination) {
-          this.d2PaginationData = this.d2Data.slice(this.paginationDataStart, this.paginationDataEnd)
-        }
+      if (this.d2CrudData !== this.data) {
+        this.d2CrudData = _clonedeep(this.data)
       }
     },
     /**
@@ -75,15 +55,7 @@ export default {
      */
     handleSortDataChange () {
       this.$nextTick(() => {
-        if (this.pagination) {
-          let j = 0
-          for (let i = this.paginationDataStart; i < this.paginationDataEnd; i++) {
-            this.d2Data[i] = this.$refs.elTable.store.states.data[j]
-            j += 1
-          }
-        } else {
-          this.d2Data = this.$refs.elTable.store.states.data
-        }
+        this.d2CrudData = this.$refs.elTable.store.states.data
       })
     },
     /**
@@ -98,12 +70,8 @@ export default {
      * @param {Number} index 表格数据索引
      * @param {Object} row 更新的表格行数据
      */
-    updateRow (index, row) {
-      if (this.pagination) {
-        this.$set(this.d2Data, index + this.paginationDataStart, row)
-      } else {
-        this.$set(this.d2Data, index, row)
-      }
+    handleUpdateRow (index, row) {
+      this.$set(this.d2CrudData, index, row)
       if (this.defaultSort) {
         this.handleSortDataChange()
       }
@@ -112,8 +80,8 @@ export default {
      * @description 新增行数据
      * @param {Object} row 新增的表格行数据
      */
-    addRow (row) {
-      this.$set(this.d2Data, this.d2Data.length, row)
+    handleAddRow (row) {
+      this.$set(this.d2CrudData, this.d2CrudData.length, row)
       if (this.defaultSort) {
         this.handleSortDataChange()
       }
@@ -122,12 +90,8 @@ export default {
      * @description 删除行
      * @param {Object} index 被删除行索引
      */
-    removeRow (index) {
-      if (this.pagination) {
-        this.$delete(this.d2Data, index + this.paginationDataStart)
-      } else {
-        this.$delete(this.d2Data, index)
-      }
+    handleRemoveRow (index) {
+      this.$delete(this.d2CrudData, index)
       if (this.defaultSort) {
         this.handleSortDataChange()
       }

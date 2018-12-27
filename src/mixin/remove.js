@@ -24,7 +24,7 @@ export default {
      * @description 删除完成
      */
     handleRemoveDone (index) {
-      this.removeRow(index)
+      this.handleRemoveRow(index)
     }
   }
 }
