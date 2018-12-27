@@ -20,6 +20,10 @@ export default {
       this.formMode = 'edit'
       this.editDataStorage = _clonedeep(row)
       this.isDialogShow = true
+      this.$emit('dialog-open', {
+        mode: 'edit',
+        row
+      })
       this.editIndex = index
       if (templage) {
         this.formData = _clonedeep(templage)

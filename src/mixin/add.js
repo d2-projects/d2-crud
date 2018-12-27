@@ -8,6 +8,9 @@ export default {
      */
     handleAdd (templage = null) {
       this.formMode = 'add'
+      this.$emit('dialog-open', {
+        mode: 'add'
+      })
       this.isDialogShow = true
       if (templage) {
         this.formData = _clonedeep(templage)
