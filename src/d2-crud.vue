@@ -573,6 +573,7 @@
       </el-pagination>
     </div>
     <el-dialog
+      v-if="isDialogShow"
       :title="formMode === 'edit' ? editTitle : addTitle"
       :visible.sync="isDialogShow"
       :before-close="handleDialogCancel"
