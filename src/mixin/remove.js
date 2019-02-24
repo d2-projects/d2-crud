@@ -13,6 +13,8 @@ export default {
           this.$emit('row-remove', {index, row: indexrow}, () => {
             this.handleRemoveDone(index)
           })
+        }).catch(err => {
+          throw err
         })
       } else {
         this.$emit('row-remove', {index, row: indexrow}, () => {
