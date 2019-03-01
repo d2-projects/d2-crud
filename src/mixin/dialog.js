@@ -29,7 +29,7 @@ export default {
      */
     editWidth: {
       type: String,
-      default: '60%'
+      default: '50%'
     },
     /**
      * @description 新增表单模板
