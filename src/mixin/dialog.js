@@ -25,6 +25,13 @@ export default {
       default: '编辑'
     },
     /**
+     * @description dialog宽度
+     */
+    editWidth: {
+      type: String,
+      default: '60%'
+    },
+    /**
      * @description 新增表单模板
      */
     addTemplate: {

@@ -575,6 +575,7 @@
     <el-dialog
       v-if="isDialogShow"
       :title="formMode === 'edit' ? editTitle : addTitle"
+      :width="editWidth"
       :visible.sync="isDialogShow"
       :before-close="handleDialogCancel"
       v-bind="formOptions"
