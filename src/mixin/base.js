@@ -43,6 +43,12 @@ export default {
   },
   methods: {
     /**
+     * @description 筛选变化
+     */
+    handleFilterChange (filters) {
+      this.$emit('filter-change', filters)
+    },
+    /**
      * @description 行选中状态
      */
     handleCurrentChange (currentRow, oldCurrentRow) {

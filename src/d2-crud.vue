@@ -14,6 +14,7 @@
         ref="elTable"
         :data="d2CrudData"
         v-bind="options"
+        @filter-change="handleFilterChange"
         @current-change="handleCurrentChange"
         @select="handleSelect"
         @select-all="handleSelectAll"
