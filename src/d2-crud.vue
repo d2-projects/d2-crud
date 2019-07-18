@@ -530,6 +530,18 @@
           v-bind="rowHandle"
         >
           <template slot-scope="scope">
+            <template
+              v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
+              :key="index">
+              <el-button
+                v-if="handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
+                :disabled="handleRowHandleButtonDisabled(item.disabled, scope.$index, scope.row)"
+                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
+                @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
+              >
+                {{item.text}}
+              </el-button>
+            </template>
             <el-button
               v-if="rowHandle.edit && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
               :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
@@ -547,18 +559,6 @@
             >
               {{handleAttribute(rowHandle.remove.text, '删除')}}
             </el-button>
-            <template
-              v-for="(item, index) in handleAttribute(rowHandle.custom, [])"
-              :key="index">
-              <el-button
-                v-if="handleRowHandleButtonShow(item.show, scope.$index, scope.row)"
-                :disabled="handleRowHandleButtonDisabled(item.disabled, scope.$index, scope.row)"
-                v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, item) : item"
-                @click="$emit(item.emit, {index: scope.$index, row: scope.row})"
-              >
-                {{item.text}}
-              </el-button>
-            </template>
           </template>
         </el-table-column>
       </el-table>
