@@ -542,6 +542,17 @@
                 {{item.text}}
               </el-button>
             </template>
+            <el-upload
+              v-if="rowHandle.upload && handleRowHandleButtonShow(rowHandle.upload.show, scope.$index, scope.row)"
+              :show-file-list="false"
+              :disabled="handleRowHandleButtonDisabled(rowHandle.upload.disabled, scope.$index, scope.row)"
+              v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.upload) : rowHandle.upload"
+              @progress="handleUploadProgress($event, scope.$index, scope.row)"
+              @success="handleUploadSuccess(scope.$index, scope.row)"
+              @error="handleUploadError(scope.$index, scope.row)"
+              :data="rowHandle.upload.data ? Object.assign(scope.row, rowHandle.upload.data) : scope.row">
+              <el-button type="primary" :size="$d2CrudSize">{{scope.row.d2UploadProgress ? `${scope.row.d2UploadProgress} %` : handleAttribute(rowHandle.upload.text, '上传')}}</el-button>
+            </el-upload>
             <el-button
               v-if="rowHandle.edit && handleRowHandleButtonShow(rowHandle.edit.show, scope.$index, scope.row)"
               :disabled="handleRowHandleButtonDisabled(rowHandle.edit.disabled, scope.$index, scope.row)"
@@ -769,6 +780,7 @@ import handleRow from './mixin/handleRow'
 import data from './mixin/data'
 import edit from './mixin/edit'
 import add from './mixin/add'
+import upload from './mixin/upload'
 import remove from './mixin/remove'
 import dialog from './mixin/dialog'
 import pagination from './mixin/pagination'
@@ -786,6 +798,7 @@ export default {
     handleRow,
     edit,
     add,
+    upload,
     remove,
     dialog,
     pagination,
