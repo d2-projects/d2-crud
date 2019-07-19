@@ -23,21 +23,23 @@ export default {
           index
         });
         console.log('handleUploadSuccess', event)
+        this.$message.success('上传成功')
         this.handleUpdateRow(index, {
           ...row,
-          d2UploadProgress: 0
+          d2UploadProgress: undefined
         })
       }
     },
     handleUploadError(index, row) {
       return (event, file, fileList) => {
         console.log('handleUploadError', event)
+        this.$message.error('上传失败')
         this.$emit('upload-error', {
           index
         });
         this.handleUpdateRow(index, {
           ...row,
-          d2UploadProgress: 0
+          d2UploadProgress: undefined
         })
       }
     }
