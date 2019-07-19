@@ -548,8 +548,8 @@
               :disabled="handleRowHandleButtonDisabled(rowHandle.upload.disabled, scope.$index, scope.row)"
               v-bind="$d2CrudSize ? Object.assign({ size: $d2CrudSize}, rowHandle.upload) : rowHandle.upload"
               @progress="handleUploadProgress($event, scope.$index, scope.row)"
-              @success="handleUploadSuccess(scope.$index, scope.row)"
-              @error="handleUploadError(scope.$index, scope.row)"
+              @success="handleUploadSuccess($event, scope.$index, scope.row)"
+              @error="handleUploadError($event, scope.$index, scope.row)"
               :data="rowHandle.upload.data ? Object.assign(scope.row, rowHandle.upload.data) : scope.row">
               <el-button type="primary" :size="$d2CrudSize">{{scope.row.d2UploadProgress ? `${scope.row.d2UploadProgress} %` : handleAttribute(rowHandle.upload.text, '上传')}}</el-button>
             </el-upload>
