@@ -530,7 +530,7 @@
                 :disabled="handleRowHandleButtonDisabled(rowHandle.upload.disabled, scope.$index, scope.row)"
                 :size="$d2CrudSize"
                 type="primary"
-              >{{scope.row.hasOwnProperty('d2UploadProgress') ? `${scope.row.d2UploadProgress} %` :
+              >{{scope.row.d2UploadProgress !== undefined ? `${scope.row.d2UploadProgress} %` :
                 handleAttribute(rowHandle.upload.text, '上传')}}
               </el-button>
             </el-upload>
