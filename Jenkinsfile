@@ -11,9 +11,8 @@ pipeline {
         echo 'Start Building...'
         sh 'yarn'
         sh 'yarn build'
-        withCredentials([usernamePassword(credentialsId: 'github-fenghao', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-          sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/fh345392977/d2-crud.git')
-        }
+        git(url: 'https://github.com/fh345392977/d2-crud.git', branch: 'master', credentialsId: 'github-fenghao')
+        sh 'git push https://github.com/fh345392977/d2-crud.git'
       }
     }
   }
