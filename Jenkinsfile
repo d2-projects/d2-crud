@@ -9,10 +9,10 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Start Building...'
-        sh 'yarn'
         sh 'yarn build'
-        git(url: 'https://github.com/fh345392977/d2-crud.git', branch: 'master', credentialsId: 'github-fenghao')
-        sh 'git push origin master'
+        sh 'git add .'
+        sh 'git commit -m "build"'
+        sh 'git push'
       }
     }
   }
