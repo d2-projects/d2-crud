@@ -20,7 +20,7 @@ pipeline {
           url : "https://github.com/fh345392977/d2-crud.git",
           changelog: true
         )
-        sh 'git push'
+        sh 'git push --set-upstream origin master'
       }
     }
   }
