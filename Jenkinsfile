@@ -9,8 +9,7 @@ pipeline {
       }
       steps {
         echo 'Start Building...'
-        sh 'npm install'
-        sh 'npm run build'
+        sh 'touch a.txt'
         sh 'git add .'
         sh 'git commit -m "build"'
         git(
