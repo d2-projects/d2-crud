@@ -9,10 +9,17 @@ pipeline {
       }
       steps {
         echo 'Start Building...'
-        sh 'touch a.txt'
+        sh 'npm install'
+        sh 'npm run build'
         sh 'git add .'
         sh 'git commit -m "build"'
-        sh 'git push https://${GITHUB_CREDS}@github.com/fh345392977/d2-crud.git'
+        git(
+          branch: "master",
+          credentialsID: "github-fenghao",
+          url : "https://github.com/fh345392977/d2-crud.git",
+          changelog: true
+        )
+        sh 'git push'
       }
     }
   }
