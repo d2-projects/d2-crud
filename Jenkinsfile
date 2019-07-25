@@ -14,13 +14,9 @@ pipeline {
         sh 'git config --global user.name "fh345392977"'
         sh 'git add .'
         sh 'git commit -m "build"'
-        git(
-          branch: "master",
-          credentialsId: "github-fenghao",
-          url : "https://github.com/fh345392977/d2-crud.git",
-          changelog: true
-        )
-        sh 'git push --set-upstream origin master'
+        withCredentials([usernamePassword(credentialsId: 'github-fenghao', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+          sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/fh345392977/d2-crud.git')
+        }
       }
     }
   }
