@@ -9,14 +9,12 @@ pipeline {
       }
       steps {
         echo 'Start Building...'
-        sh 'touch a.txt'
+        sh 'touch b.txt'
         sh 'git config --global user.email "fh345392977@gmail.com"'
         sh 'git config --global user.name "fh345392977"'
         sh 'git add .'
         sh 'git commit -m "build"'
-        withCredentials([usernamePassword(credentialsId: 'github-fenghao', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-          sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/fh345392977/d2-crud.git')
-        }
+        sh 'git push https://${GITHUB_CREDS}@github.com/fh345392977/d2-crud.git'
       }
     }
   }
