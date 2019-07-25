@@ -10,6 +10,8 @@ pipeline {
       steps {
         echo 'Start Building...'
         sh 'touch a.txt'
+        sh 'git config --global user.email "fh345392977@gmail.com"'
+        sh 'git config --global user.name "fh345392977"'
         sh 'git add .'
         sh 'git commit -m "build"'
         git(
