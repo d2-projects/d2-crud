@@ -15,7 +15,7 @@ pipeline {
         sh 'git commit -m "build"'
         git(
           branch: "master",
-          credentialsID: "github-fenghao",
+          credentialsId: "github-fenghao",
           url : "https://github.com/fh345392977/d2-crud.git",
           changelog: true
         )
