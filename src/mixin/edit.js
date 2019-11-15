@@ -33,7 +33,7 @@ export default {
         this.editTemplateStorage = this.editTemplate ? _clonedeep(this.editTemplate) : {}
       }
       _forEach(this.formData, (value, key) => {
-        this.formData[key] = row.hasOwnProperty(key) ? row[key] : ''
+        this.formData[key] = row.hasOwnProperty(key) ? row[key] : (this.formData[key] || '')
       })
     }
   }
