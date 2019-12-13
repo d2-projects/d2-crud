@@ -6,14 +6,17 @@
 
 
 ## 介绍
+
 [D2-Crud](https://github.com/d2-projects/d2-crud)是一套基于[Vue.js 2.2.0+](https://cn.vuejs.org/)和[Element UI 2.0.0+](http://element-cn.eleme.io/#/zh-CN)的表格组件。`D2-Crud` 将 `Element` 的功能进行了封装，并增加了表格的增删改查、数据校验、表格内编辑等常用的功能。大部分功能可由配置 `json` 实现，在实现并扩展了 `Element` 表格组件功能的同时，降低了开发难度，减少了代码量，大大简化了开发流程。
 
 
 ## 文档和示例
+
 文档：<https://fairyever.com/d2-admin/doc/zh/ecosystem-d2-crud/>   
 示例：<https://fairyever.com/d2-admin/preview/#/demo/d2-crud/index>
 
 ## 功能
+
 - 继承了 Element 中表格所有功能
 - 新增表格数据
 - 修改表格数据
@@ -24,6 +27,7 @@
 - 渲染自定义组件
 
 ## 安装
+
 使用npm
 ``` bash
 npm i element-ui @d2-projects/d2-crud -S
@@ -35,7 +39,9 @@ yarn add element-ui @d2-projects/d2-crud
 ```
 
 ## 在项目中使用
+
 在`main.js`中写入以下内容：
+
 ``` js
 import Vue from 'vue'
 import ElementUI from 'element-ui'
@@ -51,4 +57,10 @@ new Vue({
 })
 ```
 
-之后就可以在项目中使用`D2-Crud`了。
+之后就可以在项目中使用 `D2-Crud` 了。
+
+## CDN
+
+externals: VueTableExport
+
+https://cdn.d2.pub/packages/@d2-projects/d2-crud@2.0.5/d2-crud.js
