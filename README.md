@@ -61,6 +61,6 @@ new Vue({
 
 ## CDN
 
-externals: VueTableExport
+externals: D2Crud
 
 https://cdn.d2.pub/packages/@d2-projects/d2-crud@2.0.5/d2-crud.js
