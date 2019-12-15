@@ -12,8 +12,8 @@
 
 ## 文档和示例
 
-文档：<https://fairyever.com/d2-admin/doc/zh/ecosystem-d2-crud/>   
-示例：<https://fairyever.com/d2-admin/preview/#/demo/d2-crud/index>
+文档：<https://d2.pub/zh/doc/d2-crud-v2>   
+示例：<https://d2.pub/d2-admin/preview/#/demo/d2-crud/index>
 
 ## 功能
 
