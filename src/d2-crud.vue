@@ -577,6 +577,10 @@
       :title="formMode === 'edit' ? editTitle : addTitle"
       :visible.sync="isDialogShow"
       :before-close="handleDialogCancel"
+      @open="handleDialogOpen"
+      @opened="handleDialogOpened"
+      @close="handleDialogClose"
+      @closed="handleDialogClosed"
       v-bind="formOptions"
     >
       <el-form

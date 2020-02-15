@@ -133,6 +133,30 @@ export default {
       this.$emit('dialog-cancel', done)
     },
     /**
+     * @description Dialog 打开的回调
+     */
+    handleDialogOpen () {
+      this.$emit('dialog-open')
+    },
+    /**
+     * @description Dialog 打开动画结束时的回调
+     */
+    handleDialogOpened () {
+      this.$emit('dialog-opened')
+    },
+    /**
+     * @description Dialog 关闭的回调
+     */
+    handleDialogClose () {
+      this.$emit('dialog-close')
+    },
+    /**
+     * @description Dialog 关闭动画结束时的回调
+     */
+    handleDialogClosed () {
+      this.$emit('dialog-closed')
+    },
+    /**
      * @description 保存完成
      */
     handleDialogSaveDone (rowData) {
